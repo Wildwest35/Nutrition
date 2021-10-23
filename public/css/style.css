@@ -1,0 +1,396 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    outline: none;
+    border:none;
+}
+
+body {
+    font-family:'Times New Roman', Times, serif;
+    font-size: 14px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+h3 {
+    font-size: 28px;
+}
+
+h4 {
+    font-size: 22px;
+}
+
+h5 {
+    font-size: 18px;
+}
+
+h6 {
+    font-size: 12px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.menu {
+    display: none;
+}
+
+.container-nav-bar {
+    width: 100%;
+    min-height: 5rem;
+    background-color: brown;
+    padding: 1rem;
+/*     position: fixed; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-bar-logo {
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.nav-bar-logo img {
+    width: 5rem;
+    height: 3rem;
+    margin-right: 0.5rem;
+}
+
+.nav-bar-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.nav-bar-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.nav-bar-options h4 {
+    padding: 0.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+.nav-bar-options h4:hover {
+    text-decoration: underline;
+}
+
+.nav-bar-account {
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-bar-account button {
+    width: 6rem;
+    height: 3rem;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-size: 18px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login {
+    background-color: rgb(21, 156, 32);
+    margin-right: 0.5rem;
+}
+
+.login:hover {
+    background-color: rgba(21, 156, 32, 0.800);
+}
+
+.register {
+    background-color: rgb(41, 64, 195);
+}
+
+.register:hover {
+    background-color: rgba(41, 64, 195, 0.800);
+}
+
+/* -------------------------- Contact Form -------------------------- */
+.contact-form-container {
+    width: 100%;
+    min-height: 10rem;
+    background-color: rgb(199, 211, 99);
+    /* padding: 6rem 0 2rem; */
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.information-text {
+    width: 49rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+}
+
+.information-text .big {
+/*     font-size: 35px;
+    font-weight: 600; */
+    margin-bottom: 1rem;
+}
+
+.information-text .small {
+/*     font-size: 18px; */
+    margin-bottom: 2rem;
+}
+
+.contact-form {
+    width: 49rem;
+    min-height: 10rem;
+    background-color: white;
+    border-radius: 20px;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-place {
+    width: 60rem;
+    min-height: 5rem;
+    padding: 0.25rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+}
+
+.contact-place-element {
+    width: 16rem;
+    height: 8rem;
+    margin: 0.25rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-place-element:hover {
+    background-color: white;
+}
+
+.contact-place-element span {
+    padding-bottom: 1rem;
+}
+
+.contact-place-element p {
+    font-size: 18px;
+}
+
+.divide {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.item {
+    padding: 0.5rem;
+}
+
+.item p {
+    /* font-size: 16px; */
+    padding-bottom: 0.5rem;
+}
+
+.contact-form p {
+    padding-top: 0.5rem;
+}
+
+.box-forms {
+    width: 20rem;
+    min-height: 3rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    border-radius: 7px;
+    padding: 0 0.5rem;
+}
+
+.subject {
+    width: 41rem;
+}
+
+.send-message {
+    width: 41rem;
+    min-height: 10rem;
+    background-color: #ffffff; 
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    border-radius: 7px;
+    padding: 0.5rem 0.5rem;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.send-form h4 {
+    width: 12rem;
+    height: 4rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    border-radius: 7px;
+    margin-top: 1rem;
+    background-color: rgb(199, 211, 99);
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.send-form h4:hover {
+    background-color: rgb(199, 211, 99);
+}
+
+/* -------------------------- Footer -------------------------- */
+.footer-container {
+    width: 100%;
+    height: 4rem;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;    
+}
+
+@media screen and (max-width: 1200px) {
+
+}
+
+@media screen and (max-width: 992px) {
+    .menu {
+        display: block;
+        cursor: pointer;
+    }
+
+    .container-nav-bar {
+        flex-direction: column;
+    }
+
+    .nav-bar-options {
+        display: none;
+        flex-direction: column;
+    }
+
+    .nav-bar-account {
+        display: none;
+        flex-direction: column;
+    }
+
+    .login {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-bar-left {
+        width: 100%;
+    }
+
+        /* -------------------------- Contact Form -------------------------- */
+        .contact-place {
+            width: 37rem;
+        }
+    
+        .contact-place-element {
+            width: 12rem;
+            height: 6rem;
+        }
+    
+        .contact-form {
+            width: 37rem;
+        }
+    
+        .box-forms {
+            width: 15rem;
+        }
+    
+        .subject {
+            width: 31rem;
+        }
+    
+        .send-message {
+            width: 31rem;
+        }
+    
+        .information-text {
+            width: 37rem;
+        }
+
+}
+
+@media screen and (max-width: 768px) {
+    /* -------------------------- Contact Form -------------------------- */
+    .contact-form {
+        width: 29rem;
+    }
+
+
+
+    .divide {
+        flex-direction: column;
+    }
+    
+    .box-forms {
+        width: 24rem;
+    }
+
+    .send-message {
+        width: 24rem;
+    }
+
+    .contact-place-element {
+        width: 29rem;
+        height: 7rem;
+    }
+    .contact-place {
+        width: 29rem;
+        flex-direction: column;
+    }
+
+    .information-text {
+        width: 29rem;
+    }
+
+    .information-text .small {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 580px) {
+
+}
