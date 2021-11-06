@@ -9,8 +9,7 @@
         <title>Nutrition</title>
     </head>
     <body id="body">
-
-        <section class="container-nav-bar">
+        <section class="container-nav-bar" id="home">
             <div class="nav-bar-left">
                 <div class="nav-bar-logo">
                     <img src="img/landscape.png" alt="Test Image">
@@ -19,10 +18,10 @@
                 <img src="img/menu.png" alt="meu Test Image" width="50" height="40" class="menu" data-bind="click: collapse">
             </div>
             <div class="nav-bar-options" id="nav-bar-options">
-                <h4>Home</h4>
-                <h4>Service</h4>
-                <h4>About</h4>
-                <a href="#contact"><h4>Contact</h4></a>
+                <a class="btn active" href="#service"><h4>Home</h4></a>
+                <a class="btn" href="#service"><h4>Service</h4></a>
+                <a class="btn" href="#about"><h4>About</h4></a>
+                <a class="btn" href="#contact"><h4>Contact</h4></a>
             </div>  
             <div class="nav-bar-account" id="nav-bar-account"> 
                 <button class="login" data-bind="click: modalLogin">Login</button>
@@ -30,15 +29,41 @@
             </div>      
         </section>
 
-        <section class="about-container">
-            <h2>About</h2>
+        <section class="service-container" id="service">
+            <h1>Service</h1>
+        </section>
+
+        <section class="about-container" id="about">
+            <h1>ABOUT</h1>
+            <div class="container-creators">
+                <div class="creators">
+                    <img src="img/landscape.png" alt="leaves">
+                    <h3 class="creator-name">
+                        Minas Dasigenis
+                    </h3>
+                    <h4 class="creator-description">
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                    </h4>
+                </div>
+                <div class="creators">
+                    <img src="img/grocery.jpg" alt="leaves">
+                    <h3 class="creator-name">
+                        Konstantinos Perros
+                    </h3>
+                    <h4 class="creator-description">
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit 
+                        
+                        aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam                    
+                    </h4>
+                </div>
+            </div>
         </section>
 
         <section class="contact-form-container" id="contact">
             
             <div class="information-text">
                 <div class="big">
-                    <h2>Get In Touch</h2>
+                    <h1>Get In Touch</h1>
                 </div>
                 <div class="small">
                     <h6>Fill up the form and our Team will get back to you within 24 hours</h6>
