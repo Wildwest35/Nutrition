@@ -1,20 +1,34 @@
 function MainViewModel() {
 	self = this;
-    
+    self.isModalOpen = ko.observable(false);
+
     self.collapse = function() {
-        //console.log("collapse");
-         if(document.getElementById("nav-bar-options").style.display == "") {
-            document.getElementById("nav-bar-options").style.display = "flex";
+        var options = document.getElementById("nav-bar-options");
+        var account = document.getElementById("nav-bar-account");
+
+        if(options.style.display == "") {
+            options.style.display = "flex";
         } else {
-            document.getElementById("nav-bar-options").style.display = "";
+            options.style.display = "";
         }
 
-        if(document.getElementById("nav-bar-account").style.display == "") {
-            document.getElementById("nav-bar-account").style.display = "flex";
+        if(account.style.display == "") {
+            account.style.display = "flex";
         } else {
-            document.getElementById("nav-bar-account").style.display = "";
-        } /**/
+            account.style.display = "";
+        }
     }
+
+    self.modalLogin = function() {
+        var modal = document.getElementById("modal");
+
+        if(modal.style.visibility == "") {
+            modal.style.visibility = "visible";
+        } 
+
+        self.isModalOpen(!self.isModalOpen());
+    }    
+    
 }
 
 $(function() {
