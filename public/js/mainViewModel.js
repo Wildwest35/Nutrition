@@ -29,6 +29,14 @@ function MainViewModel() {
         self.isModalOpen(!self.isModalOpen());
     }    
 
+    self.closeLoginWarning = function() {
+        var close = document.getElementById("warning");
+        
+        if(close.style.display == "") {
+            close.style.display = "none";
+        }
+    }
+
     var options = document.getElementById("nav-bar-options");
     var btns = options.getElementsByClassName("btn");
     
@@ -40,11 +48,7 @@ function MainViewModel() {
         })
     }  
     
-    let current = '';
 
-    window.addEventListener('scroll', () => {
-
-    })
 }
 
 $(function() {
