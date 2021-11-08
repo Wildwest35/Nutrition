@@ -413,7 +413,7 @@ a {
 }
 
 .loginElements .warning {
-    background-color: rgb(168, 7, 7);
+    background-color: rgba(168, 7, 7, 0.904);
     color: rgb(255, 255, 255);
     width: 80%;
     min-height: 2.5rem;
@@ -452,14 +452,15 @@ a {
     margin-bottom: 2rem;
 }
 
-/* .loginElements h4 {
-    
-} */
+.loginElements h4 {
+    margin-right: 1rem;
+}
 
 .loginElements h6 {
     cursor: pointer;
-    margin-right: 10rem;
-    color: rgb(93, 68, 186);
+    margin-left: 9rem;
+    padding: 0.5rem;
+    color: rgb(41, 64, 195);;
 }
 
 .loginElements h6:hover {
@@ -535,7 +536,8 @@ a {
 
     .container-nav-bar {
         flex-direction: column;
-        position: absolute;
+        /* position: absolute; */
+        background-color: #a4e5e0d8;
     }
 
     .nav-bar-options {
