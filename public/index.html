@@ -18,28 +18,28 @@
                 <img src="img/menu.png" alt="meu Test Image" width="50" height="40" class="menu" data-bind="click: collapse">
             </div>
             <div class="nav-bar-options" id="nav-bar-options">
-                <a class="btn active" href="#body"><h4>Home</h4></a>
-                <a class="btn" href="#service"><h4>Service</h4></a>
-                <a class="btn" href="#about"><h4>About</h4></a>
-                <a class="btn" href="#contact"><h4>Contact</h4></a>
+                <a class="btn active" href="#body"><h4>Αρχική</h4></a>
+                <a class="btn" href="#service"><h4>Υπηρεσίες</h4></a>
+                <a class="btn" href="#about"><h4>Σχετικά Με Μας</h4></a>
+                <a class="btn" href="#contact"><h4>Επικοινωνία</h4></a>
             </div>  
             <div class="nav-bar-account" id="nav-bar-account"> 
-                <button class="login" data-bind="click: modalLogin">Login</button>
-                <button class="register">Register</button>      
+                <button class="login" data-bind="click: modalLogin">Σύνδεση</button>
+                <button class="register">Εγγραφή</button>      
             </div>      
         </section>
 
         <section class="service-container" id="service">
-            <h1>Service</h1>
+            <h1>Υπηρεσίες</h1>
         </section>
 
         <section class="about-container" id="about">
-            <h1>ABOUT</h1>
+            <h1>Σχετικά Με Μας</h1>
             <div class="container-creators">
                 <div class="creators">
                     <img src="img/landscape.png" alt="leaves">
                     <h3 class="creator-name">
-                        Minas Dasigenis
+                        Μινάς Δασυγένης
                     </h3>
                     <h4 class="creator-description">
                         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
@@ -48,7 +48,7 @@
                 <div class="creators">
                     <img src="img/grocery.jpg" alt="leaves">
                     <h3 class="creator-name">
-                        Konstantinos Perros
+                        Κωνσταντίνος Πέρρος
                     </h3>
                     <h4 class="creator-description">
                         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit 
@@ -63,10 +63,10 @@
             
             <div class="information-text">
                 <div class="big">
-                    <h1>Get In Touch</h1>
+                    <h1>Κρατήστε Επαφή</h1>
                 </div>
                 <div class="small">
-                    <h6>Fill up the form and our Team will get back to you within 24 hours</h6>
+                    <h6>Συμπληρώστε την φόρμα επικοινωνίας και σε λιγότερο από 24 ώρες η ομάδα μας θα σας απαντήσει</h6>
                 </div>
             </div>
             <div class="contact-place">
@@ -74,7 +74,7 @@
                     <span class="material-icons">
                         fmd_good
                     </span>
-                    <h5>Peristeri 32</h5>
+                    <h5>Περιστέρι 32</h5>
                 </div>
                 <div class="contact-place-element">
                     <span class="material-icons">
@@ -94,24 +94,24 @@
         <div class="contact-form">
             <div class="divide">
                 <div class="item">
-                    <h5>Name</h5>
-                    <input type="text" class="box-forms" placeholder="Type your Name...">
+                    <h5>Όνομα</h5>
+                    <input type="text" class="box-forms" placeholder="Πληκτρολόγησε Όνομα...">
                 </div>
                 <div class="item">
-                    <h5>Email</h5>
-                    <input type="text" class="box-forms" placeholder="Type your Email...">
+                    <h5>Ηλεκτρονική Διεύθυνση</h5>
+                    <input type="text" class="box-forms" placeholder="Πληκτρολόγησε Ηλεκτρονική Διεύθυνση...">
                 </div>
             </div>
             <div class="item">
-                <h5>Subject</h5>
-                <input type="text" class="box-forms subject" placeholder="Type your Subject...">
+                <h5>Θέμα</h5>
+                <input type="text" class="box-forms subject" placeholder="Πληκτρολόγησε Θέμα...">
             </div>
             <div class="item">
-                <h5>Message</h5>   
-                <textarea type="text" class="send-message" placeholder="Type your message..."></textarea>
+                <h5>Μήνυμα</h5>   
+                <textarea type="text" class="send-message" placeholder="Πληκτρολόγησε Μήνυμα..."></textarea>
             </div>
             <div class="send-form">
-                <h4>Submit</h4>
+                <h4>Καταχώρηση</h4>
             </div>
         </div>
     </section> 
@@ -126,26 +126,46 @@
             <img src="img/linkedin.png" alt="food">
         </div>
     </section>
-
+<!--  <img src="img/food.jpg" alt="food"> -->
     <div class="modal" id="modal" data-bind="fadeVisible: isModalOpen">
         <div class="modal__content">
             <div class="split-side">
-                <img src="img/food.jpg" alt="food">
+               
                 <form class="loginElements">
-                    <h1>Login</h1>
+                    <h1>Σύνδεση</h1>
                     <div class="warning" id="warning">
-                        <h5>Wrong Data</h5>
+                        <h5>Εισάγετε Κωδικό Πρόσβασης</h5>
                         <p data-bind="click: closeLoginWarning">x</p>
                     </div>
                     
-                    <h4 class="element">Email Address</h4>
-                    <input type="text" placeholder="Email..." class="element email">
-                    <h4 class="element">Password</h4>
-                    <input type="text" placeholder="Password..." class="element">
-                    <h6>Forgot your password?</h6>
-                    <button type="submit" >Submit</button>
+                    <h4 class="element">Ηλεκτρονική Διεύθυνση</h4>
+                    <input type="text" placeholder="Ηλεκτρονική Διεύθυνση..." class="element email">
+                    <h4 class="element">Κωδικός Πρόσβασης</h4>
+                    <input type="text" placeholder="Κωδικός Πρόσβασης..." class="element">
+                    <h6>Ξεχάσατε τον κωδικό πρόσβασης;</h6>
+                    <button type="submit">Καταχώρηση</button>
+                    <div class="line"></div>
+                    <p>Δεν έχεις λογαριασμό;</p>
+                    <div class="sign_up">Εγγράψου</div>
                 </form>
             </div>
+<!--             <div class="split-side">
+                <form class="loginElements">
+                    <h2>Επαναφορά Κωδικού</h2>
+                    <div class="warning" id="warning">
+                        <h5>Εισάγετε Ηλεκτρονική Διεύθυνση</h5>
+                        <p data-bind="click: closeLoginWarning">x</p>
+                    </div>
+                    
+                    <h4 class="element">Ηλεκτρονική Διεύθυνση</h4>
+                    <input type="text" placeholder="Ηλεκτρονική Διεύθυνση..." class="element email">
+                    <h6>Ξεχάσατε τον κωδικό πρόσβασης;</h6>
+                    <button type="submit">Καταχώρηση</button>
+                    <div class="line"></div>
+                    <p>Δεν έχεις λογαριασμό;</p>
+                    <div class="sign_up">Εγγράψου</div>
+                </form>
+            </div> -->
             <span class="modal-close" data-bind="click: modalLogin">x</span>
         </div>
     </div>

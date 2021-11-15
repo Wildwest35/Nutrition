@@ -32,8 +32,12 @@ function MainViewModel() {
     self.closeLoginWarning = function() {
         var close = document.getElementById("warning");
         
-        if(close.style.display == "") {
+/*         if(close.style.display == "") {
             close.style.display = "none";
+        } */
+
+        if(close.style.visibility == "") {
+            close.style.visibility = "hidden";
         }
     }
 
