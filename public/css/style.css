@@ -6,6 +6,10 @@
     border:none;
 }
 
+html {
+    scroll-behavior: smooth;
+  }
+
 body {
     font-family:'Times New Roman', Times, serif;
     font-size: 14px;
@@ -71,7 +75,8 @@ a {
 .container-nav-bar {
     width: 100%;
     min-height: 4rem;
-    background-color: #A4E5E0;
+    /* background-color: #A4E5E0; */
+    background-color: #ffffff;
     padding: 0.5rem;
     position: sticky;
     top: 0;
@@ -127,8 +132,11 @@ a {
 }
 
 .nav-bar-options h4:hover {
-    text-decoration: underline;
-    color: #0C6170;
+    /* text-decoration: underline; */
+    /* color: #0C6170; */
+    color: white;
+    background-color: #0c6170d2;
+    border-radius: 4px;
 }
 
 .nav-bar-account {
@@ -150,21 +158,21 @@ a {
 
 .login {
     background-color: white;/* rgb(21, 156, 32); */
-    color: rgb(41, 64, 195);
+    color: #0C6170;
     margin-right: 0.5rem;
 }
 
 .login:hover {
-    background-color: rgba(255, 255, 255, 0.800);/* rgba(21, 156, 32, 0.800); */
+    background-color: rgb(246, 246, 246);/* rgba(21, 156, 32, 0.800); */
 }
 
 .register {
-    background-color: rgb(41, 64, 195);
+    background-color: #0C6170;
     color: white;
 }
 
 .register:hover {
-    background-color: rgba(41, 64, 195, 0.800);
+    background-color: #0c6170c5;
 }
 
 /* -------------------------- Progress Bar -------------------------- */
@@ -179,11 +187,12 @@ a {
     position: relative;
     padding: 1rem;
     max-width: 100%;
+    z-index: 1;
 }
 
 .progress-bar::before {
     content: "";
-    background-color: brown;
+    background-color: #b2bec3;
     position: absolute;
     top: 50%;
     left: 0;
@@ -195,13 +204,13 @@ a {
 }
 
 .progress {
-    background-color: #b2bec3;
+    background-color: #0C6170;
     position: absolute;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
     height: 4px;
-    width: 100%;
+    width: 0%;
     z-index: 1;
     transition: 0.4s ease;
 }
@@ -220,13 +229,13 @@ a {
     z-index: 2;
 }
 
-.circle .active {
-    border-color: brown;
+.circle.active {
+    border-color: #0C6170;
 }
 
 
 .btns {
-    background-color: brown;
+    background-color: #0C6170;
     color: #fff;
     border-radius: 6px;
     border: 0;
@@ -465,8 +474,152 @@ a {
     text-justify: inter-word;
 }
 
+/* -------------------------- Login / Register / Forget Password -------------------------- */
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: #A4E5E0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.warning {
+    background-color: rgb(214, 39, 39);
+    color: rgb(255, 255, 255);
+    width: 100%;
+    min-height: 4rem;
+    padding: 0.5rem;
+    box-shadow: 0px 1px 8px 1px #888888;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.warning p {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.form-elements {
+    width: 70%;
+    min-height: 3rem;
+    margin-top: 8rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 1px 8px 1px #888888;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-elements .logo {
+    color: #0C6170;
+    font-size: 50px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.form-elements .logo:hover {
+    color: #0c6170d3;
+}
+
+.form-elements h1 {
+    color: #000000;
+    text-align: center;
+}
+
+.form-elements .field {
+    width: 85%;
+    height: 3rem;
+    margin: 1rem 0 1rem;
+}
+
+.form-elements .submit-button {
+    width: 85%;
+    background-color: #0C6170;
+    color: white;
+    border-radius: 40px;
+    padding: 0.8rem;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.form-elements .submit-button:hover {
+    background-color: #0c6170e7;
+    box-shadow: 0px 1px 4px 1px #888888;
+}
+
+.field h4 {
+    margin-bottom: 0.2rem 0;
+}
+
+.field input {
+    width: 100%;
+    border: 1px solid black;
+    padding: 0.5rem;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.field-change-bar {
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.field-change-bar .submit-button {
+    margin: 1rem 0.5rem;
+}
+
+
+.field-forget {
+    width: 85%;
+    height: 1rem; 
+}
+
+.field-forget h6 {
+    color: #0c6170d3;
+    text-align: right;
+}
+
+.field-forget h6:hover {
+    text-decoration: underline;
+}
+
+.form-elements .line {
+    width: 85%;
+    border: 0.5px solid rgba(194, 194, 194, 0.411);
+    margin: 2rem 0 1.5rem;
+}
+
+.form-elements p {
+    font-size: 16px;
+}
+
+.form-elements .sign-up {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0c6170d3;
+}
+
+.form-elements .sign-up:hover {
+    text-decoration: underline;
+}
+
 /* -------------------------- Modal -------------------------- */
-.modal {
+/* .modal {
     visibility: hidden;
     opacity: 1;
     position: fixed;
@@ -478,7 +631,6 @@ a {
     align-items: center;
     justify-content: center;
     background: rgba(77, 77, 77, .7);
-    /* transition: all .4s; */
 }
 
 .modal__content {
@@ -495,9 +647,8 @@ a {
 }
 
 .split-side {
-    width: 100%;/* 450px; */
-    min-height: 300px;/* 570px; */
-
+    width: 100%;
+    min-height: 300px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -514,7 +665,6 @@ a {
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    /* margin-top: 5rem; */
     background-color: rgba(255, 255, 255, 0.85);
     display: flex;
     flex-direction: column;
@@ -532,12 +682,10 @@ a {
 }
 
 .loginElements h4 {
-    /* font-size: ; */
     margin-right: 0.5rem;
 }
 
 .loginElements h6 {
-    /* min-width: 90%; */
     cursor: pointer;
     text-align: right;
     padding: 0.5rem 0;
@@ -561,7 +709,6 @@ a {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* margin-top: 1rem; */
 }
 
 .warning p {
@@ -577,10 +724,6 @@ a {
     color: rgb(255, 255, 255);
     text-align: left;
 }
-/*
-.loginElements .warning h6 {
-    text-decoration: none;
-} */
 
 .loginElements .element {
     min-width: 90%;
@@ -665,7 +808,7 @@ a {
     height: 1px;
     background-color: rgb(160, 160, 160);
     margin: 1rem 0;
-}
+} */
 
 /* -------------------------- Footer -------------------------- */
 .footer-container {
@@ -705,12 +848,17 @@ a {
     .container-nav-bar {
         flex-direction: column;
         /* position: absolute; */
-        background-color: #a4e5e0d8;
+        background-color: #fffffff3;
     }
 
     .nav-bar-options {
         display: none;
         flex-direction: column;
+    }
+
+    .nav-bar-options h4 {
+        width: 100%;
+        margin: 0.5rem 0;
     }
 
     .nav-bar-account {
@@ -727,35 +875,39 @@ a {
         width: 100%;
     }
 
-        /* -------------------------- Contact Form -------------------------- */
-        .contact-place {
-            width: 37rem;
-        }
-    
-        .contact-place-element {
-            width: 12rem;
-            height: 6rem;
-        }
-    
-        .contact-form {
-            width: 37rem;
-        }
-    
-        .box-forms {
-            width: 15rem;
-        }
-    
-        .subject {
-            width: 31rem;
-        }
-    
-        .send-message {
-            width: 31rem;
-        }
-    
-        .information-text {
-            width: 37rem;
-        }
+    /* -------------------------- Contact Form -------------------------- */
+    .contact-place {
+        width: 37rem;
+    }
+
+    .contact-place-element {
+        width: 12rem;
+        height: 6rem;
+    }
+
+    .contact-form {
+        width: 37rem;
+    }
+
+    .box-forms {
+        width: 15rem;
+    }
+
+    .subject {
+        width: 31rem;
+    }
+
+    .send-message {
+        width: 31rem;
+    }
+
+    .information-text {
+        width: 37rem;
+    }
+    /* -------------------------- Login / Register / Forget Password -------------------------- */
+    .form-elements {
+        width: 90%;
+    }
 
 }
 
@@ -897,5 +1049,19 @@ a {
 
     .social {
         margin-bottom: 0.5rem;
+    }
+
+    /* -------------------------- Login / Register / Forget Password -------------------------- */
+    .form-elements {
+        width: 95%;
+    }    
+
+    .field h4 {
+        font-size: 20px;
+        margin-bottom: 0.2rem 0;
+    }
+
+    .form-elements .submit-button {
+        margin: 2rem 0;
     }
 }

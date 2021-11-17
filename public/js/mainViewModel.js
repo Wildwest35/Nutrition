@@ -2,7 +2,7 @@ function MainViewModel() {
 	self = this;
     self.isModalOpen = ko.observable(false);
     self.isLogin = ko.observable(0);
-
+    self.currentActive = ko.observable(1);
 
 
     self.loginForm = function() {
@@ -83,30 +83,32 @@ function MainViewModel() {
     const progress = document.getElementById("progress");
     const prev = document.getElementById("prev");
     const next = document.getElementById("next1");
-    const circles = document.getElementById(".circles");
+    const circles = document.querySelectorAll(".circle");
 
-    let currentActive = 1;
+    if(prev) {
+        prev.addEventListener("click", () => {
+            self.currentActive(self.currentActive() - 1);
+            if(self.currentActive() < 1) {
+                self.currentActive(1);
+            }
+            update();
+        })  
+    }      
 
-    next.addEventListener("click", () => {
-        currentActive++;
-        console.log(currentActive);
-        if(currentActive > circles.length) {
-            currentActive = circles.length;
-        }
-    });
+    if(next) {
+        next.addEventListener("click", () => {
+            self.currentActive(self.currentActive() + 1);
+            if(self.currentActive() > circles.length) {
+                self.currentActive(circles.length);
+            }
+            update();
+        });   
+    }     
 
-    prev.addEventListener("click", () => {
-        currentActive--;
-
-        if(currentActive < 1) {
-            currentActive = 1;
-        }
-        update();
-    })
 
     function update() {
         circles.forEach((circle, idx) => {
-            if(idx < currentActive) {
+            if(idx < self.currentActive()) {
                 circle.classList.add("active");
             } else {
                 circle.classList.remove("active");
@@ -115,7 +117,16 @@ function MainViewModel() {
 
         const actives = document.querySelectorAll(".active");
 
-        progress.style.width = (actives.length / circles.length) * 100 + "%";
+        progress.style.width = ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
+
+        if(self.currentActive() === 1) {
+            prev.disabled = true;
+        } else if(self.currentActive() === circles.length) {
+            next.disabled = true;
+        } else {
+            prev.disabled = false;
+            next.disabled = false;
+        }
     }
 
 }
