@@ -21,27 +21,61 @@
                 </div>
 
                 <h1>Εγγραφή</h1>                
+                <!-- ko if: currentActive() == 1 -->
+                    <div class="field">
+                        <h4>Όνομα Χρήστη</h4>
+                        <input type="text" placeholder="Εισάγετε Όνομα Χρήστη...">
+                    </div>
+                    <div class="field">
+                        <h4>Email</h4>
+                        <input type="text" placeholder="Εισάγετε Email...">
+                    </div>
+                    <div class="field">
+                        <h4>Συνθηματικό</h4>
+                        <input type="password" placeholder="Εισάγετε Συνθηματικό...">
+                    </div>
+                    <div class="field">
+                        <h4>Επιβεβαίωση Συνθηματικού</h4>
+                        <input type="password" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού...">
+                    </div>
+                <!-- /ko -->
+                <!-- ko if: currentActive() == 2 -->
+                    <div class="field">
+                        <h4>Όνομα Χρήστη</h4>
+                        <input type="text" placeholder="Εισάγετε Όνομα Χρήστη...">
+                    </div>
+                    <div class="field">
+                        <h4>Email</h4>
+                        <input type="text" placeholder="Εισάγετε Email...">
+                    </div>
+                    <div class="field">
+                        <h4>Συνθηματικό</h4>
+                        <input type="password" placeholder="Εισάγετε Συνθηματικό...">
+                    </div>
+                    <div class="field">
+                        <h4>Επιβεβαίωση Συνθηματικού</h4>
+                        <input type="password" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού...">
+                    </div>
+                <!-- /ko -->
+                <!-- ko if: currentActive() == 3 -->
 
-                <div class="field">
-                    <h4>Όνομα Χρήστη</h4>
-                    <input type="text" placeholder="Εισάγετε Όνομα Χρήστη...">
+                <!-- /ko -->                   
+                <!-- ko if: currentActive() == 4 -->
+
+                <!-- /ko -->             
+                <div class="field-change-bar">
+                    <div class="submit-button btns" id="prev">Πίσω</div>
+                    
+                    <div class="submit-button btns" id="next">Επόμενο</div>
+                   
+                    <!-- ko if: currentActive() >= 4 -->
+                        <div class="submit-button">Καταχώρηση</div>
+                    <!-- /ko -->
                 </div>
-                <div class="field">
-                    <h4>Email</h4>
-                    <input type="text" placeholder="Εισάγετε Email...">
-                </div>
-                <div class="field">
-                    <h4>Συνθηματικό</h4>
-                    <input type="password" placeholder="Εισάγετε Συνθηματικό...">
-                </div>
-                <div class="field">
-                    <h4>Επιβεβαίωση Συνθηματικού</h4>
-                    <input type="password" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού...">
-                </div>
-                <div class="field-change-bar"><!--  data-bind="click: previous" -->
-                    <div class="submit-button btns" id="prev" disabled>Πίσω</div>
-                    <div class="submit-button btns" id="next1" >Επόμενο</div>
-                </div><!-- data-bind="click: nexts" -->
+
+
+                
+
                 <div class="container-progress-bar">
                     <div class="progress-bar">
                         <div class="progress" id="progress"></div>

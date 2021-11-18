@@ -250,9 +250,9 @@ a {
     outline: 0;
 }
 
-.btns:active {
+/* .btns:active {
     transform: scale(0.97);
-}
+} */
 
 .btns:disabled {
     background-color: rgb(34, 32, 129);
@@ -557,6 +557,11 @@ a {
 .form-elements .submit-button:hover {
     background-color: #0c6170e7;
     box-shadow: 0px 1px 4px 1px #888888;
+   
+}
+
+.form-elements .submit-button:active {
+    transform: scale(0.97);
 }
 
 .field h4 {
