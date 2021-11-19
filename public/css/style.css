@@ -35,6 +35,16 @@ body {
     color: rgb(41, 223, 223);
 }
 
+.fa-mars {
+    font-size: 1.8rem;
+    color: rgb(52, 113, 255);
+}
+
+.fa-venus {
+    font-size: 1.8rem;
+    color: rgb(255, 64, 198);
+}
+
 h1,h2,h3,h4,h5,h6 {
     margin: 0;
     padding: 0;
@@ -508,7 +518,7 @@ a {
 }
 
 .form-elements {
-    width: 75%;
+    width: 50%;
     min-height: 3rem;
     padding: 1rem;
     background-color: white;
@@ -564,11 +574,19 @@ a {
     transform: scale(0.97);
 }
 
-.field h4 {
+.star {
+    display: flex;
+}
+
+.star p {
+    color: red;
+}
+
+.field .star h4 {
     margin-bottom: 0.2rem 0;
 }
 
-.field input {
+.field input,select {
     width: 100%;
     border: 1px solid black;
     padding: 0.5rem;
@@ -623,6 +641,36 @@ a {
     text-decoration: underline;
 }
 
+.sex {
+    margin-top: 0.5rem;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;      
+}
+
+.sex-container {
+    width: 100%;
+    min-height: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;   
+}
+
+.sex-element {
+    margin-right: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;   
+}
+
+.sex-element p {
+    margin: 0.25rem;
+    font-size: 18px;
+}
 /* -------------------------- Footer -------------------------- */
 .footer-container {
     width: 100%;
@@ -649,7 +697,9 @@ a {
 }
 
 @media screen and (max-width: 1200px) {
-
+    .form-elements {
+        width: 70%;
+    }
 }
 
 @media screen and (max-width: 992px) {
@@ -719,7 +769,7 @@ a {
     }
     /* -------------------------- Login / Register / Forget Password -------------------------- */
     .form-elements {
-        width: 100%;
+        width: 80%;
     }
 
 }
@@ -779,6 +829,10 @@ a {
     .loginElements h6 {
         margin-left: 13rem;
     }
+       /* -------------------------- Login / Register / Forget Password -------------------------- */
+    .form-elements {
+        width: 90%;
+    }
 }
 
 
@@ -819,6 +873,10 @@ a {
         margin-left: 9rem;
     }
     /* -------------------------- Login / Register / Forget Password -------------------------- */
+    .form-elements {
+        width: 100%;
+    }
+
     .form-elements .logo {
         text-align: center;
     }
@@ -869,10 +927,14 @@ a {
     }
 
     /* -------------------------- Login / Register / Forget Password -------------------------- */
-    .field h4 {
+    .form-elements {
+        width: 100%;
+    }
+
+/*     .field h4 {
         font-size: 20px;
         margin-bottom: 0.2rem 0;
-    }
+    } */
 
     .field-change-bar .submit-button {
         margin: 2rem 0.5rem 1rem;

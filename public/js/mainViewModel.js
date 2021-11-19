@@ -81,32 +81,51 @@ function MainViewModel() {
     }   */
 
     let progress = document.getElementById("progress");
-    let prev = document.getElementById("prev");
-    let next = document.getElementById("next");
     let circles = document.querySelectorAll(".circle");
 
-    if(prev) {
-        prev.addEventListener("click", () => {
-            self.currentActive(self.currentActive() - 1);
-            if(self.currentActive() < 1) {
-                self.currentActive(1);
-            }
-            console.log(self.currentActive());
-            update();
-        })  
-    }  
+    self.previous = function() {
+        self.currentActive(self.currentActive() - 1);
+        if(self.currentActive() < 1) {
+            self.currentActive(1);
+        }
 
-    if(next) {
-        next.addEventListener("click", () => {
-            self.currentActive(self.currentActive() + 1);
-            if(self.currentActive() > circles.length) {
-                self.currentActive(circles.length);
-            }
-            console.log(self.currentActive());
-            update();
-        });   
-    } 
+        update();
+    };
 
+    self.next = function() {
+        self.currentActive(self.currentActive() + 1);
+        if(self.currentActive() > circles.length) {
+            self.currentActive(circles.length);
+        }
+
+        update();
+    };
+
+    self.step1 = function() {
+        self.currentActive(1);
+        update();
+    };
+
+    self.step2 = function() {
+        if(self.currentActive() > 1) {
+            self.currentActive(2);
+            update();
+        }
+    };
+
+    self.step3 = function() {
+        if(self.currentActive() > 2) {
+            self.currentActive(3);
+            update();
+        }
+    };
+
+    self.step4 = function() {
+        if(self.currentActive() > 3) {
+            self.currentActive(4);
+            update();
+        }
+    };
 
     function update() {
         circles.forEach((circle, idx) => {
@@ -121,14 +140,14 @@ function MainViewModel() {
 
         progress.style.width = ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
 
-         if(self.currentActive() === 1) {
+/*          if(self.currentActive() === 1) {
             prev.disabled = true;
         } else if(self.currentActive() === circles.length) {
             next.disabled = true;
         } else {
             prev.disabled = false;
             next.disabled = false;
-        }
+        } */
     }
 
 }

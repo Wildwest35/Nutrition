@@ -9,10 +9,10 @@
         <title>Εγγραφή | Nutrition</title>
     </head>
     <body id="body">
-            <div class="warning" id="warning">
-                <h5>Εισάγετε Κωδικό Πρόσβασης</h5>
-                <p data-bind="click: closeLoginWarning">x</p>
-            </div>
+<!--         <div class="warning" id="warning">
+            <h5>Εισάγετε Κωδικό Πρόσβασης</h5>
+            <p data-bind="click: closeLoginWarning">x</p>
+        </div> -->
         <section class="container">
 
             <form action="#" class="form-elements">
@@ -23,55 +23,134 @@
                 <h1>Εγγραφή</h1>                
                 <!-- ko if: currentActive() == 1 -->
                     <div class="field">
-                        <h4>Όνομα Χρήστη</h4>
-                        <input type="text" placeholder="Εισάγετε Όνομα Χρήστη...">
+                        <div class="star">
+                            <h4>Όνομα Χρήστη</h4>
+                            <p>*</p>
+                        </div>
+                        <input type="text" placeholder="Εισάγετε Όνομα Χρήστη..." title="Εισάγετε Όνομα Χρήστη πχ. Vasilis">
                     </div>
                     <div class="field">
-                        <h4>Email</h4>
-                        <input type="text" placeholder="Εισάγετε Email...">
+                        <div class="star">
+                            <h4>Email</h4>
+                            <p>*</p>
+                        </div>
+                        <input type="text" placeholder="Εισάγετε Email..." title="Εισάγετε Email πχ. test@gmail.com">
                     </div>
                     <div class="field">
-                        <h4>Συνθηματικό</h4>
-                        <input type="password" placeholder="Εισάγετε Συνθηματικό...">
+                        <div class="star">
+                            <h4>Συνθηματικό</h4>
+                            <p>*</p>
+                        </div>
+                        <input type="password" placeholder="Εισάγετε Συνθηματικό..." title="Εισάγετε Συνθηματικό πχ. Va$ilis22*">
                     </div>
                     <div class="field">
-                        <h4>Επιβεβαίωση Συνθηματικού</h4>
-                        <input type="password" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού...">
-                    </div>
+                        <div class="star">
+                            <h4>Επιβεβαίωση Συνθηματικού</h4>
+                            <p>*</p>
+                        </div>
+                        <input type="password" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού..." title="Εισάγετε Επιβεβαίωση Συνθηματικού πχ. Va$ilis22*">
+                    </div>    
+                    <div class="field-change-bar">               
+                        <div class="submit-button btns" id="next" data-bind="click: next">Επόμενο</div>
+                    </div> 
                 <!-- /ko -->
                 <!-- ko if: currentActive() == 2 -->
-                    <div class="field">
-                        <h4>Όνομα Χρήστη</h4>
-                        <input type="text" placeholder="Εισάγετε Όνομα Χρήστη...">
+                    <div class="sex">
+                        <div class="star">
+                            <h4>Φύλο</h4>
+                            <p>*</p>
+                        </div>
+                        <div class="sex-container">
+                            
+                            <div class="sex-element">
+                                <i class="fas fa-mars"></i>
+                                <p>Άρρεν</p>
+                                <input type="radio" name="sex">
+                            </div>
+                            <div class="sex-element">
+                                <i class="fas fa-venus"></i>
+                                <p>Θήλυ</p>
+                                <input type="radio" name="sex">
+                            </div>
+                        </div>
                     </div>
                     <div class="field">
-                        <h4>Email</h4>
-                        <input type="text" placeholder="Εισάγετε Email...">
+                        <div class="star">
+                            <h4>Ηλικία</h4>
+                            <p>*</p>
+                        </div>
+                        <input type="number" placeholder="Εισάγετε την ηλικία σας" title="Εισάγετε την ηλικία σας πχ. 40">
                     </div>
+<!--                     <div class="field">
+                        <h4>Βάρος</h4>
+                        <input type="number" step="0.5" placeholder="75">
+                    </div> -->
                     <div class="field">
-                        <h4>Συνθηματικό</h4>
-                        <input type="password" placeholder="Εισάγετε Συνθηματικό...">
+                        <div class="star">
+                            <h4>Ύψος</h4>
+                            <p>*</p>
+                        </div>
+                        <input type="number" placeholder="Εισάγετε το ύψος σας" title="Εισάγετε το ύψος σας πχ. 175">
                     </div>
-                    <div class="field">
-                        <h4>Επιβεβαίωση Συνθηματικού</h4>
-                        <input type="password" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού...">
+                    <div class="field-change-bar">
+                        <div class="submit-button btns" id="prev" data-bind="click: previous">Πίσω</div>                        
+                        <div class="submit-button btns" id="next" data-bind="click: next">Επόμενο</div>
                     </div>
                 <!-- /ko -->
                 <!-- ko if: currentActive() == 3 -->
-
+                <div class="field">
+                    <div class="star">
+                        <h4>Βάρος</h4>
+                        <p>*</p>
+                    </div>
+                    <input type="number" step="0.5" placeholder="Εισάγετε το βάρος σας" title="Εισάγετε το βάρος σας πχ. 75">
+                </div>
+                <div class="field">
+                    <div class="star">
+                        <h4>Θέλω να</h4>
+                        <p>*</p>
+                    </div>
+                    <select name="weight" id="cars">
+                        <option value="lose">Χάσω Βάρος</option>
+                        <option value="stable">Να διατηρήσω το βάρος μου</option>
+                        <option value="gain">Να πάρω βάρος</option>
+                      </select>
+                </div>
+                <div class="field">
+                    <div class="star">
+                        <h4>Αναμενόμενο Βάρος</h4>
+                        <p>*</p>
+                    </div>
+                    <input type="number" step="0.5" placeholder="Εισάγετε το βάρος που επιθυμείτε να φτάσετε" title="Εισάγετε το βάρος που επιθυμείτε να φτάσετε πχ. 75">
+                </div>
+                <div class="field-change-bar">
+                    <div class="submit-button btns" id="prev" data-bind="click: previous">Πίσω</div>
+                    <div class="submit-button btns" id="next" data-bind="click: next">Επόμενο</div>
+                </div>
                 <!-- /ko -->                   
                 <!-- ko if: currentActive() == 4 -->
-
-                <!-- /ko -->             
-                <div class="field-change-bar">
-                    <div class="submit-button btns" id="prev">Πίσω</div>
-                    
-                    <div class="submit-button btns" id="next">Επόμενο</div>
-                   
-                    <!-- ko if: currentActive() >= 4 -->
-                        <div class="submit-button">Καταχώρηση</div>
-                    <!-- /ko -->
+                <div class="field">
+                    <h4>Όνομα Χρήστη</h4>
+                    <input type="text" placeholder="Εισάγετε Όνομα Χρήστη...">
                 </div>
+                <div class="field">
+                    <h4>Email</h4>
+                    <input type="text" placeholder="Εισάγετε Email...">
+                </div>
+                <div class="field">
+                    <h4>Συνθηματικό</h4>
+                    <input type="password" placeholder="Εισάγετε Συνθηματικό...">
+                </div>
+                <div class="field">
+                    <h4>Επιβεβαίωση Συνθηματικού</h4>
+                    <input type="password" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού...">
+                </div>
+                <div class="field-change-bar">
+                    <div class="submit-button btns" id="prev" data-bind="click: previous">Πίσω</div>                   
+                    <div class="submit-button">Καταχώρηση</div>
+                </div>
+                <!-- /ko -->             
+
 
 
                 
@@ -79,10 +158,10 @@
                 <div class="container-progress-bar">
                     <div class="progress-bar">
                         <div class="progress" id="progress"></div>
-                        <div class="circle active"><i class="fab fa-html5"></i></div>
-                        <div class="circle "><i class="fab fa-css3-alt"></i></div>
-                        <div class="circle "><i class="fab fa-js"></i></div>
-                        <div class="circle "><i class="fab fa-react"></i></div>
+                        <div class="circle active" data-bind="click: step1"><i class="fab fa-html5"></i></div>
+                        <div class="circle "><i class="fab fa-css3-alt" data-bind="click: step2"></i></div>
+                        <div class="circle "><i class="fab fa-js" data-bind="click: step3"></i></div>
+                        <div class="circle "><i class="fab fa-react" data-bind="click: step4"></i></div>
                         
                     </div>
                 </div>           
