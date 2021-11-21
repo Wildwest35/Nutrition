@@ -61,16 +61,16 @@
                             <h4>Φύλο</h4>
                             <p>*</p>
                         </div>
-                        <div class="sex-container">
-                            <div class="sex-element">
+                        <div class="sex-container"><!-- data-bind='click: male' -->
+                            <div class="sex-element" >
                                 <i class="fas fa-mars"></i>
                                 <p>Άρρεν</p>
-                                <input type="radio" name="sex" value="1" data-bind='value: sex'>
-                            </div>
+                                <input type="radio" name="sex" id="male">
+                            </div><!--  data-bind='click: female' -->
                             <div class="sex-element">
                                 <i class="fas fa-venus"></i>
                                 <p>Θήλυ</p>
-                                <input type="radio" name="sex" value="2" data-bind='value: sex'>
+                                <input type="radio" name="sex" id="female">
                             </div>
                         </div>
                     </div>
@@ -107,9 +107,9 @@
                             <p>*</p>
                         </div>
                         <select name="isweight" data-bind='value: isweight'>
-                            <option value="1">Χάσω Βάρος</option>
-                            <option value="2">Να διατηρήσω το βάρος μου</option>
-                            <option value="3">Να πάρω βάρος</option>
+                            <option value="1">χάσω βάρος</option>
+                            <option value="2">διατηρήσω το βάρος μου</option>
+                            <option value="3">πάρω βάρος</option>
                         </select>
                     </div>
                     <div class="field">
@@ -125,21 +125,53 @@
                     </div>
                 </span>
                 <span data-bind="visible: currentActive() == 4">
-                    <div class="field">
-                        <h4>Όνομα Χρήστη</h4>
-                        <input type="text" placeholder="Εισάγετε Όνομα Χρήστη...">
+                    <div class="field-sum">
+                        <div class="star">
+                            <h4>Όνομα Χρήστη:</h4>
+                            <div class="sumup" data-bind='text: username'></div>
+                        </div>
                     </div>
-                    <div class="field">
-                        <h4>Email</h4>
-                        <input type="text" placeholder="Εισάγετε Email...">
+                    <div class="field-sum">
+                        <div class="star">
+                            <h4>Email:</h4>
+                            <div class="sumup" data-bind='text: email'></div>
+                        </div>
                     </div>
-                    <div class="field">
-                        <h4>Συνθηματικό</h4>
-                        <input type="password" placeholder="Εισάγετε Συνθηματικό...">
+                    <div class="field-sum">
+                        <div class="star">
+                            <h4>Φύλο:</h4>
+                            <div class="sumup" data-bind='text: sexcategory'></div>
+                        </div>
                     </div>
-                    <div class="field">
-                        <h4>Επιβεβαίωση Συνθηματικού</h4>
-                        <input type="password" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού...">
+                    <div class="field-sum">
+                        <div class="star">
+                            <h4>Ηλικία:</h4>
+                            <div class="sumup" data-bind='text: age'></div>
+                        </div>
+                    </div>
+                    <div class="field-sum">
+                        <div class="star">
+                            <h4>Ύψος:</h4>
+                            <div class="sumup" data-bind='text: height'></div>
+                        </div>
+                    </div>
+                    <div class="field-sum">
+                        <div class="star">
+                            <h4>Βάρος:</h4>
+                            <div class="sumup" data-bind='text: weight'></div>
+                        </div>
+                    </div>
+                    <div class="field-sum">
+                        <div class="star">
+                            <h4>Θέλω να:</h4>
+                            <div class="sumup" data-bind='text: self.weightcategory'></div>
+                        </div>
+                    </div>
+                    <div class="field-sum">
+                        <div class="star">
+                            <h4>Επιθυμητό Βάρος:</h4>
+                            <div class="sumup" data-bind='text: requestedWeight'></div>
+                        </div>
                     </div>
                     <div class="field-change-bar">
                         <button class="submit-button btns" data-bind="click: previous">Πίσω</button>                   

@@ -11,6 +11,37 @@ function RegisterModel() {
     self.weight = ko.observable('');
     self.isweight = ko.observable('');
     self.requestedWeight = ko.observable('');
+    self.weightcategory = ko.observable('');
+    self.sexcategory = ko.observable('');
+
+    const male = document.getElementById("male");
+    const female = document.getElementById("female");
+
+    if(male) {
+        male.addEventListener("click", function() {
+            self.sex(0);
+            self.sexcategory('Άρρεν');
+            male.checked = "checked";
+        });
+    }
+
+    if(female) {
+        female.addEventListener("click", function() {
+            self.sex(1);
+            self.sexcategory('Θήλυ');
+            female.checked = "checked";            
+        });
+    }
+
+    self.isweight.subscribe(function() {
+        if(self.isweight() == 1) {
+            self.weightcategory("χάσω βάρος");
+        } else if(self.isweight() == 2) {
+            self.weightcategory("διατηρήσω το βάρος μου");
+        } else {
+            self.weightcategory("πάρω βάρος");
+        }
+    });
 
     self.register = function() {
         console.log("register");

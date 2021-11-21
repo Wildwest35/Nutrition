@@ -591,6 +591,26 @@ a {
     transform: scale(0.97);
 }
 
+.field-sum {
+    width: 85%;
+    height: 1rem;
+    margin: 1rem 0 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sumup {
+    font-size: 20px;
+    color: #0c6170e7;
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .star {
     display: flex;
 }
