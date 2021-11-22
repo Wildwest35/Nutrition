@@ -13,10 +13,11 @@ function RegisterModel() {
     self.requestedWeight = ko.observable('');
     self.weightcategory = ko.observable('');
     self.sexcategory = ko.observable('');
+    self.islock = ko.observable(true);
 
     const male = document.getElementById("male");
     const female = document.getElementById("female");
-
+    //const male = document.getElementById("male");
     if(male) {
         male.addEventListener("click", function() {
             self.sex(0);
@@ -33,6 +34,10 @@ function RegisterModel() {
         });
     }
 
+    self.locker = function() {
+        self.islock(!self.islock());
+    };
+
     self.isweight.subscribe(function() {
         if(self.isweight() == 1) {
             self.weightcategory("χάσω βάρος");
@@ -46,16 +51,16 @@ function RegisterModel() {
     self.register = function() {
         console.log("register");
 
-        $.post('./php/register.php', {'username':self.username(), 'email':self.email(), 'password':self.password(), 'repeatpassword':self.repeatpassword(), 'sex':self.sex(), 'age':self.age(), 'height':self.height(), 'weight':self.weight(), 'isweight':self.isweight(), 'requestedWeight':self.requestedWeight()})
-			
+        $.post('./php/register.php', {'username':self.username(), 'email':self.email(), 'password':self.password(), 'repeatpassword':self.repeatpassword(), 'sex':self.sex(), 'age':self.age(), 'height':self.height(), 'weight':self.weight(), 'isweight':self.isweight(), 'requestedWeight':self.requestedWeight()})		
+
         .done(function(data) {
-            
+            console.log(data);
             if(data.status == "ok") {
                 console.log('ok');
             } else {
                 console.log('error');
             }
-            console.log(data);
+            
         })
     };
 

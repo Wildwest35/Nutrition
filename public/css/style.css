@@ -46,6 +46,16 @@ body {
     color: rgb(255, 64, 198);
 }
 
+.fa-lock {
+    font-size: 1rem;
+    margin: 0.3rem;
+}
+
+.fa-lock-open {
+    font-size: 1rem;
+    margin: 0.3rem;
+}
+
 .material-icons {
     font-size: 2.6rem;
     color:#000000;
@@ -561,12 +571,13 @@ a {
 .form-elements h1 {
     color: #000000;
     text-align: center;
+    margin-bottom: 1rem;
 }
 
 .form-elements .field {
     width: 85%;
-    height: 3rem;
-    margin: 1rem 0 1rem;
+    min-height: 2rem;
+    margin: 0.5rem 0 0.5rem;
 }
 
 .form-elements .submit-button {
@@ -619,8 +630,18 @@ a {
     color: red;
 }
 
+.star i {
+    width: 100%;
+}
+
+/*.lock {
+     display: flex;
+    align-items: center; 
+}*/
+
 .field .star h4 {
-    margin-bottom: 0.2rem 0;
+    color: black;
+    margin-bottom: 0rem 0;
 }
 
 .field input,select {
@@ -643,6 +664,13 @@ a {
     margin: 1rem 0.5rem;
 }
 
+.units {
+    margin-left: 0.5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
 .field-forget {
     width: 85%;
@@ -661,7 +689,7 @@ a {
 .form-elements .line {
     width: 85%;
     border: 0.5px solid rgba(194, 194, 194, 0.411);
-    margin: 2rem 0 1.5rem;
+    margin: 0.5rem 0 1rem;
 }
 
 .form-elements p {
@@ -967,13 +995,19 @@ a {
     .form-elements {
         width: 100%;
     }
+    .field-sum {
+        width: 100%;
+    }
 
+    .form-elements .field {
+        width: 100%;
+    }
 /*     .field h4 {
         font-size: 20px;
         margin-bottom: 0.2rem 0;
     } */
 
-    .field-change-bar .submit-button {
+/*     .field-change-bar .submit-button {
         margin: 2rem 0.5rem 1rem;
-    }
+    } */
 }

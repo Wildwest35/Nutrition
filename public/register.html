@@ -42,14 +42,14 @@
                             <h4>Συνθηματικό</h4>
                             <p>*</p>
                         </div>
-                        <input type="password" data-bind='value: password' placeholder="Εισάγετε Συνθηματικό..." title="Εισάγετε Συνθηματικό πχ. Va$ilis22*">
+                        <input type="password" data-bind='value: password' placeholder="Εισάγετε Συνθηματικό..." title="Εισάγετε Συνθηματικό πχ. Va$ilis22*" autocomplete="off">
                     </div>
                     <div class="field">
                         <div class="star">
                             <h4>Επιβεβαίωση Συνθηματικού</h4>
                             <p>*</p>
                         </div>
-                        <input type="password" data-bind='value: repeatpassword' placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού..." title="Εισάγετε Επιβεβαίωση Συνθηματικού πχ. Va$ilis22*">
+                        <input type="password" data-bind='value: repeatpassword' placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού..." title="Εισάγετε Επιβεβαίωση Συνθηματικού πχ. Va$ilis22*" autocomplete="off">
                     </div>    
                     <div class="field-change-bar">               
                         <button class="submit-button btns" data-bind="click: next">Επόμενο</button>
@@ -61,12 +61,12 @@
                             <h4>Φύλο</h4>
                             <p>*</p>
                         </div>
-                        <div class="sex-container"><!-- data-bind='click: male' -->
+                        <div class="sex-container">
                             <div class="sex-element" >
                                 <i class="fas fa-mars"></i>
                                 <p>Άρρεν</p>
                                 <input type="radio" name="sex" id="male">
-                            </div><!--  data-bind='click: female' -->
+                            </div>
                             <div class="sex-element">
                                 <i class="fas fa-venus"></i>
                                 <p>Θήλυ</p>
@@ -153,12 +153,14 @@
                         <div class="star">
                             <h4>Ύψος:</h4>
                             <div class="sumup" data-bind='text: height'></div>
+                            <div class="units">(cm)</div>
                         </div>
                     </div>
                     <div class="field-sum">
                         <div class="star">
                             <h4>Βάρος:</h4>
                             <div class="sumup" data-bind='text: weight'></div>
+                            <div class="units">(kg)</div>
                         </div>
                     </div>
                     <div class="field-sum">
@@ -171,6 +173,7 @@
                         <div class="star">
                             <h4>Επιθυμητό Βάρος:</h4>
                             <div class="sumup" data-bind='text: requestedWeight'></div>
+                            <div class="units">(kg)</div>
                         </div>
                     </div>
                     <div class="field-change-bar">
