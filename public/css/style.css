@@ -1002,6 +1002,10 @@ a {
     .form-elements .field {
         width: 100%;
     }
+
+    .sex {
+        width: 100%;
+    }
 /*     .field h4 {
         font-size: 20px;
         margin-bottom: 0.2rem 0;
