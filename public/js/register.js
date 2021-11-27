@@ -12,30 +12,38 @@ function RegisterModel() {
     self.isweight = ko.observable('');
     self.requestedWeight = ko.observable('');
     self.weightcategory = ko.observable('');
+    
     self.sexcategory = ko.observable('');
-    self.islock = ko.observable(true);
 
-    const male = document.getElementById("male");
-    const female = document.getElementById("female");
-    //const male = document.getElementById("male");
-    if(male) {
-        male.addEventListener("click", function() {
+    self.islockpassword = ko.observable(true);
+    self.islockrepeatpasswrord = ko.observable(true);
+
+    self.sexcategory.subscribe(function(newVal) {
+        if(self.sexcategory() == "Άρρεν") {
             self.sex(0);
-            self.sexcategory('Άρρεν');
-            male.checked = "checked";
-        });
-    }
-
-    if(female) {
-        female.addEventListener("click", function() {
+        } else {
             self.sex(1);
-            self.sexcategory('Θήλυ');
-            female.checked = "checked";            
-        });
-    }
+        }
+    });
 
-    self.locker = function() {
-        self.islock(!self.islock());
+    self.lockerpassword = function() {
+        let password = document.getElementById("password");
+        self.islockpassword(!self.islockpassword());
+        if(password.type == "password") {
+            password.type = "text";
+        } else {
+            password.type = "password";
+        }
+    };
+
+    self.lockerrepeatpassword = function() {
+        let password = document.getElementById("repeatpassword");
+        self.islockrepeatpasswrord(!self.islockrepeatpasswrord());
+        if(password.type == "password") {
+            password.type = "text";
+        } else {
+            password.type = "password";
+        }
     };
 
     self.isweight.subscribe(function() {
@@ -57,6 +65,7 @@ function RegisterModel() {
             console.log(data);
             if(data.status == "ok") {
                 console.log('ok');
+                self.currentActive(self.currentActive() + 1);
             } else {
                 console.log('error');
             }

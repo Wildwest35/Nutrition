@@ -38,18 +38,26 @@
                         <input type="text" data-bind='value: email' placeholder="Εισάγετε Email..." title="Εισάγετε Email πχ. test@gmail.com">
                     </div>
                     <div class="field">
-                        <div class="star">
-                            <h4>Συνθηματικό</h4>
-                            <p>*</p>
+                        <div class="lock">
+                            <div class="star">
+                                <h4>Συνθηματικό</h4>
+                                <p>*</p>
+                            </div>                            
+                            <i data-bind="click: lockerpassword, visible: islockpassword" class="fas fa-lock"></i>
+                            <i data-bind="click: lockerpassword, visible: !islockpassword()" class="fas fa-unlock"></i>
                         </div>
-                        <input type="password" data-bind='value: password' placeholder="Εισάγετε Συνθηματικό..." title="Εισάγετε Συνθηματικό πχ. Va$ilis22*" autocomplete="off">
+                        <input type="password" data-bind='value: password' id="password" placeholder="Εισάγετε Συνθηματικό..." title="Εισάγετε Συνθηματικό πχ. Va$ilis22*" autocomplete="off">
                     </div>
                     <div class="field">
-                        <div class="star">
-                            <h4>Επιβεβαίωση Συνθηματικού</h4>
-                            <p>*</p>
+                        <div class="lock">
+                            <div class="star">
+                                <h4>Επιβεβαίωση Συνθηματικού</h4>
+                                <p>*</p>
+                            </div>                            
+                            <i data-bind="click: lockerrepeatpassword, visible: islockrepeatpasswrord" class="fas fa-lock"></i>
+                            <i data-bind="click: lockerrepeatpassword, visible: !islockrepeatpasswrord()" class="fas fa-unlock"></i>
                         </div>
-                        <input type="password" data-bind='value: repeatpassword' placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού..." title="Εισάγετε Επιβεβαίωση Συνθηματικού πχ. Va$ilis22*" autocomplete="off">
+                        <input type="password" data-bind='value: repeatpassword' id="repeatpassword" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού..." title="Εισάγετε Επιβεβαίωση Συνθηματικού πχ. Va$ilis22*" autocomplete="off">
                     </div>    
                     <div class="field-change-bar">               
                         <button class="submit-button btns" data-bind="click: next">Επόμενο</button>
@@ -65,12 +73,12 @@
                             <div class="sex-element" >
                                 <i class="fas fa-mars"></i>
                                 <p>Άρρεν</p>
-                                <input type="radio" name="sex" id="male">
+                                <input type="radio" name="sex" value="Άρρεν" data-bind="checked: sexcategory">
                             </div>
                             <div class="sex-element">
                                 <i class="fas fa-venus"></i>
                                 <p>Θήλυ</p>
-                                <input type="radio" name="sex" id="female">
+                                <input type="radio" name="sex" value="Θήλυ" data-bind="checked: sexcategory">
                             </div>
                         </div>
                     </div>
@@ -125,6 +133,7 @@
                     </div>
                 </span>
                 <span data-bind="visible: currentActive() == 4">
+                    <div class="check">Ελέγξτε ότι τα στοιχεία σας είναι ορθά.</div>
                     <div class="field-sum">
                         <div class="star">
                             <h4>Όνομα Χρήστη:</h4>
@@ -182,12 +191,17 @@
                     </div>
                 </span>
 
+                <span data-bind="visible: currentActive() == 5">
+
+                </span>
+
                 <div class="container-progress-bar">
                     <div class="progress-bar">
                         <div class="progress" id="progress"></div><!-- <i class="fab fa-html5"></i> -->
                         <div class="circle active" data-bind="click: step1"><span class="material-icons">person</span></div>
                         <div class="circle" data-bind="click: step2"><span class="material-icons">accessibility</span></div>
                         <div class="circle" data-bind="click: step3"><i class="fas fa-weight"></i></div>
+                        <div class="circle"><span class="material-icons">content_paste</span></div>
                         <div class="circle"><span class="material-icons">done</span></div>
                         
                     </div>

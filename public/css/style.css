@@ -47,11 +47,13 @@ body {
 }
 
 .fa-lock {
+    width: 0.5rem;
+    height: 0.5rem;
     font-size: 1rem;
     margin: 0.3rem;
 }
 
-.fa-lock-open {
+.fa-unlock {
     font-size: 1rem;
     margin: 0.3rem;
 }
@@ -622,6 +624,14 @@ a {
     align-items: center;
 }
 
+.check {
+    width: 100%;
+    text-align: center;
+    color: #0c6170;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .star {
     display: flex;
 }
@@ -630,14 +640,17 @@ a {
     color: red;
 }
 
-.star i {
-    width: 100%;
+.lock i {
+    display: flex;
+    align-items: center;
 }
 
-/*.lock {
-     display: flex;
-    align-items: center; 
-}*/
+.lock {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
 
 .field .star h4 {
     color: black;
@@ -1003,8 +1016,8 @@ a {
         width: 100%;
     }
 
-    .sex {
-        width: 100%;
+    .lock {
+        width: 50%;
     }
 /*     .field h4 {
         font-size: 20px;
