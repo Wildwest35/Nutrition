@@ -8,8 +8,6 @@
 
         date_default_timezone_set("Europe/Athens");
         $date = date("Y-m-d H:i:s");
-        var_dump(date("Y-m-d H:i:s")); 
-
         $username = $_POST['username'];
         $email = $_POST['email'];
         $pass = $_POST['password'];
@@ -39,10 +37,10 @@
         $query->bindParam(':isConfirmAccount', $isconfirmaccount);
                           
         if($query->execute()) {
-            echo json_encode(['status' => 'ok', 'data' => true]); 
+            echo json_encode(["status" => 'ok', "data" => true]); 
         } else {
-            var_dump($query->errorInfo());
-            echo json_encode(['status' => 'error', 'data' => false]); 
+            //var_dump($query->errorInfo());
+            echo json_encode(["status" => 'error', "data" => false]);  
         }
     }     
 ?>

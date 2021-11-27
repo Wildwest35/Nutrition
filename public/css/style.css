@@ -632,6 +632,13 @@ a {
     font-weight: bold;
 }
 
+.complete {
+    width: 100%;
+    text-align: center;
+    color: green;
+    margin: 2rem 0 0.5rem;
+}
+
 .star {
     display: flex;
 }
@@ -1016,8 +1023,16 @@ a {
         width: 100%;
     }
 
+    .sex {
+        width: 100%;
+    }    
+
     .lock {
         width: 50%;
+    }
+
+    .complete {
+        font-size: 22px;
     }
 /*     .field h4 {
         font-size: 20px;

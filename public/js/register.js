@@ -57,20 +57,32 @@ function RegisterModel() {
     });
 
     self.register = function() {
-        console.log("register");
 
-        $.post('./php/register.php', {'username':self.username(), 'email':self.email(), 'password':self.password(), 'repeatpassword':self.repeatpassword(), 'sex':self.sex(), 'age':self.age(), 'height':self.height(), 'weight':self.weight(), 'isweight':self.isweight(), 'requestedWeight':self.requestedWeight()})		
+        let o = {
+            username: self.username(),
+            email: self.email(),
+            password: self.password(),
+            repeatpassword: self.repeatpassword(),
+            sex: self.sex(),
+            age: self.age(),
+            height: self.height(),
+            weight: self.weight(),
+            isweight: self.isweight(),
+            requestedWeight: self.requestedWeight()
+        }
 
-        .done(function(data) {
-            console.log(data);
+       $.post('./php/register.php', o, function(data) {
             if(data.status == "ok") {
                 console.log('ok');
-                self.currentActive(self.currentActive() + 1);
-            } else {
+                self.next();
+            } else if(dat.status == "error") {
                 console.log('error');
-            }
-            
-        })
+            }            
+        });		
+    };
+
+    self.login = function() {
+        window.location.href = "./login.html";
     };
 
     self.closeLoginWarning = function() {
@@ -103,19 +115,21 @@ function RegisterModel() {
     };
 
     self.step1 = function() {
-        self.currentActive(1);
-        self.update();
+        if(self.currentActive() < 5) {
+            self.currentActive(1);
+            self.update();
+        }
     };
 
     self.step2 = function() {
-        if(self.currentActive() > 1) {
+        if(self.currentActive() > 1 && self.currentActive() < 5) {
             self.currentActive(2);
             self.update();
         }
     };
 
     self.step3 = function() {
-        if(self.currentActive() > 2) {
+        if(self.currentActive() > 2 && self.currentActive() < 5) {
             self.currentActive(3);
             self.update();
         }
@@ -138,5 +152,5 @@ function RegisterModel() {
 }
 
 $(function() {
-	ko.applyBindings( new RegisterModel(), document.getElementById('body'));
+	ko.applyBindings(new RegisterModel(), document.getElementById('body'));
 });
