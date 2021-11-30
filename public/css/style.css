@@ -46,15 +46,10 @@ body {
     color: rgb(255, 64, 198);
 }
 
-.fa-lock {
+.fa-eye, .fa-eye-slash, .fa-lock, .fa-unlock {
     width: 0.5rem;
     height: 0.5rem;
-    font-size: 1rem;
-    margin: 0.3rem;
-}
-
-.fa-unlock {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: 0.3rem;
 }
 
@@ -648,8 +643,17 @@ a {
 }
 
 .lock i {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px 1px #888888;
     display: flex;
+    justify-content: center;
     align-items: center;
+}
+
+.lock i:hover {
+    box-shadow: 0px 1px 4px 1px #888888;
 }
 
 .lock {
