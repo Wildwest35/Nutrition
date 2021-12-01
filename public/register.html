@@ -11,8 +11,12 @@
     </head>
     <body id="body">
 <!--         <div class="warning" id="warning">
-            <h5>Εισάγετε Κωδικό Πρόσβασης</h5>
-            <p data-bind="click: closeLoginWarning">x</p>
+            <div class="wrong">
+                <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthErrorMessage"></span>
+                <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthErrorMessage"></span>
+                <span class="error" data-bind="visible: username.numbersError, text: username.numbersMessage"></span>            
+           </div>
+           <p data-bind="click: closeLoginWarning">x</p>
         </div> -->
         <section class="container">
 
@@ -30,13 +34,21 @@
                             <p>*</p>
                         </div>
                         <input type="text" data-bind='value: username' placeholder="Εισάγετε Όνομα Χρήστη..." title="Εισάγετε Όνομα Χρήστη πχ. Vasilis">
-                    </div>
+                    </div>    
+                        <div class="wrong">
+                            <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthErrorMessage"></span>
+                            <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthErrorMessage"></span>         
+                       </div>
                     <div class="field">
                         <div class="star">
                             <h4>Email</h4>
                             <p>*</p>
                         </div>
                         <input type="text" data-bind='value: email' placeholder="Εισάγετε Email..." title="Εισάγετε Email πχ. test@gmail.com">
+                    </div>
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: email.minLengthError, text: email.minLengthErrorMessage"></span>        
+                        <span class="error" data-bind="visible: email.emailError, text: email.emailErrorMessage"></span>
                     </div>
                     <div class="field">
                         <div class="lock">

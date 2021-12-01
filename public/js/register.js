@@ -1,8 +1,106 @@
+ko.extenders.minimumLength = function(target, min){/* To onoma aytwn twn duo parametrwn borei na einai oti theleis */
+	/* Mesa sto target einai to idio to observable to opoio exeis kanei extend */
+	/* Mesa sto min einai h parametros me thn opoia kaleis ton extender */
+	/* Sto sygkekrimeno paradeigma einai o minimum arithmos */
+	target.minLengthErrorMessage = ko.observable(null);
+	target.minLengthError = ko.observable(true);
+
+	target.subscribe(function(newVal){
+		if(newVal.length >= min){
+			target.minLengthError(null);
+			target.minLengthErrorMessage(null);
+		}else{
+			target.minLengthError(true);
+			target.minLengthErrorMessage(`* Minimum length is ${min} characters`);
+		}
+
+		if(!newVal){
+			target.minLengthError(null);
+			target.minLengthErrorMessage(null);
+		}
+	})
+}
+
+ko.extenders.maximumLength = function(target, max){
+	target.maxLengthErrorMessage = ko.observable(null);
+	target.maxLengthError = ko.observable(true);
+
+	target.subscribe(function(newVal){
+		if(newVal.length <= max){
+			target.maxLengthError(null);
+			target.maxLengthErrorMessage(null);
+		}else{
+			target.maxLengthError(true);
+			target.maxLengthErrorMessage(`- Maximum length is ${max} characters`);
+		}
+
+		if(!newVal){
+			target.maxLengthError(null);
+			target.maxLengthErrorMessage(null);
+		}
+	})
+}
+
+ko.extenders.numbers = function(target, message){
+	target.numbersMessage = ko.observable(null);
+	target.numbersError = ko.observable(true);
+
+	target.subscribe(function(newVal){
+		if(newVal)
+		{
+			var number = /^[0-9]+$/;
+			console.log(number.test(newVal));
+			if(number.test(newVal)){
+				target.numbersError(null);
+				target.numbersMessage(null);
+			}else{
+				target.numbersError(true);
+				//target.numbersMessage('Only numbers are allowed');
+				target.numbersMessage(`${message}`);				
+			}
+		}else{
+			console.log('numbers else');
+			target.numbersError(null);
+			target.numbersMessage(null);			
+		}
+	})
+}
+
+ko.extenders.isEmail = function(target, option){
+	target.emailError = ko.observable(null);
+	target.emailErrorMessage = ko.observable(true);
+
+	target.subscribe(function(newVal){
+		if(newVal){
+			var regEx = /\S+@\S+\.\S+/;
+			console.log(regEx.test(newVal));
+        	if(regEx.test(newVal)){
+				target.emailError(null);
+				target.emailErrorMessage(null);
+			}else{
+				target.emailError(true);
+				target.emailErrorMessage(`${option}`);
+			}
+		}else{
+			target.emailError(null);
+			target.emailErrorMessage(null);
+		}
+	})
+}
+
 function RegisterModel() {
 	self = this;
     self.currentActive = ko.observable(1);
-    self.username = ko.observable('');
-    self.email = ko.observable('');
+    //self.username = ko.observable('');
+	self.username = ko.observable('').extend({
+		minimumLength: 2,
+		maximumLength: 25
+	});
+    //self.email = ko.observable('');
+    self.email = ko.observable('').extend({
+		isEmail: "* Please provide a valid email address",
+		minimumLength: 5
+	});
     self.password = ko.observable('');
     self.repeatpassword = ko.observable('');
     self.sex = ko.observable('');
