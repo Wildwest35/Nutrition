@@ -1,17 +1,19 @@
-ko.extenders.minimumLength = function(target, min){/* To onoma aytwn twn duo parametrwn borei na einai oti theleis */
+ko.extenders.minimumLength = function(target, min) {/* To onoma aytwn twn duo parametrwn borei na einai oti theleis */
 	/* Mesa sto target einai to idio to observable to opoio exeis kanei extend */
 	/* Mesa sto min einai h parametros me thn opoia kaleis ton extender */
 	/* Sto sygkekrimeno paradeigma einai o minimum arithmos */
 	target.minLengthErrorMessage = ko.observable(null);
-	target.minLengthError = ko.observable(true);
-
-	target.subscribe(function(newVal){
-		if(newVal.length >= min){
+	target.minLengthError = ko.observable(null);
+    console.log(target.minLengthError());
+	target.subscribe(function(newVal) {
+        self.emptyFieldError(false);
+        self.emptyFieldMessage('');
+		if(newVal.length >= min) {
 			target.minLengthError(null);
 			target.minLengthErrorMessage(null);
-		}else{
+		} else {
 			target.minLengthError(true);
-			target.minLengthErrorMessage(`* Minimum length is ${min} characters`);
+			target.minLengthErrorMessage(`* Το ελάχιστο μέγεθος χαρακτήρων είναι ${min}.`);
 		}
 
 		if(!newVal){
@@ -21,34 +23,33 @@ ko.extenders.minimumLength = function(target, min){/* To onoma aytwn twn duo par
 	})
 }
 
-ko.extenders.maximumLength = function(target, max){
+ko.extenders.maximumLength = function(target, max) {
 	target.maxLengthErrorMessage = ko.observable(null);
-	target.maxLengthError = ko.observable(true);
+	target.maxLengthError = ko.observable(null);
 
 	target.subscribe(function(newVal){
-		if(newVal.length <= max){
+		if(newVal.length <= max) {
 			target.maxLengthError(null);
 			target.maxLengthErrorMessage(null);
-		}else{
+		} else {
 			target.maxLengthError(true);
-			target.maxLengthErrorMessage(`- Maximum length is ${max} characters`);
+			target.maxLengthErrorMessage(`* Το μέγιστο μέγεθος χαρακτήρων είναι ${max}.`);
 		}
 
-		if(!newVal){
+		if(!newVal) {
 			target.maxLengthError(null);
 			target.maxLengthErrorMessage(null);
 		}
 	})
 }
 
-ko.extenders.numbers = function(target, message){
+ko.extenders.numbers = function(target, message) {
 	target.numbersMessage = ko.observable(null);
-	target.numbersError = ko.observable(true);
+	target.numbersError = ko.observable(null);
 
 	target.subscribe(function(newVal){
-		if(newVal)
-		{
-			var number = /^[0-9]+$/;
+		if(newVal) {
+			var number = /^[0-9a-zA-Z_]+$/;
 			console.log(number.test(newVal));
 			if(number.test(newVal)){
 				target.numbersError(null);
@@ -58,7 +59,7 @@ ko.extenders.numbers = function(target, message){
 				//target.numbersMessage('Only numbers are allowed');
 				target.numbersMessage(`${message}`);				
 			}
-		}else{
+		} else {
 			console.log('numbers else');
 			target.numbersError(null);
 			target.numbersMessage(null);			
@@ -66,12 +67,12 @@ ko.extenders.numbers = function(target, message){
 	})
 }
 
-ko.extenders.isEmail = function(target, option){
+ko.extenders.isEmail = function(target, option) {
 	target.emailError = ko.observable(null);
-	target.emailErrorMessage = ko.observable(true);
+	target.emailErrorMessage = ko.observable(null);
 
-	target.subscribe(function(newVal){
-		if(newVal){
+	target.subscribe(function(newVal) {
+		if(newVal) {
 			var regEx = /\S+@\S+\.\S+/;
 			console.log(regEx.test(newVal));
         	if(regEx.test(newVal)){
@@ -81,9 +82,32 @@ ko.extenders.isEmail = function(target, option){
 				target.emailError(true);
 				target.emailErrorMessage(`${option}`);
 			}
-		}else{
+		} else {
 			target.emailError(null);
 			target.emailErrorMessage(null);
+		}
+	})
+}
+
+ko.extenders.isEmptyField = function(target, message) {
+	target.emptyFieldMessage = ko.observable(null);
+	target.emptyFieldError = ko.observable(null);
+
+	target.subscribe(function(newVal) {
+        console.log(message);
+		if(newVal) {
+			var regEx = /^[]+$/;
+			console.log(regEx.test(newVal));
+        	if(regEx.test(newVal)){
+				target.emptyFieldError(null);
+				target.emptyFieldMessage(null);
+			}else{
+				target.emptyFieldError(true);
+				target.emptyFieldMessage(`${message}`);
+			}
+		} else {
+			target.emptyFieldError(null);
+			target.emptyFieldMessage(null);
 		}
 	})
 }
@@ -91,15 +115,18 @@ ko.extenders.isEmail = function(target, option){
 function RegisterModel() {
 	self = this;
     self.currentActive = ko.observable(1);
-    //self.username = ko.observable('');
+    //self.username = ko.observable('');//
 	self.username = ko.observable('').extend({
 		minimumLength: 2,
-		maximumLength: 25
+		maximumLength: 25,
+        numbers: "* Μόνο λατινικοί χαρακτήρες, γράμματα και κάτω παύλα επιτρέπονται."
+        //isEmptyField: '* Το πεδίο είναι κενό!'
 	});
     //self.email = ko.observable('');
     self.email = ko.observable('').extend({
-		isEmail: "* Please provide a valid email address",
+		isEmail: "* Παρακαλώ εισάγεται ένα έγγυρο email.",
 		minimumLength: 5
+       //isEmptyField: '* Το πεδίο είναι κενό!'
 	});
     self.password = ko.observable('');
     self.repeatpassword = ko.observable('');
@@ -112,7 +139,8 @@ function RegisterModel() {
     self.weightcategory = ko.observable('');
     
     self.sexcategory = ko.observable('');
-
+    self.emptyFieldError = ko.observable('');
+    self.emptyFieldMessage = ko.observable('');
     self.islockpassword = ko.observable(true);
     self.islockrepeatpasswrord = ko.observable(true);
 
@@ -204,12 +232,19 @@ function RegisterModel() {
     };
 
     self.next = function() {
-        self.currentActive(self.currentActive() + 1);
-        if(self.currentActive() > circles.length) {
-            self.currentActive(circles.length);
+        
+        if(self.username.minLengthError() && self.username.maxLengthError() && self.username.numbersError() && self.email.minLengthError() && self.email.emailError()) {
+            self.currentActive(self.currentActive() + 1);
+            if(self.currentActive() > circles.length) {
+                self.currentActive(circles.length);
+            }
+            self.update();
+        } else {
+            if(self.username() == '' || self.email() == '') {
+                self.emptyFieldError(true);
+                self.emptyFieldMessage('The field is empty!');
+            }
         }
-
-        self.update();
     };
 
     self.step1 = function() {

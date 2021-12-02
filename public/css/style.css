@@ -665,14 +665,13 @@ a {
 
 .error {
     color: rgb(185, 0, 0);
-    font-size: 16px;
+    font-size: 15px;
     display: flex;
     justify-content: start;
 }
 
 .wrong {
     width: 85%;
-    /* box-shadow: 0px 1px 8px 1px #888888; */
 }
 
 .wrong span {
@@ -1057,6 +1056,14 @@ a {
 
     .complete {
         font-size: 22px;
+    }
+
+    .wrong {
+        width: 100%;
+    }  
+    
+    .error {
+        font-size: 13px;
     }
 /*     .field h4 {
         font-size: 20px;

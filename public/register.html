@@ -27,6 +27,7 @@
                 <span data-bind="visible: currentActive() != 5">
                     <h1>Εγγραφή</h1>                
                 </span>
+                <span class="error" data-bind="visible: emptyFieldError, text: emptyFieldMessage"></span>
                 <span data-bind="visible: currentActive() == 1">
                     <div class="field">
                         <div class="star">
@@ -37,7 +38,9 @@
                     </div>    
                         <div class="wrong">
                             <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthErrorMessage"></span>
-                            <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthErrorMessage"></span>         
+                            <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthErrorMessage"></span>
+                            <span class="error" data-bind="visible: username.numbersError, text: username.numbersMessage"></span>
+                            <!-- <span class="error" data-bind="visible: username.emptyFieldError, text: username.emptyFieldMessage"></span>          -->
                        </div>
                     <div class="field">
                         <div class="star">
@@ -49,6 +52,7 @@
                     <div class="wrong">
                         <span class="error" data-bind="visible: email.minLengthError, text: email.minLengthErrorMessage"></span>        
                         <span class="error" data-bind="visible: email.emailError, text: email.emailErrorMessage"></span>
+                        <!-- <span class="error" data-bind="visible: email.emptyFieldError, text: email.emptyFieldMessage"></span> -->
                     </div>
                     <div class="field">
                         <div class="lock">
