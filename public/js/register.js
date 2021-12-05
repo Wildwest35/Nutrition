@@ -1,152 +1,51 @@
-ko.extenders.minimumLength = function(target, min) {/* To onoma aytwn twn duo parametrwn borei na einai oti theleis */
-	/* Mesa sto target einai to idio to observable to opoio exeis kanei extend */
-	/* Mesa sto min einai h parametros me thn opoia kaleis ton extender */
-	/* Sto sygkekrimeno paradeigma einai o minimum arithmos */
-	target.minLengthErrorMessage = ko.observable(null);
-	target.minLengthError = ko.observable(null);
-    console.log(target.minLengthError());
-	target.subscribe(function(newVal) {
-        self.emptyFieldError(false);
-        self.emptyFieldMessage('');
-		if(newVal.length >= min) {
-			target.minLengthError(null);
-			target.minLengthErrorMessage(null);
-		} else {
-			target.minLengthError(true);
-			target.minLengthErrorMessage(`* Το ελάχιστο μέγεθος χαρακτήρων είναι ${min}.`);
-		}
-
-		if(!newVal){
-			target.minLengthError(null);
-			target.minLengthErrorMessage(null);
-		}
-	})
-}
-
-ko.extenders.maximumLength = function(target, max) {
-	target.maxLengthErrorMessage = ko.observable(null);
-	target.maxLengthError = ko.observable(null);
-
-	target.subscribe(function(newVal){
-		if(newVal.length <= max) {
-			target.maxLengthError(null);
-			target.maxLengthErrorMessage(null);
-		} else {
-			target.maxLengthError(true);
-			target.maxLengthErrorMessage(`* Το μέγιστο μέγεθος χαρακτήρων είναι ${max}.`);
-		}
-
-		if(!newVal) {
-			target.maxLengthError(null);
-			target.maxLengthErrorMessage(null);
-		}
-	})
-}
-
-ko.extenders.numbers = function(target, message) {
-	target.numbersMessage = ko.observable(null);
-	target.numbersError = ko.observable(null);
-
-	target.subscribe(function(newVal){
-		if(newVal) {
-			var number = /^[0-9a-zA-Z_]+$/;
-			console.log(number.test(newVal));
-			if(number.test(newVal)){
-				target.numbersError(null);
-				target.numbersMessage(null);
-			}else{
-				target.numbersError(true);
-				//target.numbersMessage('Only numbers are allowed');
-				target.numbersMessage(`${message}`);				
-			}
-		} else {
-			console.log('numbers else');
-			target.numbersError(null);
-			target.numbersMessage(null);			
-		}
-	})
-}
-
-ko.extenders.isEmail = function(target, option) {
-	target.emailError = ko.observable(null);
-	target.emailErrorMessage = ko.observable(null);
-
-	target.subscribe(function(newVal) {
-		if(newVal) {
-			var regEx = /\S+@\S+\.\S+/;
-			console.log(regEx.test(newVal));
-        	if(regEx.test(newVal)){
-				target.emailError(null);
-				target.emailErrorMessage(null);
-			}else{
-				target.emailError(true);
-				target.emailErrorMessage(`${option}`);
-			}
-		} else {
-			target.emailError(null);
-			target.emailErrorMessage(null);
-		}
-	})
-}
-
-ko.extenders.isEmptyField = function(target, message) {
-	target.emptyFieldMessage = ko.observable(null);
-	target.emptyFieldError = ko.observable(null);
-
-	target.subscribe(function(newVal) {
-        console.log(message);
-		if(newVal) {
-			var regEx = /^[]+$/;
-			console.log(regEx.test(newVal));
-        	if(regEx.test(newVal)){
-				target.emptyFieldError(null);
-				target.emptyFieldMessage(null);
-			}else{
-				target.emptyFieldError(true);
-				target.emptyFieldMessage(`${message}`);
-			}
-		} else {
-			target.emptyFieldError(null);
-			target.emptyFieldMessage(null);
-		}
-	})
-}
-
 function RegisterModel() {
 	self = this;
     self.currentActive = ko.observable(1);
-    //self.username = ko.observable('');//
 	self.username = ko.observable('').extend({
 		minimumLength: 2,
 		maximumLength: 25,
-        numbers: "* Μόνο λατινικοί χαρακτήρες, γράμματα και κάτω παύλα επιτρέπονται."
-        //isEmptyField: '* Το πεδίο είναι κενό!'
+        alphaNumeric: "* Επιτρέπονται μόνο λατινικοί χαρακτήρες, γράμματα και κάτω παύλα.",
+        isEmptyField: "* Το πεδίο είναι κενό!"
 	});
-    //self.email = ko.observable('');
     self.email = ko.observable('').extend({
-		isEmail: "* Παρακαλώ εισάγεται ένα έγγυρο email.",
-		minimumLength: 5
-       //isEmptyField: '* Το πεδίο είναι κενό!'
+		isEmail: "* Παρακαλώ εισάγετε ένα έγκυρο email.",
+        isEmptyField: "* Το πεδίο είναι κενό!"
 	});
-    self.password = ko.observable('');
-    self.repeatpassword = ko.observable('');
-    self.sex = ko.observable('');
-    self.age = ko.observable('');
-    self.height = ko.observable('');
+    self.password = ko.observable('').extend({
+		minimumLength: 8,
+        isEmptyField: "* Το πεδίο είναι κενό!"
+	});    
+    self.repeatpassword = ko.observable('').extend({
+		minimumLength: 8,
+        isEmptyField: "* Το πεδίο είναι κενό!"
+	});  
+    self.sex = ko.observable('').extend({
+        isEmptyField: "* Το πεδίο είναι κενό!"
+    });
+    self.age = ko.observable('').extend({
+        numeric: "* Επιτρέπονται μόνο αριθμοί.",
+        maximumLength: 3,
+        isEmptyField: "* Το πεδίο είναι κενό!"
+    });
+    self.height = ko.observable('').extend({
+        numeric: "* Επιτρέπονται μόνο αριθμοί.",
+        maximumLength: 3,
+        isEmptyField: "* Το πεδίο είναι κενό!"
+    });
     self.weight = ko.observable('');
     self.isweight = ko.observable('');
     self.requestedWeight = ko.observable('');
     self.weightcategory = ko.observable('');
     
     self.sexcategory = ko.observable('');
-    self.emptyFieldError = ko.observable('');
-    self.emptyFieldMessage = ko.observable('');
+/*     self.emptyFieldError = ko.observable('');
+    self.emptyFieldMessage = ko.observable(''); */
     self.islockpassword = ko.observable(true);
     self.islockrepeatpasswrord = ko.observable(true);
 
     self.sexcategory.subscribe(function(newVal) {
         if(self.sexcategory() == "Άρρεν") {
-            self.sex(0);
+            self.sex(2);
         } else {
             self.sex(1);
         }
@@ -232,17 +131,58 @@ function RegisterModel() {
     };
 
     self.next = function() {
-        
-        if(self.username.minLengthError() && self.username.maxLengthError() && self.username.numbersError() && self.email.minLengthError() && self.email.emailError()) {
+        let progress1 = !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != '';
+        let progress2 = !self.age.numericError() && !self.height.numericError() && !self.age.maxLengthError() && !self.height.maxLengthError() && self.sex() != '' && self.age() != '' && self.height() != '';
+        if((progress1 && self.currentActive() == 1) || (progress2 && self.currentActive() == 2)) {
             self.currentActive(self.currentActive() + 1);
             if(self.currentActive() > circles.length) {
                 self.currentActive(circles.length);
             }
             self.update();
         } else {
-            if(self.username() == '' || self.email() == '') {
-                self.emptyFieldError(true);
-                self.emptyFieldMessage('The field is empty!');
+            console.log("4");
+            if(self.currentActive() == 1) {
+                if(self.username() == '') {
+                    self.username(" ");
+                    self.username.emptyFieldError(true);
+                    self.username("");
+                    //console.log(self.username.emptyFieldError());
+                } 
+                if(self.email() == '') {
+                    self.email(" ");
+                    self.email.emptyFieldError(true);
+                    self.email("");
+                } 
+                if(self.password() == '') {
+                    self.password(" ");
+                    self.password.emptyFieldError(true);
+                    self.password("");
+                }
+                if(self.repeatpassword() == '') {
+                    self.repeatpassword(" ");
+                    self.repeatpassword.emptyFieldError(true);
+                    self.repeatpassword("");
+                }
+            } else if(self.currentActive() == 2) {
+                if(self.sex() == '') {
+                    self.sex(" ");
+                    self.sex.emptyFieldError(true);
+                    self.sex("");
+                }
+                if(self.age() == '') {
+                    self.age(" ");
+                    self.age.emptyFieldError(true);
+                    self.age("");
+                }
+                if(self.height() == '') {
+                    self.height(" ");
+                    self.height.emptyFieldError(true);
+                    self.height("");
+                }
+            } else if(self.currentActive() == 3) {
+
+            } else if(self.currentActive() == 4) {
+
             }
         }
     };

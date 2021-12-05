@@ -27,7 +27,7 @@
                 <span data-bind="visible: currentActive() != 5">
                     <h1>Εγγραφή</h1>                
                 </span>
-                <span class="error" data-bind="visible: emptyFieldError, text: emptyFieldMessage"></span>
+                <!-- <span class="error" data-bind="visible: emptyFieldError, text: emptyFieldMessage"></span> -->
                 <span data-bind="visible: currentActive() == 1">
                     <div class="field">
                         <div class="star">
@@ -37,10 +37,10 @@
                         <input type="text" data-bind='value: username' placeholder="Εισάγετε Όνομα Χρήστη..." title="Εισάγετε Όνομα Χρήστη πχ. Vasilis">
                     </div>    
                         <div class="wrong">
-                            <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthErrorMessage"></span>
-                            <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthErrorMessage"></span>
-                            <span class="error" data-bind="visible: username.numbersError, text: username.numbersMessage"></span>
-                            <!-- <span class="error" data-bind="visible: username.emptyFieldError, text: username.emptyFieldMessage"></span>          -->
+                            <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthMessage"></span>
+                            <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthMessage"></span>
+                            <span class="error" data-bind="visible: username.alphaNumericError, text: username.alphaNumericMessage"></span>
+                            <span class="error" data-bind="visible: username.emptyFieldError, text: username.emptyFieldMessage"></span>         
                        </div>
                     <div class="field">
                         <div class="star">
@@ -49,10 +49,9 @@
                         </div>
                         <input type="text" data-bind='value: email' placeholder="Εισάγετε Email..." title="Εισάγετε Email πχ. test@gmail.com">
                     </div>
-                    <div class="wrong">
-                        <span class="error" data-bind="visible: email.minLengthError, text: email.minLengthErrorMessage"></span>        
+                    <div class="wrong">     
                         <span class="error" data-bind="visible: email.emailError, text: email.emailErrorMessage"></span>
-                        <!-- <span class="error" data-bind="visible: email.emptyFieldError, text: email.emptyFieldMessage"></span> -->
+                        <span class="error" data-bind="visible: email.emptyFieldError, text: email.emptyFieldMessage"></span>
                     </div>
                     <div class="field">
                         <div class="lock">
@@ -65,6 +64,10 @@
                         </div>
                         <input type="password" data-bind='value: password' id="password" placeholder="Εισάγετε Συνθηματικό..." title="Εισάγετε Συνθηματικό πχ. Va$ilis22*" autocomplete="off">
                     </div>
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: password.minLengthError, text: password.minLengthMessage"></span>
+                        <span class="error" data-bind="visible: password.emptyFieldError, text: password.emptyFieldMessage"></span>
+                    </div>
                     <div class="field">
                         <div class="lock">
                             <div class="star">
@@ -75,6 +78,10 @@
                             <i data-bind="click: lockerrepeatpassword, visible: !islockrepeatpasswrord()" class="fas fa-eye"></i>
                         </div>
                         <input type="password" data-bind='value: repeatpassword' id="repeatpassword" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού..." title="Εισάγετε Επιβεβαίωση Συνθηματικού πχ. Va$ilis22*" autocomplete="off">
+                    </div>
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: repeatpassword.minLengthError, text: repeatpassword.minLengthMessage"></span>  
+                        <span class="error" data-bind="visible: repeatpassword.emptyFieldError, text: repeatpassword.emptyFieldMessage"></span>
                     </div>    
                     <div class="field-change-bar">               
                         <button class="submit-button btns" data-bind="click: next">Επόμενο</button>
@@ -99,6 +106,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="wrong">     
+                        <span class="error" data-bind="visible: sex.emptyFieldError, text: sex.emptyFieldMessage"></span>
+                    </div>
                     <div class="field">
                         <div class="star">
                             <h4>Ηλικία</h4>
@@ -106,6 +116,11 @@
                         </div>
                         <input type="number" data-bind='value: age' placeholder="Εισάγετε την ηλικία σας" title="Εισάγετε την ηλικία σας πχ. 40">
                     </div>
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: age.maxLengthError, text: age.maxLengthMessage"></span>
+                        <span class="error" data-bind="visible: age.numericError, text: age.numericMessage"></span>
+                        <span class="error" data-bind="visible: age.emptyFieldError, text: age.emptyFieldMessage"></span>         
+                   </div>
                     <div class="field">
                         <div class="star">
                             <h4>Ύψος (cm)</h4>
@@ -113,6 +128,11 @@
                         </div>
                         <input type="number" data-bind='value: height' placeholder="Εισάγετε το ύψος σας" title="Εισάγετε το ύψος σας πχ. 175">
                     </div>
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: height.maxLengthError, text: height.maxLengthMessage"></span>
+                        <span class="error" data-bind="visible: height.numericError, text: height.numericMessage"></span>
+                        <span class="error" data-bind="visible: height.emptyFieldError, text: height.emptyFieldMessage"></span>         
+                   </div>
                     <div class="field-change-bar">
                         <button class="submit-button btns" data-bind="click: previous">Πίσω</button>                        
                         <button class="submit-button btns" data-bind="click: next">Επόμενο</button>
@@ -241,6 +261,7 @@
         <script type='text/javascript' src='js/knockout.js'></script>
         <script src="js/popperBH.js"></script>
         <script src="js/fadeVisible.js"></script>
+        <script src="js/checkInput.js"></script>
         <script src="js/register.js"></script>
     </body>
 </html>
