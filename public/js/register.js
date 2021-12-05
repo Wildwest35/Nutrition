@@ -1,5 +1,6 @@
 function RegisterModel() {
 	self = this;
+    self.count = ko.observable(1);
     self.currentActive = ko.observable(1);
 
     self.weightCheckcError = ko.observable(false);
@@ -95,27 +96,40 @@ function RegisterModel() {
 
     self.weightCheck = function() {
         if(self.isweight() == 1) {
+            if(self.count() == 2) {
+                self.requestedWeight('');
+                self.count(1);
+            }
             if(self.weight() > self.requestedWeight()) {
                 self.weightCheckcError(false);
                 self.weightCheckMessage(null);
             } else {
-                self.weightCheckcError(true);
-                self.weightCheckMessage('* Στο "Επιθυμητό Βάρος" πρέπει να εισάγετε λιγότερα κιλά από το "Βάρος".');
+                if(self.requestedWeight() != '') {
+                    self.weightCheckcError(true);
+                    self.weightCheckMessage('* Στο "Επιθυμητό Βάρος" πρέπει να εισάγετε λιγότερα κιλά από το "Βάρος".');
+                }
             }
         } else if(self.isweight() == 2) {
+            self.count(2);
             if(self.weight() != self.requestedWeight()) {
-                self.requestedWeight('');
+                self.requestedWeight(self.weight());
                 self.weightCheckcError(false);
                 self.weightCheckMessage(null);
             } else {
-                self.requestedWeight('');
+                self.requestedWeight(self.weight());
                 self.weightCheckcError(false);
                 self.weightCheckMessage(null);
             }
         } else if(self.isweight() == 3) {
-            if(self.weight() > self.requestedWeight()) {
-                self.weightCheckcError(true);
-                self.weightCheckMessage('* Στο "Επιθυμητό Βάρος" πρέπει να εισάγετε περισσότερα κιλά από το "Βάρος".');
+            if(self.count() == 2) {
+                self.requestedWeight('');
+                self.count(1);
+            }
+            if(self.weight() >= self.requestedWeight()) {
+                if(self.requestedWeight() != '') {
+                    self.weightCheckcError(true);
+                    self.weightCheckMessage('* Στο "Επιθυμητό Βάρος" πρέπει να εισάγετε περισσότερα κιλά από το "Βάρος".');
+                }
             } else {
                 self.weightCheckcError(false);
                 self.weightCheckMessage(null);
