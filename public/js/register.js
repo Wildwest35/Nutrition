@@ -1,11 +1,21 @@
 function RegisterModel() {
 	self = this;
     self.currentActive = ko.observable(1);
+
+    self.weightCheckcError = ko.observable(false);
+    self.weightCheckMessage = ko.observable(null);
+    self.passwordCheckcError = ko.observable(false);
+    self.passwordCheckMessage = ko.observable(null);   
+
+    self.progress1 = ko.observable(null);
+    self.progress2 = ko.observable(null);
+    self.progress3 = ko.observable(null);
+
 	self.username = ko.observable('').extend({
 		minimumLength: 2,
 		maximumLength: 25,
         alphaNumeric: "* Επιτρέπονται μόνο λατινικοί χαρακτήρες, γράμματα και κάτω παύλα.",
-        isEmptyField: "* Το πεδίο είναι κενό!"
+        isEmptyField: "* Το πεδίο είναι κενό!",
 	});
     self.email = ko.observable('').extend({
 		isEmail: "* Παρακαλώ εισάγετε ένα έγκυρο email.",
@@ -32,9 +42,17 @@ function RegisterModel() {
         maximumLength: 3,
         isEmptyField: "* Το πεδίο είναι κενό!"
     });
-    self.weight = ko.observable('');
-    self.isweight = ko.observable('');
-    self.requestedWeight = ko.observable('');
+    self.weight = ko.observable('').extend({
+        numeric: "* Επιτρέπονται μόνο αριθμοί.",
+        maximumLength: 3,
+        isEmptyField: "* Το πεδίο είναι κενό!"
+    });
+    self.isweight = ko.observable(0);
+    self.requestedWeight = ko.observable('').extend({
+        numeric: "* Επιτρέπονται μόνο αριθμοί.",
+        maximumLength: 3,
+        isEmptyField: "* Το πεδίο είναι κενό!"
+    });
     self.weightcategory = ko.observable('');
     
     self.sexcategory = ko.observable('');
@@ -42,6 +60,68 @@ function RegisterModel() {
     self.emptyFieldMessage = ko.observable(''); */
     self.islockpassword = ko.observable(true);
     self.islockrepeatpasswrord = ko.observable(true);
+
+    self.isweight.subscribe(function(newVal) {
+        if(self.requestedWeight() != '') {
+            self.weightCheck();
+        }
+    });
+
+    self.password.subscribe(function(newVal) {
+        if(self.repeatpassword() != '') {
+            self.passwordCheck();
+        }
+    });
+
+    self.repeatpassword.subscribe(function(newVal) {
+        self.passwordCheck();
+    });
+
+    self.passwordCheck = function() {
+        if(self.password() == self.repeatpassword()) {
+            console.log("1");
+            self.passwordCheckcError(false);
+            self.passwordCheckMessage(null);
+        } else {
+            console.log("2");
+            self.passwordCheckcError(true);
+            self.passwordCheckMessage('* Η "Επιβεβαίωση Συνθηματικού" δεν αντιστοιχεί με το "Συνθηματικό".');
+        }
+    };
+
+    self.requestedWeight.subscribe(function(newVal) {
+        self.weightCheck();
+    });
+
+    self.weightCheck = function() {
+        if(self.isweight() == 1) {
+            if(self.weight() > self.requestedWeight()) {
+                self.weightCheckcError(false);
+                self.weightCheckMessage(null);
+            } else {
+                self.weightCheckcError(true);
+                self.weightCheckMessage('* Στο "Επιθυμητό Βάρος" πρέπει να εισάγετε λιγότερα κιλά από το "Βάρος".');
+            }
+        } else if(self.isweight() == 2) {
+            if(self.weight() != self.requestedWeight()) {
+                self.requestedWeight('');
+                self.weightCheckcError(false);
+                self.weightCheckMessage(null);
+            } else {
+                self.requestedWeight('');
+                self.weightCheckcError(false);
+                self.weightCheckMessage(null);
+            }
+        } else if(self.isweight() == 3) {
+            if(self.weight() > self.requestedWeight()) {
+                self.weightCheckcError(true);
+                self.weightCheckMessage('* Στο "Επιθυμητό Βάρος" πρέπει να εισάγετε περισσότερα κιλά από το "Βάρος".');
+            } else {
+                self.weightCheckcError(false);
+                self.weightCheckMessage(null);
+            }
+        }
+    }
 
     self.sexcategory.subscribe(function(newVal) {
         if(self.sexcategory() == "Άρρεν") {
@@ -131,22 +211,22 @@ function RegisterModel() {
     };
 
     self.next = function() {
-        let progress1 = !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != '';
-        let progress2 = !self.age.numericError() && !self.height.numericError() && !self.age.maxLengthError() && !self.height.maxLengthError() && self.sex() != '' && self.age() != '' && self.height() != '';
-        if((progress1 && self.currentActive() == 1) || (progress2 && self.currentActive() == 2)) {
+        self.progress1(!self.passwordCheckcError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
+        self.progress2(!self.age.numericError() && !self.height.numericError() && !self.age.maxLengthError() && !self.height.maxLengthError() && self.sex() != '' && self.age() != '' && self.height() != '');
+        self.progress3(!self.weight.maxLengthError() && !self.weight.numericError() && !self.requestedWeight.maxLengthError()  && !self.requestedWeight.numericError() && !self.weightCheckcError() && self.weight() != '' && self.requestedWeight() != '');   
+
+        if((self.progress1() && self.currentActive() == 1) || (self.progress2() && self.currentActive() == 2) || (self.progress3() && self.currentActive() >= 3)) {
             self.currentActive(self.currentActive() + 1);
             if(self.currentActive() > circles.length) {
                 self.currentActive(circles.length);
             }
             self.update();
         } else {
-            console.log("4");
             if(self.currentActive() == 1) {
                 if(self.username() == '') {
                     self.username(" ");
                     self.username.emptyFieldError(true);
                     self.username("");
-                    //console.log(self.username.emptyFieldError());
                 } 
                 if(self.email() == '') {
                     self.email(" ");
@@ -180,7 +260,16 @@ function RegisterModel() {
                     self.height("");
                 }
             } else if(self.currentActive() == 3) {
-
+                if(self.weight() == '') {
+                    self.weight(" ");
+                    self.weight.emptyFieldError(true);
+                    self.weight("");
+                }
+                if(self.requestedWeight() == '') {
+                    self.requestedWeight(" ");
+                    self.requestedWeight.emptyFieldError(true);
+                    self.requestedWeight("");
+                }
             } else if(self.currentActive() == 4) {
 
             }
@@ -188,22 +277,33 @@ function RegisterModel() {
     };
 
     self.step1 = function() {
-        if(self.currentActive() < 5) {
-            self.currentActive(1);
-            self.update();
-        }
+        self.currentActive(1);
+        self.update();
     };
 
     self.step2 = function() {
-        if(self.currentActive() > 1 && self.currentActive() < 5) {
+        self.progress1(!self.passwordCheckcError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
+        if(self.progress1()) {
             self.currentActive(2);
             self.update();
         }
     };
 
     self.step3 = function() {
-        if(self.currentActive() > 2 && self.currentActive() < 5) {
+        self.progress1(!self.passwordCheckcError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
+        self.progress2(!self.age.numericError() && !self.height.numericError() && !self.age.maxLengthError() && !self.height.maxLengthError() && self.sex() != '' && self.age() != '' && self.height() != '');
+        if(self.progress1() && self.progress2()) {
             self.currentActive(3);
+            self.update();
+        }
+    };
+
+    self.step4 = function() {
+        self.progress1(!self.passwordCheckcError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
+        self.progress2(!self.age.numericError() && !self.height.numericError() && !self.age.maxLengthError() && !self.height.maxLengthError() && self.sex() != '' && self.age() != '' && self.height() != '');
+        self.progress3(!self.weight.maxLengthError() && !self.weight.numericError() && !self.requestedWeight.maxLengthError()  && !self.requestedWeight.numericError() && !self.weightCheckcError() && self.weight() != '' && self.requestedWeight() != '');
+        if(self.progress1() && self.progress2() && self.progress3()) {
+            self.currentActive(4);
             self.update();
         }
     };

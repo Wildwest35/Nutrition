@@ -50,7 +50,6 @@ ko.extenders.numeric = function(target, message) {
 	target.subscribe(function(newVal){
 		if(newVal) {
 			var number = /^[0-9]+$/;
-			console.log(number.test(newVal));
 			if(number.test(newVal)){
 				target.numericError(false);
 				target.numericMessage(null);
@@ -59,7 +58,6 @@ ko.extenders.numeric = function(target, message) {
 				target.numericMessage(`${message}`);				
 			}
 		} else {
-			console.log('numbers else');
 			target.numericError(null);
 			target.numericMessage(null);			
 		}
@@ -73,7 +71,6 @@ ko.extenders.alpha = function(target, message) {
 	target.subscribe(function(newVal){
 		if(newVal) {
 			var number = /^[a-zA-Z_]+$/;
-			console.log(number.test(newVal));
 			if(number.test(newVal)){
 				target.alphaError(false);
 				target.alphaMessage(null);
@@ -82,7 +79,6 @@ ko.extenders.alpha = function(target, message) {
 				target.alphaMessage(`${message}`);				
 			}
 		} else {
-			console.log('numbers else');
 			target.alphaError(null);
 			target.alphaMessage(null);			
 		}
@@ -105,7 +101,6 @@ ko.extenders.alphaNumeric = function(target, message) {
 				target.alphaNumericMessage(`${message}`);				
 			}
 		} else {
-			//console.log('numbers else');
 			target.alphaNumericError(null);
 			target.alphaNumericMessage(null);			
 		}
@@ -119,7 +114,6 @@ ko.extenders.isEmail = function(target, option) {
 	target.subscribe(function(newVal) {
 		if(newVal) {
 			var regEx = /\S+@\S+\.\S+/;
-			console.log(regEx.test(newVal));
         	if(regEx.test(newVal)){
 				target.emailError(false);
 				target.emailErrorMessage(null);
@@ -139,13 +133,10 @@ ko.extenders.isEmptyField = function(target, message) {
 	target.emptyFieldMessage = ko.observable(null);
 
 	target.subscribe(function(newVal) {
-		console.log(newVal);
 		if(newVal) {
-			//console.log("1");
 			target.emptyFieldError(false);
 			target.emptyFieldMessage(null);
 		} else {
-			//console.log("2");
 			target.emptyFieldError(true);
 			target.emptyFieldMessage(`${message}`);
 		}

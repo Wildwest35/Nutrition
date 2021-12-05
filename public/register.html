@@ -81,6 +81,7 @@
                     </div>
                     <div class="wrong">
                         <span class="error" data-bind="visible: repeatpassword.minLengthError, text: repeatpassword.minLengthMessage"></span>  
+                        <span class="error" data-bind="visible: passwordCheckcError, text: passwordCheckMessage"></span>  
                         <span class="error" data-bind="visible: repeatpassword.emptyFieldError, text: repeatpassword.emptyFieldMessage"></span>
                     </div>    
                     <div class="field-change-bar">               
@@ -146,24 +147,36 @@
                         </div>
                         <input type="number" step="0.5" data-bind='value: weight' placeholder="Εισάγετε το βάρος σας" title="Εισάγετε το βάρος σας πχ. 75">
                     </div>
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: weight.maxLengthError, text: weight.maxLengthMessage"></span>
+                        <span class="error" data-bind="visible: weight.numericError, text: weight.numericMessage"></span>
+                        <span class="error" data-bind="visible: weight.emptyFieldError, text: weight.emptyFieldMessage"></span>         
+                   </div>
                     <div class="field">
                         <div class="star">
                             <h4>Θέλω να</h4>
                             <p>*</p>
                         </div>
                         <select name="isweight" data-bind='value: isweight'>
+                            <option value="0">Επιλέξτε Κατηγορία</option>
                             <option value="1">χάσω βάρος</option>
                             <option value="2">διατηρήσω το βάρος μου</option>
                             <option value="3">πάρω βάρος</option>
                         </select>
                     </div>
-                    <div class="field">
+                    <div class="field" data-bind="visible: isweight() !== '2' && isweight() !== '0' && weight() != ''">
                         <div class="star">
                             <h4>Επιθυμητό Βάρος (kg)</h4>
                             <p>*</p>
                         </div>
                         <input type="number" step="0.5" data-bind='value: requestedWeight' placeholder="Εισάγετε το επιθυμητό βάρος" title="Εισάγετε το επιθυμητό βάρος πχ. 75">
                     </div>
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: requestedWeight.maxLengthError, text: requestedWeight.maxLengthMessage"></span>
+                        <span class="error" data-bind="visible: requestedWeight.numericError, text: requestedWeight.numericMessage"></span>
+                        <span class="error" data-bind="visible: weightCheckcError, text: weightCheckMessage"></span>
+                        <span class="error" data-bind="visible: requestedWeight.emptyFieldError, text: requestedWeight.emptyFieldMessage"></span>         
+                   </div>
                     <div class="field-change-bar">
                         <button class="submit-button btns" data-bind="click: previous">Πίσω</button>
                         <button class="submit-button btns" data-bind="click: next">Επόμενο</button>
@@ -239,7 +252,7 @@
                         <div class="circle active" data-bind="click: step1"><span class="material-icons">person</span></div>
                         <div class="circle" data-bind="click: step2"><span class="material-icons">accessibility</span></div>
                         <div class="circle" data-bind="click: step3"><i class="fas fa-weight"></i></div>
-                        <div class="circle"><span class="material-icons">content_paste</span></div>
+                        <div class="circle" data-bind="click: step4"><span class="material-icons">content_paste</span></div>
                         <div class="circle"><span class="material-icons">done</span></div>
                         
                     </div>
