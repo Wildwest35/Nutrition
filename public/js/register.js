@@ -17,6 +17,7 @@ function RegisterModel() {
 		maximumLength: 25,
         alphaNumeric: "* Επιτρέπονται μόνο λατινικοί χαρακτήρες, γράμματα και κάτω παύλα.",
         isEmptyField: "* Το πεδίο είναι κενό!",
+        checkUniqueField: {field: 'username', table: 'users'}
 	});
     self.email = ko.observable('').extend({
 		isEmail: "* Παρακαλώ εισάγετε ένα έγκυρο email.",
@@ -45,13 +46,13 @@ function RegisterModel() {
     });
     self.weight = ko.observable('').extend({
         numeric: "* Επιτρέπονται μόνο αριθμοί.",
-        maximumLength: 3,
+        maximumLength: 5,
         isEmptyField: "* Το πεδίο είναι κενό!"
     });
     self.isweight = ko.observable(0);
     self.requestedWeight = ko.observable('').extend({
         numeric: "* Επιτρέπονται μόνο αριθμοί.",
-        maximumLength: 3,
+        maximumLength: 5,
         isEmptyField: "* Το πεδίο είναι κενό!"
     });
     self.weightcategory = ko.observable('');
@@ -90,6 +91,14 @@ function RegisterModel() {
         }
     };
 
+    self.weight.subscribe(function(newVal) {
+        if(self.requestedWeight != '') {
+            self.weightCheck();
+        } else {
+
+        }
+    });
+
     self.requestedWeight.subscribe(function(newVal) {
         self.weightCheck();
     });
@@ -100,7 +109,7 @@ function RegisterModel() {
                 self.requestedWeight('');
                 self.count(1);
             }
-            if(self.weight() > self.requestedWeight()) {
+            if(parseFloat(self.weight()) > parseFloat(self.requestedWeight())) {
                 self.weightCheckcError(false);
                 self.weightCheckMessage(null);
             } else {
@@ -111,7 +120,7 @@ function RegisterModel() {
             }
         } else if(self.isweight() == 2) {
             self.count(2);
-            if(self.weight() != self.requestedWeight()) {
+            if(parseFloat(self.weight()) != parseFloat(self.requestedWeight())) {
                 self.requestedWeight(self.weight());
                 self.weightCheckcError(false);
                 self.weightCheckMessage(null);
@@ -124,8 +133,9 @@ function RegisterModel() {
             if(self.count() == 2) {
                 self.requestedWeight('');
                 self.count(1);
+            
             }
-            if(self.weight() >= self.requestedWeight()) {
+            if(parseFloat(self.weight()) >= parseFloat(self.requestedWeight())) {
                 if(self.requestedWeight() != '') {
                     self.weightCheckcError(true);
                     self.weightCheckMessage('* Στο "Επιθυμητό Βάρος" πρέπει να εισάγετε περισσότερα κιλά από το "Βάρος".');

@@ -49,7 +49,7 @@ ko.extenders.numeric = function(target, message) {
 
 	target.subscribe(function(newVal){
 		if(newVal) {
-			var number = /^[0-9]+$/;
+			var number = /^[0-9.]+$/;
 			if(number.test(newVal)){
 				target.numericError(false);
 				target.numericMessage(null);
@@ -103,6 +103,33 @@ ko.extenders.alphaNumeric = function(target, message) {
 		} else {
 			target.alphaNumericError(null);
 			target.alphaNumericMessage(null);			
+		}
+	})
+}
+
+ko.extenders.checkUniqueField = function(target, option) {
+	target.checkUniqueFieldError = ko.observable(null);
+	target.checkUniqueFieldMessage = ko.observable(null);
+
+	target.subscribe(function(newVal){
+		if(newVal) {
+			let o = {
+				field: option.field,
+				table: option.table,
+				newVal: newVal,
+			}
+			console.log(o);
+		    $.post('./php/checkUniqueField.php', o, function(data) {
+				if(data.status == "ok") {
+					target.checkUniqueFieldError(false);
+					target.checkUniqueFieldMessage(null);
+				} else if(data.status == "error") {
+					target.checkUniqueFieldError(true);
+					target.checkUniqueFieldMessage('');
+				}            
+			});		
+		} else {
+
 		}
 	})
 }
