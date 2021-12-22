@@ -15,23 +15,42 @@
         </div> -->
         <section class="container">
 
-            <form action="#" class="form-elements">
+            <form method="post" data-bind="submit: login" class="form-elements">
                 <div class="field">
                     <a href="index.html"><div class="logo">Nutrition</div></a>
                 </div>
                 <h1>Σύνδεση</h1>
+                <div class="wrong">
+                    <div class="error-sub" data-bind="text: loginMessage"></div>     
+               </div>
                 <div class="field">
                     <h4>Email</h4>
-                    <input type="text" placeholder="Εισάγετε Email...">
+                    <input type="text" data-bind='value: email' placeholder="Εισάγετε Email...">
                 </div>
+                <div class="wrong">
+                    <span class="error" data-bind="visible: email.emailError, text: email.emailErrorMessage"></span>
+                    <span class="error" data-bind="visible: email.emptyFieldError, text: email.emptyFieldMessage"></span>        
+               </div>
                 <div class="field">
-                    <h4>Συνθηματικό</h4>
-                    <input type="password" placeholder="Εισάγετε Συνθηματικό..." autocomplete="off">
+                    <div class="lock">
+                        <div class="star">
+                            <h4>Συνθηματικό</h4>
+                            <p>*</p>
+                        </div>                            
+                        <i data-bind="click: lockerpassword, visible: islockpassword" class="fas fa-eye-slash"></i>
+                        <i data-bind="click: lockerpassword, visible: !islockpassword()" class="fas fa-eye"></i>
+                    </div>
+                    <input type="password" data-bind='value: password' id="password" placeholder="Εισάγετε Συνθηματικό..." autocomplete="off">
                 </div>
+                <div class="wrong">
+                    <span class="error" data-bind="visible: password.minLengthError, text: password.minLengthMessage"></span>
+                    <span class="error" data-bind="visible: password.emptyFieldError, text: password.emptyFieldMessage"></span>        
+               </div>
                 <div class="field-forget">
                     <a href="forgetpassword.html"><h6>Ξεχάσατε τον κωδικό πρόσβασης;</h6></a>
                 </div>
-                <div class="submit-button">Καταχώρηση</div>
+
+                <button type="submit" name="submit" class="submit-button btns">Καταχώρηση</button>
             
                 <div class="line"></div>
                 <p>Δεν έχετε λογαριασμό;</p>
@@ -43,6 +62,7 @@
         <script type='text/javascript' src='js/knockout.js'></script>
         <script src="js/popperBH.js"></script>
         <script src="js/fadeVisible.js"></script>
-        <script src="js/mainViewModel.js"></script>
+        <script src="js/checkInput.js"></script>
+        <script src="js/login.js"></script>
     </body>
 </html>

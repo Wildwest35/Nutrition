@@ -1,8 +1,9 @@
 <?php
     @session_start();
     header('Content-type: application/json');
-    header("Access-Control-Allow-Origin: *");
-    
+    //header("Access-Control-Allow-Origin: *");
+    include 'corsAccess.php';
+
     if(isset($_POST['field']) && isset($_POST['table']) && isset($_POST['newVal'])) {
         include 'connect.php';
 

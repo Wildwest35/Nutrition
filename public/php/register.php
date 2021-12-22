@@ -1,7 +1,8 @@
 <?php
     @session_start();
     header('Content-type: application/json');
-    header("Access-Control-Allow-Origin: *");
+    //header("Access-Control-Allow-Origin: *");
+    include 'corsAccess.php';
 
     if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['sex']) && isset($_POST['age']) && isset($_POST['height']) && isset($_POST['weight']) && isset($_POST['isweight']) && isset($_POST['requestedWeight'])) {    
         include 'connect.php';

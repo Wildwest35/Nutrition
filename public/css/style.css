@@ -670,6 +670,13 @@ a {
     justify-content: start;
 }
 
+.error-sub {
+    color: rgb(185, 0, 0);
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+}
+
 .wrong {
     width: 85%;
 }
