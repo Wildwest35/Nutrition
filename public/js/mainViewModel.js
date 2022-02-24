@@ -42,6 +42,10 @@ function MainViewModel() {
             close.style.display = "none";
         }
     };
+
+	self.indexPage = function() {
+		window.location.href = './index.html';
+	};
 }
 
 $(function() {

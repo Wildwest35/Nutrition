@@ -107,6 +107,32 @@ ko.extenders.alphaNumeric = function(target, message) {
 	})
 }
 
+ko.extenders.alphaNumericMail = function(target, message) {
+	target.alphaNumericMailError = ko.observable(null);
+	target.alphaNumericMailMessage = ko.observable(null);
+
+	target.subscribe(function(newVal){
+		if(newVal) {
+			var number = /^[0-9a-zA-Z_]+$/;
+			var pattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if(number.test(newVal) || pattern.test(newVal)){
+				target.alphaNumericMailError(false);
+				target.alphaNumericMailMessage(null);
+			} else 
+				if(newVal.indexOf("@") !== -1) {//if(newVal.includes("@")) {				
+					target.alphaNumericMailError(true);
+					target.alphaNumericMailMessage(`* Παρακαλώ εισάγετε ένα έγκυρο email.`);
+				} else {
+					target.alphaNumericMailError(true);
+					target.alphaNumericMailMessage(`* Επιτρέπονται μόνο λατινικοί χαρακτήρες, αριθμοί και κάτω παύλα.`);						
+				}
+		} else {
+			target.alphaNumericMailError(null);
+			target.alphaNumericMailMessage(null);			
+		}
+	})
+}
+
 ko.extenders.checkUniqueField = function(target, option) {
 	target.checkUniqueFieldError = ko.observable(null);
 	target.checkUniqueFieldMessage = ko.observable(null);
@@ -118,14 +144,14 @@ ko.extenders.checkUniqueField = function(target, option) {
 				table: option.table,
 				newVal: newVal,
 			}
-			console.log(o);
+
 		    $.post('./php/checkUniqueField.php', o, function(data) {
 				if(data.status == "ok") {
+					target.checkUniqueFieldError(true);
+					target.checkUniqueFieldMessage(option.message);
+				} else if(data.status == "error") {
 					target.checkUniqueFieldError(false);
 					target.checkUniqueFieldMessage(null);
-				} else if(data.status == "error") {
-					target.checkUniqueFieldError(true);
-					target.checkUniqueFieldMessage('');
 				}            
 			});		
 		} else {
@@ -140,7 +166,10 @@ ko.extenders.isEmail = function(target, option) {
 
 	target.subscribe(function(newVal) {
 		if(newVal) {
-			var regEx = /\S+@\S+\.\S+/;
+			var pattern1 = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			var pattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			var pattern2 = /\S+@\S+\.\S+/;
+			var regEx = pattern;
         	if(regEx.test(newVal)){
 				target.emailError(false);
 				target.emailErrorMessage(null);

@@ -7,21 +7,28 @@ function RegisterModel() {
     self.weightCheckMessage = ko.observable(null);
     self.passwordCheckcError = ko.observable(false);
     self.passwordCheckMessage = ko.observable(null);   
+    self.islockpassword = ko.observable(true);
+    self.islockrepeatpasswrord = ko.observable(true);
+    self.weightcategory = ko.observable('');
+    self.sexcategory = ko.observable(''); 
+    self.errorMessage = ko.observable(null); 
 
     self.progress1 = ko.observable(null);
     self.progress2 = ko.observable(null);
     self.progress3 = ko.observable(null);
+    self.progress4 = ko.observable(false);
 
 	self.username = ko.observable('').extend({
 		minimumLength: 2,
 		maximumLength: 25,
-        alphaNumeric: "* Επιτρέπονται μόνο λατινικοί χαρακτήρες, γράμματα και κάτω παύλα.",
+        alphaNumeric: "* Επιτρέπονται μόνο λατινικοί χαρακτήρες, αριθμοί και κάτω παύλα.",
         isEmptyField: "* Το πεδίο είναι κενό!",
-        checkUniqueField: {field: 'username', table: 'users'}
+        checkUniqueField: {field: 'username', table: 'users', message: '* Αυτό το Όνομα Χρήστη υπάρχει ήδη.'}
 	});
     self.email = ko.observable('').extend({
 		isEmail: "* Παρακαλώ εισάγετε ένα έγκυρο email.",
-        isEmptyField: "* Το πεδίο είναι κενό!"
+        isEmptyField: "* Το πεδίο είναι κενό!",
+        checkUniqueField: {field: 'email', table: 'users', message: '* Αυτό το Email υπάρχει ήδη.'}
 	});
     self.password = ko.observable('').extend({
 		minimumLength: 8,
@@ -55,13 +62,6 @@ function RegisterModel() {
         maximumLength: 5,
         isEmptyField: "* Το πεδίο είναι κενό!"
     });
-    self.weightcategory = ko.observable('');
-    
-    self.sexcategory = ko.observable('');
-/*     self.emptyFieldError = ko.observable('');
-    self.emptyFieldMessage = ko.observable(''); */
-    self.islockpassword = ko.observable(true);
-    self.islockrepeatpasswrord = ko.observable(true);
 
     self.isweight.subscribe(function(newVal) {
         if(self.requestedWeight() != '') {
@@ -81,11 +81,9 @@ function RegisterModel() {
 
     self.passwordCheck = function() {
         if(self.password() == self.repeatpassword()) {
-            console.log("1");
             self.passwordCheckcError(false);
             self.passwordCheckMessage(null);
         } else {
-            console.log("2");
             self.passwordCheckcError(true);
             self.passwordCheckMessage('* Η "Επιβεβαίωση Συνθηματικού" δεν αντιστοιχεί με το "Συνθηματικό".');
         }
@@ -186,7 +184,6 @@ function RegisterModel() {
     });
 
     self.register = function() {
-
         let o = {
             username: self.username(),
             email: self.email(),
@@ -202,16 +199,13 @@ function RegisterModel() {
 
        $.post('./php/register.php', o, function(data) {
             if(data.status == "ok") {
-                console.log('ok');
                 self.next();
-            } else if(dat.status == "error") {
-                console.log('error');
+            } else if(data.status == "error") {
+                var alertError = document.getElementById("alertError");
+                alertError.style.display = "block";
+                self.errorMessage(data.data);
             }            
         });		
-    };
-
-    self.login = function() {
-        window.location.href = "./login.html";
     };
 
     self.closeLoginWarning = function() {
@@ -235,14 +229,17 @@ function RegisterModel() {
     };
 
     self.next = function() {
-        self.progress1(!self.passwordCheckcError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
+        self.progress1(!self.passwordCheckcError() && !self.username.checkUniqueFieldError() && !self.email.checkUniqueFieldError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
         self.progress2(!self.age.numericError() && !self.height.numericError() && !self.age.maxLengthError() && !self.height.maxLengthError() && self.sex() != '' && self.age() != '' && self.height() != '');
         self.progress3(!self.weight.maxLengthError() && !self.weight.numericError() && !self.requestedWeight.maxLengthError()  && !self.requestedWeight.numericError() && !self.weightCheckcError() && self.weight() != '' && self.requestedWeight() != '');   
 
-        if((self.progress1() && self.currentActive() == 1) || (self.progress2() && self.currentActive() == 2) || (self.progress3() && self.currentActive() >= 3)) {
+        if(((self.progress1() && self.currentActive() == 1) || (self.progress2() && self.currentActive() == 2) || (self.progress3() && self.currentActive() >= 3)) && !self.progress4()) {
             self.currentActive(self.currentActive() + 1);
             if(self.currentActive() > circles.length) {
                 self.currentActive(circles.length);
+            }
+            if(self.currentActive() == 5) {
+                self.progress4(true);
             }
             self.update();
         } else {
@@ -301,32 +298,34 @@ function RegisterModel() {
     };
 
     self.step1 = function() {
-        self.currentActive(1);
-        self.update();
+        if(!self.progress4()) {
+            self.currentActive(1);
+            self.update();
+        }
     };
 
     self.step2 = function() {
-        self.progress1(!self.passwordCheckcError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
-        if(self.progress1()) {
+        self.progress1(!self.passwordCheckcError() && !self.username.checkUniqueFieldError() && !self.email.checkUniqueFieldError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
+        if(self.progress1() && !self.progress4()) {
             self.currentActive(2);
             self.update();
         }
     };
 
     self.step3 = function() {
-        self.progress1(!self.passwordCheckcError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
+        self.progress1(!self.passwordCheckcError() && !self.username.checkUniqueFieldError() && !self.email.checkUniqueFieldError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
         self.progress2(!self.age.numericError() && !self.height.numericError() && !self.age.maxLengthError() && !self.height.maxLengthError() && self.sex() != '' && self.age() != '' && self.height() != '');
-        if(self.progress1() && self.progress2()) {
+        if(self.progress1() && self.progress2() && !self.progress4()) {
             self.currentActive(3);
             self.update();
         }
     };
 
     self.step4 = function() {
-        self.progress1(!self.passwordCheckcError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
+        self.progress1(!self.passwordCheckcError() && !self.username.checkUniqueFieldError() && !self.email.checkUniqueFieldError() && !self.username.minLengthError() && !self.username.maxLengthError() && !self.username.alphaNumericError() && !self.email.emailError() && !self.password.minLengthError() && !self.repeatpassword.minLengthError() && self.username() != '' && self.email() != '' && self.password() != '' && self.repeatpassword() != ''); 
         self.progress2(!self.age.numericError() && !self.height.numericError() && !self.age.maxLengthError() && !self.height.maxLengthError() && self.sex() != '' && self.age() != '' && self.height() != '');
         self.progress3(!self.weight.maxLengthError() && !self.weight.numericError() && !self.requestedWeight.maxLengthError()  && !self.requestedWeight.numericError() && !self.weightCheckcError() && self.weight() != '' && self.requestedWeight() != '');
-        if(self.progress1() && self.progress2() && self.progress3()) {
+        if(self.progress1() && self.progress2() && self.progress3() && !self.progress4()) {
             self.currentActive(4);
             self.update();
         }
@@ -343,9 +342,19 @@ function RegisterModel() {
 
         const actives = document.querySelectorAll(".active");
 
+        var alertError = document.getElementById("alertError");
+        alertError.style.display = "none";
+
         progress.style.width = ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
     };
 
+    self.login = function() {
+        window.location.href = "./login.html";
+    };
+
+	self.indexPage = function() {
+		window.location.href = './index.html';
+	};
 }
 
 $(function() {

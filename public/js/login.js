@@ -2,9 +2,10 @@ function LoginModel() {
 	self = this;
 	self.loginMessage = ko.observable('');
     self.islockpassword = ko.observable(true);
-	
+	self.csrfLogin = ko.observable();
+	var alertError;
 	self.email = ko.observable('').extend({
-		isEmail: "* Παρακαλώ εισάγετε ένα έγκυρο email.",
+		alphaNumericMail: "",
         isEmptyField: "* Το πεδίο είναι κενό!"
 	});
 	self.password = ko.observable('').extend({
@@ -13,10 +14,14 @@ function LoginModel() {
 	});
 
     self.email.subscribe(function(newVal) {
+		alertError = document.getElementById("alertError");
+		alertError.style.display = "none";
         self.loginMessage('');
     });
 
     self.password.subscribe(function(newVal) {
+		alertError = document.getElementById("alertError");
+		alertError.style.display = "none";
         self.loginMessage('');
     });
 
@@ -30,26 +35,38 @@ function LoginModel() {
         }
     };
 
-    self.login = function() {
-		
-		if(!self.email.emailError() && !self.password.minLengthError() && self.email() != '' && self.password() != '') {
-			console.log("Full Fields");
+	self.csrf = function() {
+		let o = {
+			csrf: self.csrfLogin()
+		}
+		$.post('./php/login.php', o, function(data) {
+			if(data.status == "ok") {
+				window.location.href = './basic.html';
+			} else if(data.status == "error") {
+				self.csrfLogin(data.data);
+			}            
+		});	
+	}
+
+    self.login = function() {//!self.email.emailError() && 
+		if(!self.email.alphaNumericMailError() && !self.password.minLengthError() && self.email() != '' && self.password() != '') {
 	        let o = {
 				email: self.email(),
-				password: self.password()
+				password: self.password(),
+				csrf: self.csrfLogin()
 			}
 
-		$.post('./php/login.php', o, function(data) {
+			$.post('./php/login.php', o, function(data) {
 				if(data.status == "ok") {
-					console.log('ok');
 					window.location.href = './basic.html';
 				} else if(data.status == "error") {
-					console.log('error');
-					self.loginMessage('Wrong Data!');
+					console.log(data);
+					alertError = document.getElementById("alertError");
+					alertError.style.display = "block";
+					self.loginMessage(data.data);
 				}            
 			});		
 		} else {
-			console.log("Empty Fields");
 			if(self.email() == '') {
 				self.email(" ");
 				self.email.emptyFieldError(true);
@@ -62,8 +79,22 @@ function LoginModel() {
 				self.password("");
 			}
 		}
+    };	
 
+	self.closeLoginWarning = function() {
+		$('.alert').removeClass("show");
+		$('.alert').addClass("hide");
     };
+
+	self.forgetPassPage = function() {
+		window.location.href = './forgetpassword.html';
+	};
+
+	self.indexPage = function() {
+		window.location.href = './index.html';
+	};
+
+	self.csrf();
 }
 
 $(function() {

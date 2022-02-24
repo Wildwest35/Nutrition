@@ -28,5 +28,7 @@
                 echo json_encode(['status' => 'error', 'data' => false]);
             }
         }
+    } else {
+        echo json_encode(['status' => 'error', 'data' => false]);
     }
 ?>

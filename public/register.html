@@ -21,9 +21,7 @@
         <section class="container">
 
             <form method="post" data-bind="submit: register" class="form-elements">
-                <div class="field">
-                    <a href="index.html"><div class="logo">Nutrition</div></a>
-                </div>
+                <div class="logo" data-bind="click: indexPage">Nutrition</div>
                 <span data-bind="visible: currentActive() != 5">
                     <h1>Εγγραφή</h1>                
                 </span>
@@ -36,12 +34,13 @@
                         </div>
                         <input type="text" data-bind='value: username' placeholder="Εισάγετε Όνομα Χρήστη..." title="Εισάγετε Όνομα Χρήστη πχ. Vasilis">
                     </div>    
-                        <div class="wrong">
-                            <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthMessage"></span>
-                            <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthMessage"></span>
-                            <span class="error" data-bind="visible: username.alphaNumericError, text: username.alphaNumericMessage"></span>
-                            <span class="error" data-bind="visible: username.emptyFieldError, text: username.emptyFieldMessage"></span>         
-                       </div>
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthMessage"></span>
+                        <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthMessage"></span>
+                        <span class="error" data-bind="visible: username.alphaNumericError, text: username.alphaNumericMessage"></span>
+                        <span class="error" data-bind="visible: username.checkUniqueFieldError, text: username.checkUniqueFieldMessage"></span>
+                        <span class="error" data-bind="visible: username.emptyFieldError, text: username.emptyFieldMessage"></span>         
+                    </div>
                     <div class="field">
                         <div class="star">
                             <h4>Email</h4>
@@ -51,6 +50,7 @@
                     </div>
                     <div class="wrong">     
                         <span class="error" data-bind="visible: email.emailError, text: email.emailErrorMessage"></span>
+                        <span class="error" data-bind="visible: email.checkUniqueFieldError, text: email.checkUniqueFieldMessage"></span>
                         <span class="error" data-bind="visible: email.emptyFieldError, text: email.emptyFieldMessage"></span>
                     </div>
                     <div class="field">
@@ -183,58 +183,55 @@
                     </div>
                 </span>
                 <span data-bind="visible: currentActive() == 4">
-                    <div class="check">Ελέγξτε ότι τα στοιχεία σας είναι ορθά.</div>
-                    <div class="field-sum">
-                        <div class="star">
-                            <h4>Όνομα Χρήστη:</h4>
-                            <div class="sumup" data-bind='text: username'></div>
-                        </div>
-                    </div>
-                    <div class="field-sum">
-                        <div class="star">
-                            <h4>Email:</h4>
-                            <div class="sumup" data-bind='text: email'></div>
-                        </div>
-                    </div>
-                    <div class="field-sum">
-                        <div class="star">
-                            <h4>Φύλο:</h4>
-                            <div class="sumup" data-bind='text: sexcategory'></div>
-                        </div>
-                    </div>
-                    <div class="field-sum">
-                        <div class="star">
-                            <h4>Ηλικία:</h4>
-                            <div class="sumup" data-bind='text: age'></div>
-                        </div>
-                    </div>
-                    <div class="field-sum">
-                        <div class="star">
-                            <h4>Ύψος:</h4>
-                            <div class="sumup" data-bind='text: height'></div>
-                            <div class="units">(cm)</div>
-                        </div>
-                    </div>
-                    <div class="field-sum">
-                        <div class="star">
-                            <h4>Βάρος:</h4>
-                            <div class="sumup" data-bind='text: weight'></div>
-                            <div class="units">(kg)</div>
-                        </div>
-                    </div>
-                    <div class="field-sum">
-                        <div class="star">
-                            <h4>Θέλω να:</h4>
-                            <div class="sumup" data-bind='text: self.weightcategory'></div>
-                        </div>
-                    </div>
-                    <div class="field-sum">
-                        <div class="star">
-                            <h4>Επιθυμητό Βάρος:</h4>
-                            <div class="sumup" data-bind='text: requestedWeight'></div>
-                            <div class="units">(kg)</div>
-                        </div>
-                    </div>
+                    <!-- <div class="check">Ελέγξτε ότι τα στοιχεία σας είναι ορθά.</div> -->
+                    <div class="alert-error" id="alertError">
+                        <div class="error-sub" data-bind="text: errorMessage"></div>     
+                   </div>
+                    <table>
+                        <tr>
+                            <!-- <td>Όνομα Χρήστη</td> -->
+                            <th colspan="2" style="text-align:center; font-size: 19px">ΕΛΕΓΞΤΕ ΟΤΙ ΤΑ ΣΤΟΙΧΕΙΑ ΣΑΣ ΕΙΝΑΙ ΟΡΘΑ!</th>
+                        </tr>
+                        <tr>
+                            <td>Όνομα Χρήστη</td>
+                            <th data-bind='text: username'></th>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <th><div class="break-line" data-bind='text: email'></div></th>
+                        </tr>
+                        <tr>
+                            <td>Φύλο</td>
+                            <th data-bind='text: sexcategory'></th>
+                        </tr>
+                        <tr>
+                            <td>Ηλικία</td>
+                            <th data-bind='text: age'></th>
+                        </tr>
+                        <tr>
+                            <td>Ύψος (cm)</td>
+                            <th data-bind='text: height'></th>
+                        </tr>
+                        <tr>
+                            <td>Βάρος (kg)</td>
+                            <th data-bind='text: weight'></th>
+                        </tr>
+                        <tr>
+                            <td>Θέλω να</td>
+                            <th data-bind='text: self.weightcategory'></th>
+                        </tr>
+                        <tr>
+                            <td>Επιθυμητό Βάρος (kg)</td>
+                            <th data-bind='text: requestedWeight'></th>
+                        </tr>
+                      </table>
+
+<!--               
+                    <div class="wrong">
+                        <span class="error" data-bind="visible: username.checkUniqueFieldError, text: username.checkUniqueFieldMessage"></span>     
+                    </div> 
+-->
+
                     <div class="field-change-bar">
                         <button class="submit-button btns" data-bind="click: previous">Πίσω</button>                   
                         <button type="submit" name="submit" class="submit-button btns">Καταχώρηση</button>
@@ -242,7 +239,7 @@
                 </span>
 
                 <span data-bind="visible: currentActive() == 5">
-                    <h3 class="complete">Η Εγγραφή σας ολοκληρώθηκε με επιτυχία!</h3>
+                    <h3 class="complete">Η Εγγραφή σας ολοκληρώθηκε με επιτυχία! Θα σας σταλεί ένα Email για την ενεργοποίηση του λογαριασμού σας!</h3>
                     <button class="submit-button" data-bind="click: login">Συνδεθείτε</button>
                 </span>
 
@@ -261,7 +258,7 @@
                 <span data-bind="visible: currentActive() != 5">
                     <div class="line"></div>
                     <p>Είστε ήδη μέλος;</p>
-                    <a href="login.html"><div class="sign-up">Συνδεθείτε</div></a>
+                    <div class="sign-up" data-bind="click: login">Συνδεθείτε</div>
                 </span>
 <!--                 <span data-bind="visible: currentActive() == 5">
                     <h4>Είσαι ήδη μέλος;</h4>

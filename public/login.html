@@ -9,27 +9,31 @@
         <title>Σύνδεση | Nutrition</title>
     </head>
     <body id="body">
-<!--         <div class="warning" id="warning">
-            <h5>Εισάγετε Κωδικό Πρόσβασης</h5>
-            <p data-bind="click: closeLoginWarning">x</p>
-        </div> -->
         <section class="container">
-
+<!--    ------- ALERT ANIMATION ΛΑΘΟΣ ΔΕΔΟΜΕΝΑ --------   
+       <div class="alert hide">
+            <span class="fas fa-exclamation-circle"></span>
+            <span class="msg">Προειδοποίηση: Λάθος Δεδομένα</span>
+            <span class="close-btn" data-bind="click: closeLoginWarning">
+                <span class="fas fa-times"></span> 
+            </span>
+        </div>
+-->  
             <form method="post" data-bind="submit: login" class="form-elements">
-                <div class="field">
-                    <a href="index.html"><div class="logo">Nutrition</div></a>
-                </div>
+                <div class="logo" data-bind="click: indexPage">Nutrition</div>
                 <h1>Σύνδεση</h1>
-                <div class="wrong">
+                <div class="alert-error" id="alertError">
                     <div class="error-sub" data-bind="text: loginMessage"></div>     
                </div>
-                <div class="field">
-                    <h4>Email</h4>
-                    <input type="text" data-bind='value: email' placeholder="Εισάγετε Email...">
+                <input type="hidden" data-bind='value: csrfLogin'>
+               <div class="field">
+                    <h4>Όνομα Χρήστη ή Email</h4>
+                    <input type="text" data-bind='value: email' placeholder="Εισάγετε Όνομα Χρήστη ή Email...">
                 </div>
                 <div class="wrong">
                     <span class="error" data-bind="visible: email.emailError, text: email.emailErrorMessage"></span>
-                    <span class="error" data-bind="visible: email.emptyFieldError, text: email.emptyFieldMessage"></span>        
+                    <span class="error" data-bind="visible: email.emptyFieldError, text: email.emptyFieldMessage"></span>
+                    <span class="error" data-bind="visible: email.alphaNumericMailError, text: email.alphaNumericMailMessage"></span>        
                </div>
                 <div class="field">
                     <div class="lock">
@@ -47,7 +51,7 @@
                     <span class="error" data-bind="visible: password.emptyFieldError, text: password.emptyFieldMessage"></span>        
                </div>
                 <div class="field-forget">
-                    <a href="forgetpassword.html"><h6>Ξεχάσατε τον κωδικό πρόσβασης;</h6></a>
+                    <h6 data-bind="click:forgetPassPage">Ξεχάσατε τον κωδικό πρόσβασης;</h6>
                 </div>
 
                 <button type="submit" name="submit" class="submit-button btns">Καταχώρηση</button>
