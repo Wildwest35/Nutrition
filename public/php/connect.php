@@ -2,7 +2,7 @@
 //Access: Everyone
 //Purpose: Connect with database
 
-    $hostname = '/zstorage/home/ece01121/mysql/run/mysql.sock';
+    $hostname = '127.0.0.1';
 	$username = 'root';
 	$password = '';
 	$database = 'nutrition';
