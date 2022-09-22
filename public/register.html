@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="el">
     <head>
         <meta charset='UTF-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,29 +11,37 @@
         <title>Εγγραφή | Nutrition</title>
     </head>
     <body id="body">
-<!--         <div class="warning" id="warning">
-            <div class="wrong">
-                <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthErrorMessage"></span>
-                <span class="error" data-bind="visible: username.maxLengthError, text: username.maxLengthErrorMessage"></span>
-                <span class="error" data-bind="visible: username.numbersError, text: username.numbersMessage"></span>            
-           </div>
-           <p data-bind="click: closeLoginWarning">x</p>
-        </div> -->
+        <section class="container-nav-bar" id="home">
+            <div class="nav-bar-left">
+                <div class="nav-bar-logo" data-bind="click: indexPage">
+                    <img src="img/nutrition.png" alt="Nutrition">
+                    <h1>Nutrition</h1>
+                </div>
+                <img src="img/menu.png" alt="meu Test Image" width="50" height="40" class="menu" data-bind="click: collapse">
+            </div>
+            <div class="nav-bar-options" id="nav-bar-options">
+
+            </div>  
+            <div class="nav-bar-account" id="nav-bar-account">
+                <img src="#" alt="flag" data-bind="click: registerPageFlag, attr: {src: flag, alt: 'flag'}" width="40" height="40" class="lang">
+                <button class="register" data-bind="click: loginPage, text: loginbtn">Σύνδεση</button>
+            </div>      
+        </section>
         <section class="container">
 
             <form method="post" data-bind="submit: register" class="form-elements">
-                <div class="logo" data-bind="click: indexPage">Nutrition</div>
-                <span data-bind="visible: currentActive() != 5">
-                    <h1>Εγγραφή</h1>                
-                </span>
+                <!-- <div class="logo" data-bind="click: indexPage">Nutrition</div> -->
+                <section data-bind="visible: currentActive() != 5">
+                    <h1 data-bind="text: registername">Εγγραφή</h1>                
+                </section>
                 <!-- <span class="error" data-bind="visible: emptyFieldError, text: emptyFieldMessage"></span> -->
-                <span data-bind="visible: currentActive() == 1">
+                <section data-bind="visible: currentActive() == 1">
                     <div class="field">
                         <div class="star">
-                            <h4>Όνομα Χρήστη</h4>
+                            <h4>Usename</h4>
                             <p>*</p>
                         </div>
-                        <input type="text" data-bind='value: username' placeholder="Εισάγετε Όνομα Χρήστη..." title="Εισάγετε Όνομα Χρήστη πχ. Vasilis">
+                        <input type="text" data-bind='value: username, attr: {placeholder: self.usernamePlaceholder}' title="Εισάγετε Usename πχ. Vasilis">
                     </div>    
                     <div class="wrong">
                         <span class="error" data-bind="visible: username.minLengthError, text: username.minLengthMessage"></span>
@@ -46,7 +55,7 @@
                             <h4>Email</h4>
                             <p>*</p>
                         </div>
-                        <input type="text" data-bind='value: email' placeholder="Εισάγετε Email..." title="Εισάγετε Email πχ. test@gmail.com">
+                        <input type="text" data-bind='value: email, attr: {placeholder: self.emailPlaceholder}' title="Εισάγετε Email πχ. test@gmail.com">
                     </div>
                     <div class="wrong">     
                         <span class="error" data-bind="visible: email.emailError, text: email.emailErrorMessage"></span>
@@ -56,13 +65,13 @@
                     <div class="field">
                         <div class="lock">
                             <div class="star">
-                                <h4>Συνθηματικό</h4>
+                                <h4 data-bind="text: pass">Συνθηματικό</h4>
                                 <p>*</p>
                             </div>                            
                             <i data-bind="click: lockerpassword, visible: islockpassword" class="fas fa-eye-slash"></i>
                             <i data-bind="click: lockerpassword, visible: !islockpassword()" class="fas fa-eye"></i>
                         </div>
-                        <input type="password" data-bind='value: password' id="password" placeholder="Εισάγετε Συνθηματικό..." title="Εισάγετε Συνθηματικό πχ. Va$ilis22*" autocomplete="off">
+                        <input type="password" data-bind='value: password, attr: {placeholder: self.passPlaceholder}' id="password" title="Εισάγετε Συνθηματικό πχ. Va$ilis22*" autocomplete="off">
                     </div>
                     <div class="wrong">
                         <span class="error" data-bind="visible: password.minLengthError, text: password.minLengthMessage"></span>
@@ -71,13 +80,13 @@
                     <div class="field">
                         <div class="lock">
                             <div class="star">
-                                <h4>Επιβεβαίωση Συνθηματικού</h4>
+                                <h4 data-bind="text: repeatpass">Επιβεβαίωση Συνθηματικού</h4>
                                 <p>*</p>
                             </div>                            
                             <i data-bind="click: lockerrepeatpassword, visible: islockrepeatpasswrord" class="fas fa-eye-slash"></i>
                             <i data-bind="click: lockerrepeatpassword, visible: !islockrepeatpasswrord()" class="fas fa-eye"></i>
                         </div>
-                        <input type="password" data-bind='value: repeatpassword' id="repeatpassword" placeholder="Εισάγετε Επιβεβαίωση Συνθηματικού..." title="Εισάγετε Επιβεβαίωση Συνθηματικού πχ. Va$ilis22*" autocomplete="off">
+                        <input type="password" data-bind='value: repeatpassword, attr: {placeholder: self.repeatpassPlaceholder}' id="repeatpassword" title="Εισάγετε Επιβεβαίωση Συνθηματικού πχ. Va$ilis22*" autocomplete="off">
                     </div>
                     <div class="wrong">
                         <span class="error" data-bind="visible: repeatpassword.minLengthError, text: repeatpassword.minLengthMessage"></span>  
@@ -85,25 +94,25 @@
                         <span class="error" data-bind="visible: repeatpassword.emptyFieldError, text: repeatpassword.emptyFieldMessage"></span>
                     </div>    
                     <div class="field-change-bar">               
-                        <button class="submit-button btns" data-bind="click: next">Επόμενο</button>
+                        <button class="submit-button btns" data-bind="click: next, text: nextbtn"></button>
                     </div> 
-                </span>
-                <span data-bind="visible: currentActive() == 2">
+                </section>
+                <section data-bind="visible: currentActive() == 2">
                     <div class="sex">
                         <div class="star">
-                            <h4>Φύλο</h4>
+                            <h4 data-bind="text: sexname">Φύλο</h4>
                             <p>*</p>
                         </div>
                         <div class="sex-container">
                             <div class="sex-element" >
                                 <i class="fas fa-mars"></i>
-                                <p>Άρρεν</p>
-                                <input type="radio" name="sex" value="Άρρεν" data-bind="checked: sexcategory">
+                                <p data-bind="text: male"></p>
+                                <input type="radio" name="sex" data-bind="checked: sexcategory, value: male">
                             </div>
                             <div class="sex-element">
                                 <i class="fas fa-venus"></i>
-                                <p>Θήλυ</p>
-                                <input type="radio" name="sex" value="Θήλυ" data-bind="checked: sexcategory">
+                                <p data-bind="text: female"></p>
+                                <input type="radio" name="sex" data-bind="checked: sexcategory, value: female">
                             </div>
                         </div>
                     </div>
@@ -112,10 +121,10 @@
                     </div>
                     <div class="field">
                         <div class="star">
-                            <h4>Ηλικία</h4>
+                            <h4 data-bind="text: agename">Ηλικία</h4>
                             <p>*</p>
                         </div>
-                        <input type="number" data-bind='value: age' placeholder="Εισάγετε την ηλικία σας" title="Εισάγετε την ηλικία σας πχ. 40">
+                        <input type="number" data-bind='value: age, attr: {placeholder: self.agePlaceholder}' title="Εισάγετε την ηλικία σας πχ. 40">
                     </div>
                     <div class="wrong">
                         <span class="error" data-bind="visible: age.maxLengthError, text: age.maxLengthMessage"></span>
@@ -124,28 +133,41 @@
                    </div>
                     <div class="field">
                         <div class="star">
-                            <h4>Ύψος (cm)</h4>
+                            <h4 data-bind="text: heightname">Ύψος (cm)</h4>
                             <p>*</p>
                         </div>
-                        <input type="number" data-bind='value: height' placeholder="Εισάγετε το ύψος σας" title="Εισάγετε το ύψος σας πχ. 175">
+                        <input type="number" data-bind='value: height, attr: {placeholder: self.heightPlaceholder}' title="Εισάγετε το ύψος σας πχ. 175">
                     </div>
                     <div class="wrong">
                         <span class="error" data-bind="visible: height.maxLengthError, text: height.maxLengthMessage"></span>
                         <span class="error" data-bind="visible: height.numericError, text: height.numericMessage"></span>
                         <span class="error" data-bind="visible: height.emptyFieldError, text: height.emptyFieldMessage"></span>         
                    </div>
-                    <div class="field-change-bar">
-                        <button class="submit-button btns" data-bind="click: previous">Πίσω</button>                        
-                        <button class="submit-button btns" data-bind="click: next">Επόμενο</button>
-                    </div>
-                </span>
-                <span data-bind="visible: currentActive() == 3">
-                    <div class="field">
+                   <div class="field">
                         <div class="star">
-                            <h4>Βάρος (kg)</h4>
+                            <h4 data-bind="text: exerciseName">Άσκηση</h4><!-- text:  -->
                             <p>*</p>
                         </div>
-                        <input type="number" step="0.5" data-bind='value: weight' placeholder="Εισάγετε το βάρος σας" title="Εισάγετε το βάρος σας πχ. 75">
+                        <select name="isweight" data-bind='value: exercise'>
+                            <option value="1" data-bind="text: noExercise">Λίγο ή Καθόλου Άσκηση (0-1 Μέρες/Εβδομάδα)</option>
+                            <option value="2" data-bind="text: lightExercise">Χαλαρή Άσκηση (1-3 Μέρες/Εβδομάδα)</option>
+                            <option value="3" data-bind="text: moderateExercise">Μέτρια Άσκηση (3-5 Μέρες/Εβδομάδα)</option>
+                            <option value="4" data-bind="text: activeExercise">Έντονη Άσκηση (6-7 Μέρες/Εβδομάδα)</option>
+                            <option value="5" data-bind="text: veryActiveExercise">Πολύ Έντονη Άσκηση (6-7 Μέρες/Εβδομάδα)</option>
+                        </select>
+                    </div>
+                    <div class="field-change-bar">
+                        <button class="submit-button btns" data-bind="click: previous, text: previousbtn"></button>                        
+                        <button class="submit-button btns" data-bind="click: next, text: nextbtn"></button>
+                    </div>
+                </section>
+                <section data-bind="visible: currentActive() == 3">
+                    <div class="field">
+                        <div class="star">
+                            <h4 data-bind="text: weightname">Βάρος (kg)</h4>
+                            <p>*</p>
+                        </div>
+                        <input type="number" step="0.5" data-bind='value: weight, attr: {placeholder: self.weightPlaceholder}' title="Εισάγετε το βάρος σας πχ. 75">
                     </div>
                     <div class="wrong">
                         <span class="error" data-bind="visible: weight.maxLengthError, text: weight.maxLengthMessage"></span>
@@ -154,46 +176,70 @@
                    </div>
                     <div class="field">
                         <div class="star">
-                            <h4>Θέλω να</h4>
+                            <h4 data-bind="text: isIncreaseWeightname">Θέλω να</h4>
                             <p>*</p>
                         </div>
-                        <select name="isweight" data-bind='value: isweight'>
-                            <option value="0">Επιλέξτε Κατηγορία</option>
-                            <option value="1">χάσω βάρος</option>
-                            <option value="2">διατηρήσω το βάρος μου</option>
-                            <option value="3">πάρω βάρος</option>
+                        <select name="isweight" data-bind='value: isweight '><!-- -->
+                            <option value="0" data-bind="text: choosecategory">Επιλέξτε Κατηγορία</option>
+                            <option value="1" data-bind="text: loseWeight">Χάσω Βάρος</option>
+                            <option value="2" data-bind="text: maintainWeight">Διατηρήσω το Βάρος μου</option>
+                            <option value="3" data-bind="text: gainWeight">Πάρω Βάρος</option>
                         </select>
                     </div>
-                    <div class="field" data-bind="visible: isweight() !== '2' && isweight() !== '0' && weight() != ''">
+                    <div class="field" data-bind="visible: !isweightError()"><!--  isweight() !== '2' && isweight() !== '0' && weight() != '' -->
                         <div class="star">
-                            <h4>Επιθυμητό Βάρος (kg)</h4>
+                            <h4 data-bind="text: requestedname">Επιθυμητό Βάρος (kg)</h4>
                             <p>*</p>
                         </div>
-                        <input type="number" step="0.5" data-bind='value: requestedWeight' placeholder="Εισάγετε το επιθυμητό βάρος" title="Εισάγετε το επιθυμητό βάρος πχ. 75">
+                        <input type="number" step="0.5" data-bind='value: requestedWeight, attr: {placeholder: self.requestedWeightPlaceholder}' title="Εισάγετε το επιθυμητό βάρος πχ. 75">
+                   
+                        <div class="wrong">
+                            <span class="error" data-bind="visible: requestedWeight.maxLengthError, text: requestedWeight.maxLengthMessage"></span>
+                            <span class="error" data-bind="visible: requestedWeight.numericError, text: requestedWeight.numericMessage"></span>
+                            <span class="error" data-bind="visible: weightCheckcError, text: weightCheckMessage"></span>
+                            <span class="error" data-bind="visible: requestedWeight.emptyFieldError, text: requestedWeight.emptyFieldMessage"></span>         
+                        </div>
                     </div>
-                    <div class="wrong">
-                        <span class="error" data-bind="visible: requestedWeight.maxLengthError, text: requestedWeight.maxLengthMessage"></span>
-                        <span class="error" data-bind="visible: requestedWeight.numericError, text: requestedWeight.numericMessage"></span>
-                        <span class="error" data-bind="visible: weightCheckcError, text: weightCheckMessage"></span>
-                        <span class="error" data-bind="visible: requestedWeight.emptyFieldError, text: requestedWeight.emptyFieldMessage"></span>         
-                   </div>
+
+
+                   <div class="field" data-bind="visible: !isweightError()"><!-- isweight() !== '2' && isweight() !== '0' && weight() != '' -->
+                        <div class="star">
+                            <h4 data-bind="">Κιλά/Εβδομάδα</h4>
+                            <p>*</p>
+                        </div>
+                        <select id="kilos" data-bind='value: kilos' title="Επιλέξτε τα κιλά που θέλετε να χάνετε ή να παίρνετε την εβδομάδα">
+                            <option value="0" data-bind="">Επιλέξτε Κιλά</option>
+                            <option value="0.5" data-bind="">0.5</option>
+                            <option value="1" data-bind="">1</option>
+                            <option value="1.5" data-bind="">1.5</option>
+                            <option value="2" data-bind="">2</option>
+                        </select>
+                        <!-- <input type="number" step="0.5" data-bind='value: requestedWeight, attr: {placeholder: self.requestedWeightPlaceholder}' title="Εισάγετε τα κιλά που θα χάνετε ή παίρνετε την εβδομάδα"> -->
+                    
+<!--                         <div class="wrong">
+                            <span class="error" data-bind="visible: requestedWeight.maxLengthError, text: requestedWeight.maxLengthMessage"></span>
+                            <span class="error" data-bind="visible: requestedWeight.numericError, text: requestedWeight.numericMessage"></span>
+                            <span class="error" data-bind="visible: weightCheckcError, text: weightCheckMessage"></span>
+                            <span class="error" data-bind="visible: requestedWeight.emptyFieldError, text: requestedWeight.emptyFieldMessage"></span>         
+                        </div> -->
+                    </div>
+
+
                     <div class="field-change-bar">
-                        <button class="submit-button btns" data-bind="click: previous">Πίσω</button>
-                        <button class="submit-button btns" data-bind="click: next">Επόμενο</button>
+                        <button class="submit-button btns" data-bind="click: previous, text: previousbtn"></button>
+                        <button class="submit-button btns" data-bind="click: next, text: nextbtn"></button>
                     </div>
-                </span>
-                <span data-bind="visible: currentActive() == 4">
-                    <!-- <div class="check">Ελέγξτε ότι τα στοιχεία σας είναι ορθά.</div> -->
+                </section>
+                <section data-bind="visible: currentActive() == 4">
                     <div class="alert-error" id="alertError">
-                        <div class="error-sub" data-bind="text: errorMessage"></div>     
+                        <h4 class="error-sub" data-bind="text: errorMessage">Το Usename υπάρχει ήδη. Πηγαίνετε Πίσω να το αλλάξετε!</h4>     
                    </div>
                     <table>
                         <tr>
-                            <!-- <td>Όνομα Χρήστη</td> -->
-                            <th colspan="2" style="text-align:center; font-size: 19px">ΕΛΕΓΞΤΕ ΟΤΙ ΤΑ ΣΤΟΙΧΕΙΑ ΣΑΣ ΕΙΝΑΙ ΟΡΘΑ!</th>
+                            <th colspan="2" style="text-align:center; font-size: 19px" data-bind="text: checkparams"></th>
                         </tr>
                         <tr>
-                            <td>Όνομα Χρήστη</td>
+                            <td>Usename</td>
                             <th data-bind='text: username'></th>
                         </tr>
                         <tr>
@@ -201,51 +247,52 @@
                             <th><div class="break-line" data-bind='text: email'></div></th>
                         </tr>
                         <tr>
-                            <td>Φύλο</td>
+                            <td data-bind="text: sexname"></td>
                             <th data-bind='text: sexcategory'></th>
                         </tr>
                         <tr>
-                            <td>Ηλικία</td>
+                            <td data-bind="text: agename"></td>
                             <th data-bind='text: age'></th>
                         </tr>
                         <tr>
-                            <td>Ύψος (cm)</td>
+                            <td data-bind="text: heightname"></td>
                             <th data-bind='text: height'></th>
                         </tr>
                         <tr>
-                            <td>Βάρος (kg)</td>
+                            <td data-bind="text: weightname"></td>
                             <th data-bind='text: weight'></th>
                         </tr>
                         <tr>
-                            <td>Θέλω να</td>
+                            <td data-bind="text: isIncreaseWeightname"></td>
                             <th data-bind='text: self.weightcategory'></th>
                         </tr>
                         <tr>
-                            <td>Επιθυμητό Βάρος (kg)</td>
+                            <td data-bind="text: requestedname"></td>
                             <th data-bind='text: requestedWeight'></th>
                         </tr>
+                        <tr>
+                            <td data-bind='text: exerciseName'>Άσκηση</td>
+                            <th data-bind='text: exerciseText'>Πολύ Έντονη Άσκηση (6-7 Μέρες/Εβδομάδα)</th>
+                        </tr>
+                        <tr>
+                            <td data-bind="text: kilosname"></td>
+                            <th data-bind='text: kilos'></th>
+                        </tr>
                       </table>
-
-<!--               
-                    <div class="wrong">
-                        <span class="error" data-bind="visible: username.checkUniqueFieldError, text: username.checkUniqueFieldMessage"></span>     
-                    </div> 
--->
-
                     <div class="field-change-bar">
-                        <button class="submit-button btns" data-bind="click: previous">Πίσω</button>                   
-                        <button type="submit" name="submit" class="submit-button btns">Καταχώρηση</button>
+                        <button class="submit-button btns" data-bind="click: previous, text: previousbtn"></button>                   
+                        <button type="submit" name="submit" class="submit-button btns" data-bind="text: submit"></button>
                     </div>
-                </span>
+                </section>
 
-                <span data-bind="visible: currentActive() == 5">
-                    <h3 class="complete">Η Εγγραφή σας ολοκληρώθηκε με επιτυχία! Θα σας σταλεί ένα Email για την ενεργοποίηση του λογαριασμού σας!</h3>
-                    <button class="submit-button" data-bind="click: login">Συνδεθείτε</button>
-                </span>
+                <section data-bind="visible: currentActive() == 5">
+                    <h3 class="complete" data-bind="text: successmsg">Η Εγγραφή σας ολοκληρώθηκε με επιτυχία! Θα σας σταλεί ένα Email για την ενεργοποίηση του λογαριασμού σας!</h3>
+                    <button class="submit-button" data-bind="click: loginPage, text: login"></button>
+                </section>
 
                 <div class="container-progress-bar">
                     <div class="progress-bar">
-                        <div class="progress" id="progress"></div><!-- <i class="fab fa-html5"></i> -->
+                        <div class="progress" id="progress"></div>
                         <div class="circle active" data-bind="click: step1"><span class="material-icons">person</span></div>
                         <div class="circle" data-bind="click: step2"><span class="material-icons">accessibility</span></div>
                         <div class="circle" data-bind="click: step3"><i class="fas fa-weight"></i></div>
@@ -255,11 +302,11 @@
                     </div>
                 </div>           
                 
-                <span data-bind="visible: currentActive() != 5">
+                <section data-bind="visible: currentActive() != 5">
                     <div class="line"></div>
-                    <p>Είστε ήδη μέλος;</p>
-                    <div class="sign-up" data-bind="click: login">Συνδεθείτε</div>
-                </span>
+                    <p data-bind="text: member">Είστε ήδη μέλος;</p>
+                    <h4 class="sign-up" data-bind="click: loginPage, text: login">Συνδεθείτε</h4>
+                </section>
 <!--                 <span data-bind="visible: currentActive() == 5">
                     <h4>Είσαι ήδη μέλος;</h4>
                     <a href="login.html"><h2 class="sign-up">Συνδέσου</h2></a>
@@ -267,11 +314,27 @@
             </form>
         </section>
 
+        <div data-bind="bindHTML: footer"></div>
+
+        <div class="modal-bg" id="modalLoad">
+            <div class="modal">
+                <div class="cube-con">
+                    <figure>
+                        <div></div><div></div>
+                        <div></div><div></div>
+                        <div></div><div></div>
+                        <div></div><div></div>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script type='text/javascript' src='js/knockout.js'></script>
+        <script src='js/knockout.js'></script>
         <script src="js/popperBH.js"></script>
         <script src="js/fadeVisible.js"></script>
         <script src="js/checkInput.js"></script>
+        <script src="js/bindHTML.js"></script>
         <script src="js/register.js"></script>
     </body>
 </html>

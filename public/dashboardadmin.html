@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="el" id="body">
+    <head>
+         <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://kit.fontawesome.com/29bdf39021.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="css/style3.css">
+        <title data-bind="text: title">Admin Πάνελ | Nutrition</title> 
+    </head>
+    <body>
+        <input type="checkbox" id="nav-toggle">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <h1><img src="img/nutrition.png" width="50" height="50" alt="Nutrition"><span style="margin-left: 0.5rem;">Nutrition</span></h1>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li data-bind="foreach: dashboardArray" >
+                        <a data-bind="click: redirect, class: activelabel, attr: {title: title}">
+                            <span data-bind="class: icons"></span>
+                            <span data-bind="text: name"></span>
+                        </a>
+                    </li>      
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content" >   
+            <header>
+                <section>
+                    <label for="nav-toggle" id="mediaCalc">
+                        <!-- <span class="las la-bars"></span> -->
+                        <img src="img/menu.png" width="40" height="40" alt="Bar">
+                    </label>
+                    <h3 data-bind="text: panel">Admin Πάνελ</h3>
+                </section>
+<!--                 <form method="post" data-bind="submit: chooseSearch">
+                    <div class="element-middle">
+                        <input type="search" data-bind="value: seachUser, attr: {placeholder: self.searchUserName}"/>
+                        <img src="./img/search.png" alt="consumed" width="30" height="30" class="summary-touch" data-bind="click: chooseSearch">
+                    </div>
+                </form> -->
+                <div class="user-wrapper">
+                    <img src="#" alt="flag" data-bind="click: langSubmit, attr: {src: flag, alt: 'flag'}" width="37" height="37" class="lang">
+                    <div>
+                        <h4 data-bind="text: username, value: username">Username</h4>
+                        <small data-bind="text: categoryUser">Admin</small>
+                    </div>
+                </div>
+            </header>
+
+            <main id="main">
+                <span>
+                    <form method="post" data-bind="submit: chooseSearch">
+                        <div class="element-middle-out">
+                            <div class="element-middle"><!-- , valueUpdate: 'afterkeydown' -->
+                                <input type="search" data-bind="value: seachUser, attr: {placeholder: self.searchUserName}"/>
+                                <img src="./img/search.png" alt="consumed" width="30" height="30" class="summary-touch" data-bind="click: chooseSearch">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="users" data-bind="clickArray: [recoverSearchUser, chooseOption.bind($data, 'users')]">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/employees.png" alt="consumed" width="40" height="40">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: users">Χρήστες</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalUsers">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="foods" data-bind="clickArray: [recoverSearchUser, chooseOption.bind($data, 'foods')]">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/groceries.png" alt="consumed" width="40" height="40">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: foods">Φαγητά</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalFoods">0</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="addBtn summary-info-detail" data-bind="clickArray: [self.switch.bind($data, 'modalAddFood')]">Προσθήκη</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="createdFoods" data-bind="clickArray: [recoverSearchUser, chooseOption.bind($data, 'createdFoods')]">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/grocery2.png" alt="consumed" width="40" height="40">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: userFoods">Φαγητά Χρηστών</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalCreatedFoods">0</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="addBtn summary-info-detail" data-bind="click: self.switch.bind($data, 'modalAddCreatedFood')">Προσθήκη</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="foodCategory" data-bind="clickArray: [recoverSearchUser, chooseOption.bind($data, 'foodCategory')]">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/categories.png" alt="consumed" width="40" height="40">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: categoryFoods">Κατηγορίες Φαγητών</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalFoodCategories">0</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="addBtn summary-info-detail" data-bind="click: self.switch.bind($data, 'modalAddCategoryFood')">Προσθήκη</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="units" data-bind="clickArray: [recoverSearchUser, chooseOption.bind($data, 'units')]">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/weighing-machine.png" alt="consumed" width="40" height="40">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: units">Μονάδες Μέτρησης</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalUnits">0</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="addBtn summary-info-detail" data-bind="click: self.switch.bind($data, 'modalAddUnit')">Προσθήκη</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="activationLink" data-bind="clickArray: [recoverSearchUser, chooseOption.bind($data, 'activationLink')]">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/kyc.png" alt="consumed" width="40" height="40">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: activationLinks">Ενεργοποίηση Λογαριασμών</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalActivationLinks">0</div>
+                                        </div>
+                                    </div>
+                                </div>            
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="confirmNewEmails" data-bind="clickArray: [recoverSearchUser, chooseOption.bind($data, 'confirmNewEmails')]">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/confirmation.png" alt="consumed" width="40" height="40">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: confirmNewEmails">Επιβεβαιωσεις Νέων Email</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalConfirmNewEmails">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <!-- <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div> -->
+                    </div>
+                    
+
+
+    <!--                 <div class="filter">
+                        <div class="filter-cat">
+                            <div class="summary-info edit-quantity">
+                                <select name="limit" id="limit" data-bind="event:{change: updateLimit}">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="1">1</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div> 
+                    </div> -->
+                
+                    <div class="food-titles-container">
+                        <div class="cont-menu-food"  style="white-space: unset;">
+                            <table class="food-top">
+                                <!-- <thead data-bind="foreach: sortedTasks, visible: usersArray().length > 0"></thead> -->
+                                <tr data-bind="bindHTML: thOption"></tr>
+                                <tr  data-bind="visible: elementOptionArray().length == 0">
+                                    <td class="food-elements-light" colspan="9">
+                                        <div class="summary-info-detail" data-bind="text: noAvailable">No Available User</div>
+                                    </td>
+                                </tr>
+                                <tbody data-bind="foreach: sortedTasks, visible: elementOptionArray().length > 0">
+                                    <tr data-bind="bindHTML: td"></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="pagination">
+                        <ul data-bind="bindHTML: liTag"></ul>
+                    </div>
+                </span>
+
+                <div data-bind="bindHTML: footer"></div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalDelete')" id="modalDelete">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="delete" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2 data-bind="text: deletes">Διαγραφή</h2>
+                                </div>
+                                <div class="scroll-add">
+                                    <div class="scroll-pos">
+                                        <div class="modal-water-element">
+                                            <div class="summary-info" data-bind=""></div>
+                                        </div>
+                                        <div class="modal-water-element">
+                                            <div>
+                                                <div class="no"  data-bind="click: self.switch.bind($data, 'modalDelete'), text: no">ΟΧΙ</div>
+                                                <div class="yes" data-bind="click: chooseDelete, text: yes">ΝΑΙ</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalActivate')" id="modalActivate">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="delete" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2 data-bind="text: activate">Ενεργοποίηση</h2>
+                                </div>
+                                <div class="scroll-add">
+                                    <div class="scroll-pos">
+                                        <div class="modal-water-element">
+                                            <div class="summary-info" data-bind=""></div>
+                                        </div>
+                                        <div class="modal-water-element">
+                                            <div>
+                                                <div class="no"  data-bind="click: self.switch.bind($data, 'modalActivate'), text: no">ΟΧΙ</div>
+                                                <div class="yes" data-bind="click: chooseSubmit, text: yes">ΝΑΙ</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalSuccessMsg')" id="modalSuccessMsg">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="successMsg">
+                                <div class="successMsg-top" data-bind="">Το φαγητό προστέθηκε με επιτυχία!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalInfo')" id="modalInfo" style="white-space: unset;">
+                    <div class="modal">
+                        <div class="modal-water-container">
+                            <div class="water" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2 data-bind="text: info">Πληροφορίες Χρήστη</h2>
+                                </div>
+                                <div class="scroll-add">
+                                    <div class="scroll-pos">
+                                        <div class="modal-water-field">
+                                            <table data-bind="bindHTML: self.showInfoArray()"></table>
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail" data-bind="click: self.switch.bind($data, 'modalInfo'), text: cancelWord">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail" data-bind="click: self.switch.bind($data, 'modalInfo'),text: okWord">Εντάξει</h4>       
+                                                </div>                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="" id="modalAddFood"><!-- click: self.switch.bind($data, 'modalAdd') -->
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind=""><!-- click: stopProp.bind($data, event) -->
+                                <img class="close-btn" src="./img/stop1.png" data-bind="clickArray: [recoverAddInputColor, emptyFoodVariables, self.switch.bind($data, 'modalAddFood')]" alt="Exit" width="40" height="40">
+                                <div class="edit-top" style="justify-content: center">
+                                    <h2 data-bind="text: addfood">Προσθήκη Φαγητού</h2>
+                                </div>
+                                <form method="post" data-bind="submit: uploadImg" id="form">
+                                    <div class="scroll-add" id="scrollEdit">
+                                        <div class="scroll-pos">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodName" id="nameEdit">Όνομα Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFoodName">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFoodName.alphaNumericLatinError, text: newFoodName.alphaNumericLatinMessage"></div>
+                                                <div class="errormsg" data-bind="visible: uniqueNameError, text: uniqueNameMsg"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit">Κατηγορία Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="pos1" data-bind="value: newCategoryFood, foreach: foodCategoryArray">
+                                                    <option data-bind="value: categoryValue, text: category">Επέλεξε Κατηγορία Φαγητού</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unitName" id="unitEdit">Μονάδα Μέτρησης</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="pos" data-bind="value: newUnit, foreach: unitsArray">
+                                                    <option data-bind="value: unitValue, text: unit">Επέλεξε Μονάδα Μέτρησης</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: quantityName" id="portionEdit">Ποσότητα</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newPortion">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newPortion.numericError, text: newPortion.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: caloriesName" id="caloriesEdit">Θερμίδες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCalories">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCalories.numericError, text: newCalories.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: proteinName" id="proteinEdit">Πρωτεΐνες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newProtein">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newProtein.numericError, text: newProtein.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: carbName" id="carbEdit">Υδατάνθρακες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCarb">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCarb.numericError, text: newCarb.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: fatName" id="fatEdit">Λίπος</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFat">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFat.numericError, text: newFat.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: fiberName" id="fitEdit">Φυτικές Ίνες</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFiber">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFiber.numericError, text: newFiber.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: sugarName" id="sugarEdit">Σάκχαρα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newSugar">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newSugar.numericError, text: newSugar.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: saturatedName" id="saturatedEdit">Κορεσμένα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newSaturated">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newSaturated.numericError, text: newSaturated.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit">Ακόρεστα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newUnsaturated">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newUnsaturated.numericError, text: newUnsaturated.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit">Βιταμίνη D</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newBitaminD">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newBitaminD.numericError, text: newBitaminD.numericMessage"></div>   
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="file" name="file" id="file" accept="image/png, image/jpeg, image/jpg" data-bind="event: {change: $root.fileUpload}">
+                                            </div>
+                                            <div class="edit-bottom">
+                                                <div class="edit-submit">
+                                                    <div class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInputColor, emptyFoodVariables, self.switch.bind($data, 'modalAddFood')], text: cancelWord">Ακύρωση</div>
+                                                    <button class="summary-info-detail summary-touch" data-bind="click: uploadImg, text: okWord">Ενημέρωση</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="modal-bg" data-bind="" id="modalAddCreatedFood"><!-- click: self.switch.bind($data, 'modalAdd') -->
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind=""><!-- click: stopProp.bind($data, event) -->
+                                <img class="close-btn" src="./img/stop1.png" data-bind="clickArray: [recoverAddInputColor, emptyFoodVariables, self.switch.bind($data, 'modalAddCreatedFood')]" alt="Exit" width="40" height="40">
+                                <div class="edit-top" style="justify-content: center">
+                                    <h2 data-bind="text: addfood">Προσθήκη Φαγητού</h2>
+                                </div>
+                                <form method="post" data-bind="submit: uploadImg" id="form1">
+                                    <div class="scroll-add" id="scrollCreate">
+                                        <div class="scroll-pos">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: userName" id="usernameCreate">Username</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="pos" data-bind="value: newUsername, foreach: usersArray">
+                                                    <option data-bind="value: id, text: username">Επέλεξε Username</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodName" id="nameCreate">Όνομα Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFoodName">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFoodName.alphaNumericLatinError, text: newFoodName.alphaNumericLatinMessage"></div>
+                                                <div class="errormsg" data-bind="visible: uniqueNameError, text: uniqueNameMsg"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="categoryCreate">Κατηγορία Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="pos1" data-bind="value: newCategoryFood, foreach: foodCategoryArray">
+                                                    <option data-bind="value: categoryValue, text: category">Επέλεξε Κατηγορία Φαγητού</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unitName" id="unitCreate">Μονάδα Μέτρησης</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="pos" data-bind="value: newUnit, foreach: unitsArray">
+                                                    <option data-bind="value: unitValue, text: unit">Επέλεξε Μονάδα Μέτρησης</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: quantityName" id="portionCreate">Ποσότητα</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newPortion">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newPortion.numericError, text: newPortion.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: caloriesName" id="caloriesCreate">Θερμίδες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCalories">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCalories.numericError, text: newCalories.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: proteinName" id="proteinCreate">Πρωτεΐνες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newProtein">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newProtein.numericError, text: newProtein.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: carbName" id="carbCreate">Υδατάνθρακες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCarb">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCarb.numericError, text: newCarb.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: fatName" id="fatCreate">Λίπος</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFat">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFat.numericError, text: newFat.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: fiberName" id="fitCreate">Φυτικές Ίνες</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFiber">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFiber.numericError, text: newFiber.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: sugarName" id="sugarCreate">Σάκχαρα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newSugar">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newSugar.numericError, text: newSugar.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: saturatedName" id="saturatedCreate">Κορεσμένα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newSaturated">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newSaturated.numericError, text: newSaturated.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedCreate">Ακόρεστα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newUnsaturated">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newUnsaturated.numericError, text: newUnsaturated.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: bitaminsName" id="bitaminDCreate">Βιταμίνη D</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newBitaminD">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newBitaminD.numericError, text: newBitaminD.numericMessage"></div>   
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="file" name="file" id="file1" accept="image/png, image/jpeg, image/jpg" data-bind="event: {change: $root.fileUpload}">
+                                            </div>
+                                            <div class="edit-bottom">
+                                                <div class="edit-submit">
+                                                    <div class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInputColor, emptyFoodVariables, self.switch.bind($data, 'modalAddCreatedFood')], text: cancelWord">Ακύρωση</div>
+                                                    <button class="summary-info-detail summary-touch" data-bind="click: uploadImg, text: okWord">Ενημέρωση</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal-bg" data-bind="clickArray: [recoverAddInputColor, emptyFoodVariables, self.switch.bind($data, 'modalAddCategoryFood')]" id="modalAddCategoryFood">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind="click: stopProp.bind($data, event)">
+                                <div class="edit-top" style="justify-content: center">
+                                    <h2 data-bind="text: addFoodCategory">Προσθήκη Κατηγορίας</h2>
+                                </div>
+                                <form  method="post" data-bind="submit: submitCategoryFood">
+                                    <div class="scroll-add" id="scrollCreate2">
+                                        <div class="scroll-pos">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="nameCategory">Κατηγορία Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFoodCategoryName">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFoodCategoryName.alphaNumericLatinError, text: newFoodCategoryName.alphaNumericLatinMessage"></div>
+                                            </div>
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInputColor, emptyFoodVariables, self.switch.bind($data, 'modalAddCategoryFood')], text: cancelWord">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail summary-touch" data-bind="click: submitCategoryFood, text: okWord">Προσθήκη</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="clickArray: [recoverAddInputColor, emptyFoodVariables, self.switch.bind($data, 'modalAddUnit')]" id="modalAddUnit">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind="click: stopProp.bind($data, event)">
+                                <div class="edit-top" style="justify-content: center">
+                                    <h2 data-bind="text: addUnit">Προσθήκη Μονάδων</h2>
+                                </div>
+                                <form  method="post" data-bind="submit: submitUnit">
+                                    <div class="scroll-add" id="scrollCreate3">
+                                        <div class="scroll-pos">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unitName" id="nameUnit">Μονάδες Μέτρησης</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newUnitName">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newUnitName.alphaNumericLatinError, text: newUnitName.alphaNumericLatinMessage"></div>
+                                            </div>
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInputColor, emptyFoodVariables, self.switch.bind($data, 'modalAddUnit')], text: cancelWord">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail summary-touch" data-bind="click: submitUnit, text: okWord">Προσθήκη</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-bg" data-bind="" id="modalEditFood"><!-- click: self.switch.bind($data, 'modalEditFood') -->
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind=""><!-- click: stopProp.bind($data, event) -->
+                                <img class="close-btn" src="./img/stop1.png" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditFood')]" alt="Exit" width="40" height="40">
+                                <div class="edit-top" style="justify-content: center">
+                                    <h2 data-bind="text: editFood">Επεξεργασία Φαγητού</h2>
+                                </div>
+                                <form method="post" data-bind="submit: checkImg" id="form2">
+                                    <div class="scroll-add" id="scrollEdit2">
+                                        <div class="scroll-pos">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodName" id="nameEdit1">Όνομα Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFoodName">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFoodName.alphaNumericLatinError, text: newFoodName.alphaNumericLatinMessage"></div>
+                                                <div class="errormsg" data-bind="visible: uniqueNameError, text: uniqueNameMsg"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit1">Κατηγορία Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="" data-bind="value: newCategoryFood, foreach: foodCategoryArray">
+                                                    <option data-bind="value: categoryValue, text: category">Επέλεξε Κατηγορία Φαγητού</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unitName" id="unitEdit1">Μονάδα Μέτρησης</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="pos" data-bind="value: newUnit, foreach: unitsArray">
+                                                    <option data-bind="value: unitValue, text: unit">Επέλεξε Μονάδα Μέτρησης</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: quantityName" id="portionEdit1">Ποσότητα</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newPortion">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newPortion.numericError, text: newPortion.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: caloriesName" id="caloriesEdit1">Θερμίδες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCalories">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCalories.numericError, text: newCalories.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: proteinName" id="proteinEdit1">Πρωτεΐνες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newProtein">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newProtein.numericError, text: newProtein.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: carbName" id="carbEdit1">Υδατάνθρακες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCarb">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCarb.numericError, text: newCarb.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: fatName" id="fatEdit1">Λίπος</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFat">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFat.numericError, text: newFat.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: fiberName" id="fitEdit1">Φυτικές Ίνες</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFiber">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFiber.numericError, text: newFiber.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: sugarName" id="sugarEdit1">Σάκχαρα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newSugar">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newSugar.numericError, text: newSugar.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: saturatedName" id="saturatedEdit1">Κορεσμένα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newSaturated">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newSaturated.numericError, text: newSaturated.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit1">Ακόρεστα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newUnsaturated">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newUnsaturated.numericError, text: newUnsaturated.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit1">Βιταμίνη D</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newBitaminD">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newBitaminD.numericError, text: newBitaminD.numericMessage"></div>   
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="file" name="file" id="file2" accept="image/png, image/jpeg, image/jpg" data-bind="event: {change: $root.fileUpload}">
+                                            </div><!-- modal-water-choice -->
+                                            <div class="edit-bottom">
+                                                <div class="edit-submit">
+                                                    <div class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditFood')], text: cancelWord">Ακύρωση</div>
+                                                    <button class="summary-info-detail summary-touch" data-bind="click: checkImg, text: updateName">Ενημέρωση</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal-bg" data-bind="" id="modalEditCreatedFood"><!-- click: self.switch.bind($data, 'modalEditCreatedFood') -->
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind=""><!-- click: stopProp.bind($data, event) -->
+                                <img class="close-btn" src="./img/stop1.png" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditCreatedFood')]" alt="Exit" width="40" height="40">
+                                <div class="edit-top" style="justify-content: center">
+                                    <h2 data-bind="text: editFood">Επεξεργασία Φαγητού</h2>
+                                </div>
+                                <form method="post" data-bind="submit: checkImg">
+                                    <div class="scroll-add" id="scrollEdit3">
+                                        <div class="scroll-pos">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: userName" id="usernameCreate">Username</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="pos" data-bind="value: newUsername, foreach: usersArray">
+                                                    <option data-bind="value: id, text: username">Επέλεξε Username</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodName" id="nameEdit2">Όνομα Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFoodName">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFoodName.alphaNumericLatinError, text: newFoodName.alphaNumericLatinMessage"></div>
+                                                <div class="errormsg" data-bind="visible: uniqueNameError, text: uniqueNameMsg"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit2">Κατηγορία Φαγητού</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="" data-bind="value: newCategoryFood, foreach: foodCategoryArray">
+                                                    <option data-bind="value: categoryValue, text: category">Επέλεξε Κατηγορία Φαγητού</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unitName" id="unitEdit2">Μονάδα Μέτρησης</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <select id="pos" data-bind="value: newUnit, foreach: unitsArray">
+                                                    <option data-bind="value: unitValue, text: unit">Επέλεξε Μονάδα Μέτρησης</option>
+                                                </select>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: quantityName" id="portionEdit2">Ποσότητα</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newPortion">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newPortion.numericError, text: newPortion.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: caloriesName" id="caloriesEdit2">Θερμίδες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCalories">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCalories.numericError, text: newCalories.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: proteinName" id="proteinEdit2">Πρωτεΐνες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newProtein">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newProtein.numericError, text: newProtein.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: carbName" id="carbEdit2">Υδατάνθρακες</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCarb">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCarb.numericError, text: newCarb.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: fatName" id="fatEdit2">Λίπος</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFat">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFat.numericError, text: newFat.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: fiberName" id="fitEdit2">Φυτικές Ίνες</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newFiber">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newFiber.numericError, text: newFiber.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: sugarName" id="sugarEdit2">Σάκχαρα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newSugar">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newSugar.numericError, text: newSugar.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: saturatedName" id="saturatedEdit2">Κορεσμένα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newSaturated">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newSaturated.numericError, text: newSaturated.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit2">Ακόρεστα</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newUnsaturated">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newUnsaturated.numericError, text: newUnsaturated.numericMessage"></div>   
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit2">Βιταμίνη D</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newBitaminD">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newBitaminD.numericError, text: newBitaminD.numericMessage"></div>   
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="file" name="file" id="file3" accept="image/png, image/jpeg, image/jpg" data-bind="event: {change: $root.fileUpload}">
+                                            </div>
+                                            <div class="edit-bottom">
+                                                <div class="edit-submit">
+                                                    <div class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditCreatedFood')], text: cancelWord">Ακύρωση</div>
+                                                    <button class="summary-info-detail summary-touch" data-bind="click: checkImg, text: updateName">Ενημέρωση</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-bg" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditCategoryFood')]" id="modalEditCategoryFood">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind="click: stopProp.bind($data, event)">
+                                <div class="edit-top" style="justify-content: center">
+                                    <h2 data-bind="text: editFoodCategory">Επεξεργασία Κατηγορίας</h2>
+                                </div>
+                                <form method="post" data-bind="submit: updateCategoryName">
+                                    <div class="scroll-add" id="scrollEdit4">
+                                        <div class="scroll-pos">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: categoryWord" id="nameEdit3">Κατηγορία</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newCategoryInput">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newCategoryInput.alphaNumericLatinError, text: newCategoryInput.alphaNumericLatinMessage"></div>
+                                            </div>
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditCategoryFood')], text: cancelWord">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail summary-touch" data-bind="click: updateCategoryName, text: updateName">Ενημέρωση</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditUnit')]" id="modalEditUnit">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind="click: stopProp.bind($data, event)">
+                                <div class="edit-top" style="justify-content: center">
+                                    <h2 data-bind="text: editUnit">Επεξεργασία Μονάδων</h2>
+                                </div>
+                                <form method="post" data-bind="submit: updateUnitName">
+                                    <div class="scroll-add" id="scrollEdit5">
+                                        <div class="scroll-pos">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="summary-info" data-bind="text: unitName" id="nameEdit4">Κατηγορία</div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div style="color: red">*</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-create">
+                                                <input type="text" data-bind="value: newUnitInput">
+                                            </div>
+                                            <div class="dif">
+                                                <div class="errormsg" data-bind="visible: newUnitInput.alphaNumericLatinError, text: newUnitInput.alphaNumericLatinMessage"></div>
+                                            </div>
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditUnit')], text: cancelWord">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail summary-touch" data-bind="click: updateUnitName, text: updateName">Ενημέρωση</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" id="modalLoad">
+                    <div class="modal">
+                        <div class="cube-con">
+                            <figure>
+                                <div></div><div></div>
+                                <div></div><div></div>
+                                <div></div><div></div>
+                                <div></div><div></div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src='js/knockout.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+        <script src="js/fadeVisible.js"></script>
+        <script src="js/checkInput.js"></script>
+        <script src="js/bindHTML.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/crypto-js.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/hmac-sha256.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/enc-base64.min.js"></script>
+        <script src="js/bindClickArray.js"></script>
+        <script src="js/dashboardadmin.js"></script>
+    </body>
+</html>

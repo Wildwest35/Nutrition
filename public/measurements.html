@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="el" id="body">
+    <head>
+        <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://kit.fontawesome.com/29bdf39021.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="css/style3.css">
+        <title data-bind="text: title">Μετρήσεις | Nutrition</title>
+    </head>
+    <body >
+        <input type="checkbox" id="nav-toggle">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <h1><img src="img/nutrition.png" width="50" height="50" alt="Nutrition"><span style="margin-left: 0.5rem;">Nutrition</span></h1>
+            </div>
+  
+            <div class="sidebar-menu">
+                <ul>
+                    <li data-bind="foreach: dashboardArray" >
+                        <a data-bind="click: redirect, class: activelabel, attr: {title: title}">
+                            <span data-bind="class: icons"></span>
+                            <span data-bind="text: name"></span>
+                        </a>
+                    </li>      
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content" >   
+            <header>
+                <section>
+                    <label for="nav-toggle" id="mediaCalc">
+                        <!-- <span class="las la-bars"></span> -->
+                        <img src="img/menu.png" width="40" height="40" alt="Bar">
+                    </label>
+                    <h3 data-bind="text: measurements">Μετρήσεις</h3>
+                </section>
+
+                <div class="user-wrapper">
+                    <img src="#" alt="flag" data-bind="click: langSubmit, attr: {src: flag, alt: 'flag'}" width="37" height="37" class="lang">
+                    <div>
+                        <h4 data-bind="text: username, value: username">Username</h4>
+                        <small data-bind="text: categoryUser">User</small>
+                    </div>
+                </div>
+            </header>
+
+            <main id="main">
+                <span>
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="weight" data-bind="click: showRegisterCategory.bind($data, 'weight', 1)">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/scale.png" alt="consumed" width="45" height="45">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: register">Καταγραφή</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: weightName">Βάρους</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalWeight">0</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="addBtn summary-info-detail" data-bind="clickArray: [getThisWeight, self.switch.bind($data, 'modalWeight')], text: addName">Προσθήκη</div>
+                                        </div>
+                                    </div>                           
+                                </div>                
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="weightBone" data-bind="click: showRegisterCategory.bind($data, 'weightBone', 1)">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/bone.png" alt="consumed" width="45" height="45">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: register">Καταγραφή</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: weightBoneName">Βάρους Οστών</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalWeightBone">0</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="addBtn summary-info-detail" data-bind="clickArray: [getThisWeightBone, self.switch.bind($data, 'modalWeightBone')], text: addName">Προσθήκη</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="fatPercentage" data-bind="click: showRegisterCategory.bind($data, 'fatPercentage', 1)">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/body-fat.png" alt="consumed" width="45" height="45">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: register">Καταγραφή</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: fatPercentageName">Ποσοστού Λίπους</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalFatPercentage">0</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="addBtn summary-info-detail" data-bind="clickArray: [getThisFatPercentage, self.switch.bind($data, 'modalFatPercentage')], text: addName">Προσθήκη</div>
+                                        </div>
+                                    </div>                            
+                                </div>                
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field">
+                                    <div class="category-choices-element summary-touch" id="waterPercentage" data-bind="click: showRegisterCategory.bind($data, 'waterPercentage', 1)">
+                                        <div class="category-choices-attributes">
+                                            <img src="./img/humidity.png" alt="consumed" width="45" height="45">
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: register">Καταγραφή</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info" data-bind="text: waterPercentageName">Ποσοστού Νερού</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="summary-info-detail" data-bind="text: totalWaterPercentage">0</div>
+                                        </div>
+                                        <div class="category-choices-attributes">
+                                            <div class="addBtn summary-info-detail" data-bind="clickArray: [getThisWaterPercentage, self.switch.bind($data, 'modalWaterPercentage')], text: addName">Προσθήκη</div>
+                                        </div>
+                                    </div>                           
+                                </div>                
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    
+                    <div class="filter">
+                        <div class="filter-cat">
+                            <div class="summary-info edit-quantity">
+                                <select name="limit" id="limit" data-bind="event:{change: updateLimit}">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="food-titles-container">
+                        <div class="cont-menu-food">
+                            <table class="food-top">
+                                <tr>
+                                    <th data-bind="" class="food-main-color">
+
+                                    </th>                                
+                                    <th class="food-main-color">
+                                        <div class="food-titles">
+                                            <div class="summary-info">#</div>
+                                        </div>
+                                    </th>
+                                    <th class="food-main-color">
+                                        <div class="food-titles summary-touch" data-bind="">
+                                            <div class="summary-info" data-bind="text: dateBar">Ημερομηνία</div>
+                                            <!-- <i data-bind="visible: (sorting() != 'foodNameAsc') && (sorting() != 'foodNameDesc')" class="fas fa-sort"></i>
+                                            <i data-bind="visible: sorting() == 'foodNameAsc'" class="fas fa-caret-up"></i>
+                                            <i data-bind="visible: sorting() == 'foodNameDesc'" class="fas fa-caret-down"></i> -->
+                                        </div>
+                                    </th>
+                                    <th class="food-main-color">
+                                        <div class="food-titles summary-touch" data-bind="">
+                                            <div class="summary-info" data-bind="text: numberBar">Βάρος (kg)</div>
+                                         <!--    <i data-bind="visible: (sorting() != 'categoryAsc') && (sorting() != 'categoryDesc')" class="fas fa-sort"></i>
+                                            <i data-bind="visible: sorting() == 'categoryAsc'" class="fas fa-caret-up"></i>
+                                            <i data-bind="visible: sorting() == 'categoryDesc'" class="fas fa-caret-down"></i> -->
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr  data-bind="visible: registerArray().length == 0">
+                                    <td class="food-elements-light" colspan="4">
+                                        <div class="summary-info-detail" data-bind="text: noAvailableRegister">Καμία Καταγραφή Βάρους</div>
+                                    </td>
+                                </tr>
+                                <tbody data-bind="foreach: registerArray, visible: registerArray().length > 0"><!-- sortedTasks -->
+                                    <tr data-bind="">
+                                        <td data-bind="click: stopProp.bind($data, event)">
+                                            <img src="./img/delete.png" alt="consumed" width="35" height="35" data-bind="click: deletes">
+                                        </td>                                    
+                                        <td>
+                                            <div class="summary-info-detail" data-bind="text: registerCount">1</div>
+                                        </td>
+                                        <td>
+                                            <div class="summary-info-detail" data-bind="text: date">27 Ιουνίου 2022, 22:30</div>
+                                        </td>
+                                        <td>
+                                            <div class="summary-info-detail" data-bind="text: number">75</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="pagination">
+                        <ul data-bind="bindHTML: liTag"></ul>
+                    </div>
+                </span>
+
+                <div data-bind="bindHTML: footer"></div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalWeight')" id="modalWeight">
+                    <div class="modal">
+                        <div class="modal-water-container">
+                            <div class="water" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2><span data-bind="text: register">Καταγραφή</span> <span data-bind="text: weightName">Βάρους</span></h2>
+                                </div>
+                                <form method="post" data-bind="submit: addWeight">
+                                    <div class="scroll-add">
+                                        <div class="scroll-pos">
+                                            <div class="modal-water-field">              
+                                                <div class="edit-top">
+                                                    <img src="./img/previousWhite.png" alt="previous" width="30" height="30" class="summary-touch" data-bind="click: prevDay">
+                                                    <div class="summary-info" data-bind="text: registerDate"></div>
+                                                    <img src="./img/nextWhite.png" alt="next" width="30" height="30" class="summary-touch" data-bind="click: nextDay">      
+                                                </div>                     
+                                                <div class="modal-water-element">
+                                                    <div class="modal-water-value" style="text-align: center;"> 
+                                                        <div class="summary-info" data-bind="text: weightBar">Βάρος (kg)</div>
+                                                        <div class="modal-pos-elem">
+                                                            <img src="./img/minus1.png" alt="star" width="35" height="35" data-bind="click: decreaseValue">
+                                                            <div class="check-input">
+                                                                <input type="number" placeholder="Εισάγετε Βάρος" data-bind="value: weightValue, text: weightValue">
+                                                                <div class="fa fa-check" id="checkweight"></div>
+                                                            </div>
+                                                            <img src="./img/plus1.png" alt="star" width="35" height="35" data-bind="click: increaseValue">  
+                                                        </div>
+                                                        <div class="dif">
+                                                            <div class="errormsg" data-bind="visible: weightValue.numericError, text: weightValue.numericMessage"></div>   
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                    
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail" data-bind="click: self.switch.bind($data, 'modalWeight'), text: cancelName">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail" data-bind="click: addWeight, text: okName">Εντάξει</h4>       
+                                                </div>                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalWeightBone')" id="modalWeightBone">
+                    <div class="modal">
+                        <div class="modal-water-container">
+                            <div class="water" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2><span data-bind="text: register">Καταγραφή</span> <span data-bind="text: weightBoneName">Βάρους Οστών</span></h2>
+                                </div>
+                                <form method="post" data-bind="submit: addWeightBone">
+                                    <div class="scroll-add">
+                                        <div class="scroll-pos">
+                                            <div class="modal-water-field">              
+                                                <div class="edit-top">
+                                                    <img src="./img/previousWhite.png" alt="previous" width="30" height="30" class="summary-touch" data-bind="click: prevDay">
+                                                    <div class="summary-info" data-bind="text: registerDate"></div>
+                                                    <img src="./img/nextWhite.png" alt="next" width="30" height="30" class="summary-touch" data-bind="click: nextDay">      
+                                                </div>                     
+                                                <div class="modal-water-element">
+                                                    <div class="modal-water-value" style="text-align: center;"> 
+                                                        <div class="summary-info" data-bind="text: weightBoneBar">Βάρος Οστών (kg)</div>
+                                                        <div class="modal-pos-elem">
+                                                            <img src="./img/minus1.png" alt="star" width="35" height="35" data-bind="click: decreaseValue">
+                                                            <div class="check-input">
+                                                                <input type="number" placeholder="Εισάγετε Βάρος Οστών" data-bind="value: weightBoneValue, text: weightBoneValue">
+                                                                <div class="fa fa-check" id="checkweightbone"></div>
+                                                            </div>
+                                                            <img src="./img/plus1.png" alt="star" width="35" height="35" data-bind="click: increaseValue">  
+                                                        </div>
+                                                        <div class="dif">
+                                                            <div class="errormsg" data-bind="visible: weightBoneValue.numericError, text: weightBoneValue.numericMessage"></div>   
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                    
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail" data-bind="click: self.switch.bind($data, 'modalWeightBone'), text: cancelName">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail" data-bind="click: addWeightBone, text: okName">Εντάξει</h4>       
+                                                </div>                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalFatPercentage')" id="modalFatPercentage">
+                    <div class="modal">
+                        <div class="modal-water-container">
+                            <div class="water" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2><span data-bind="text: register">Καταγραφή</span> <span data-bind="text: fatPercentageName">Ποσοστού Λίπους</span></h2>
+                                </div>
+                                <form method="post" data-bind="submit: addFatPercentage">
+                                    <div class="scroll-add">
+                                        <div class="scroll-pos">
+                                            <div class="modal-water-field">              
+                                                <div class="edit-top">
+                                                    <img src="./img/previousWhite.png" alt="previous" width="30" height="30" class="summary-touch" data-bind="click: prevDay">
+                                                    <div class="summary-info" data-bind="text: registerDate"></div>
+                                                    <img src="./img/nextWhite.png" alt="next" width="30" height="30" class="summary-touch" data-bind="click: nextDay">      
+                                                </div>                     
+                                                <div class="modal-water-element">
+                                                    <div class="modal-water-value" style="text-align: center;"> 
+                                                        <div class="summary-info" data-bind="text: fatPercentageBar">Ποσοστό Λίπους (%)</div>
+                                                        <div class="modal-pos-elem">
+                                                            <img src="./img/minus1.png" alt="star" width="35" height="35" data-bind="click: decreaseValue">
+                                                            <div class="check-input">
+                                                                <input type="number" placeholder="Εισάγετε Ποσοστού Λίπους" data-bind="value: fatPercentageValue, text: fatPercentageValue">
+                                                                <div class="fa fa-check" id="checkfatpercentage"></div>
+                                                            </div>
+                                                            <img src="./img/plus1.png" alt="star" width="35" height="35" data-bind="click: increaseValue">  
+                                                        </div>
+                                                        <div class="dif">
+                                                            <div class="errormsg" data-bind="visible: fatPercentageValue.numericError, text: fatPercentageValue.numericMessage"></div>   
+                                                        </div>
+                                                        <div class="dif">
+                                                            <div class="errormsg" data-bind="visible: (fatPercentageValue() > 100), text: percentageMsg"></div>   
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                    
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail" data-bind="click: self.switch.bind($data, 'modalFatPercentage'), text: cancelName">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail" data-bind="click: addFatPercentage, text: okName">Εντάξει</h4>       
+                                                </div>                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalWaterPercentage')" id="modalWaterPercentage">
+                    <div class="modal">
+                        <div class="modal-water-container">
+                            <div class="water" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2><span data-bind="text: register">Καταγραφή</span> <span data-bind="text: waterPercentageName">Ποσοστού Νερού</span></h2>
+                                </div>
+                                <form method="post" data-bind="submit: addWaterPercentage">
+                                    <div class="scroll-add">
+                                        <div class="scroll-pos">
+                                            <div class="modal-water-field">              
+                                                <div class="edit-top">
+                                                    <img src="./img/previousWhite.png" alt="previous" width="30" height="30" class="summary-touch" data-bind="click: prevDay">
+                                                    <div class="summary-info" data-bind="text: registerDate"></div>
+                                                    <img src="./img/nextWhite.png" alt="next" width="30" height="30" class="summary-touch" data-bind="click: nextDay">      
+                                                </div>                     
+                                                <div class="modal-water-element">
+                                                    <div class="modal-water-value" style="text-align: center;"> 
+                                                        <div class="summary-info" data-bind="text: waterPercentageBar">Ποσοστό Νερού (%)</div>
+                                                        <div class="modal-pos-elem">
+                                                            <img src="./img/minus1.png" alt="star" width="35" height="35" data-bind="click: decreaseValue">
+                                                            <div class="check-input">
+                                                                <input type="number" placeholder="Εισάγετε Ποσοστού Νερού" data-bind="value: waterPercentageValue, text: waterPercentageValue">
+                                                                <div class="fa fa-check" id="checkwaterpercentage"></div>
+                                                            </div>
+                                                            <img src="./img/plus1.png" alt="star" width="35" height="35" data-bind="click: increaseValue">  
+                                                        </div>
+                                                        <div class="dif">
+                                                            <div class="errormsg" data-bind="visible: waterPercentageValue.numericError, text: waterPercentageValue.numericMessage"></div>   
+                                                        </div>
+                                                        <div class="dif">
+                                                            <div class="errormsg" data-bind="visible: (waterPercentageValue() > 100), text: percentageMsg"></div>   
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                    
+                                            <div class="modal-water-choice">
+                                                <div>
+                                                    <h4 class="summary-info-detail" data-bind="click: self.switch.bind($data, 'modalWaterPercentage'), text: cancelName">Ακύρωση</h4>
+                                                    <h4 class="summary-info-detail" data-bind="click: addWaterPercentage, text: okName">Εντάξει</h4>       
+                                                </div>                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src='js/knockout.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+        <script src="js/popperBH.js"></script>
+        <script src="js/fadeVisible.js"></script>
+        <script src="js/checkInput.js"></script>
+        <script src="js/bindHTML.js"></script>
+        <script src="js/bindClickArray.js"></script>
+        <!-- <script src="js/handleClassesSettings.js"></script> -->
+        <script src="js/measurements.js"></script>
+    </body>
+</html>

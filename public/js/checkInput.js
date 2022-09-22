@@ -13,7 +13,7 @@ ko.extenders.minimumLength = function(target, min) {
 			target.minLengthMessage(null);
 		} else {
 			target.minLengthError(true);
-			target.minLengthMessage(`* Το ελάχιστο μέγεθος χαρακτήρων είναι ${min}.`);
+			target.minLengthMessage(`${self.minlenght()} ${min}.`);
 		}
 
 		if(!newVal){
@@ -33,7 +33,7 @@ ko.extenders.maximumLength = function(target, max) {
 			target.maxLengthMessage(null);
 		} else {
 			target.maxLengthError(true);
-			target.maxLengthMessage(`* Το μέγιστο μέγεθος χαρακτήρων είναι ${max}.`);
+			target.maxLengthMessage(`${self.maxlenght()} ${max}.`);
 		}
 
 		if(!newVal) {
@@ -53,13 +53,13 @@ ko.extenders.numeric = function(target, message) {
 			if(number.test(newVal)){
 				target.numericError(false);
 				target.numericMessage(null);
-			}else{
+			} else {
 				target.numericError(true);
-				target.numericMessage(`${message}`);				
+				target.numericMessage(`${self.numeric()}`);				
 			}
 		} else {
 			target.numericError(null);
-			target.numericMessage(null);			
+			target.numericMessage(`${self.numeric()}`);			
 		}
 	})
 }
@@ -98,11 +98,33 @@ ko.extenders.alphaNumeric = function(target, message) {
 				target.alphaNumericMessage(null);
 			}else{
 				target.alphaNumericError(true);
-				target.alphaNumericMessage(`${message}`);				
+				target.alphaNumericMessage(`${self.alphaNumeric()}`);				
 			}
 		} else {
 			target.alphaNumericError(null);
 			target.alphaNumericMessage(null);			
+		}
+	})
+}
+
+ko.extenders.alphaNumericLatins = function(target, message) {
+	target.alphaNumericLatinError = ko.observable(null);
+	target.alphaNumericLatinMessage = ko.observable(null);
+
+	target.subscribe(function(newVal) {
+		if(newVal) {
+			var number = /^[a-zA-Z0-9α-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ\.\%\_\-\s]+$/;
+			
+			if(number.test(newVal)) {
+				target.alphaNumericLatinError(false);
+				target.alphaNumericLatinMessage(null);
+			} else {
+				target.alphaNumericLatinError(true);
+				target.alphaNumericLatinMessage(`${self.alphaNumericLatin()}`);				
+			}
+		} else {
+			target.alphaNumericLatinError(null);
+			target.alphaNumericLatinMessage(null);			
 		}
 	})
 }
@@ -119,12 +141,12 @@ ko.extenders.alphaNumericMail = function(target, message) {
 				target.alphaNumericMailError(false);
 				target.alphaNumericMailMessage(null);
 			} else 
-				if(newVal.indexOf("@") !== -1) {//if(newVal.includes("@")) {				
+				if(newVal.indexOf("@") !== -1) {				
 					target.alphaNumericMailError(true);
-					target.alphaNumericMailMessage(`* Παρακαλώ εισάγετε ένα έγκυρο email.`);
+					target.alphaNumericMailMessage(`${self.isEmail()}.`);
 				} else {
 					target.alphaNumericMailError(true);
-					target.alphaNumericMailMessage(`* Επιτρέπονται μόνο λατινικοί χαρακτήρες, αριθμοί και κάτω παύλα.`);						
+					target.alphaNumericMailMessage(`${self.alphaNumeric()}.`);						
 				}
 		} else {
 			target.alphaNumericMailError(null);
@@ -140,9 +162,8 @@ ko.extenders.checkUniqueField = function(target, option) {
 	target.subscribe(function(newVal){
 		if(newVal) {
 			let o = {
-				field: option.field,
 				table: option.table,
-				newVal: newVal,
+				newVal: newVal
 			}
 
 		    $.post('./php/checkUniqueField.php', o, function(data) {
@@ -175,7 +196,7 @@ ko.extenders.isEmail = function(target, option) {
 				target.emailErrorMessage(null);
 			}else{
 				target.emailError(true);
-				target.emailErrorMessage(`${option}`);
+				target.emailErrorMessage(`${self.isEmail()}`);
 			}
 		} else {
 			target.emailError(null);
@@ -194,7 +215,7 @@ ko.extenders.isEmptyField = function(target, message) {
 			target.emptyFieldMessage(null);
 		} else {
 			target.emptyFieldError(true);
-			target.emptyFieldMessage(`${message}`);
+			target.emptyFieldMessage(`${self.empties()}`);
 		}
 	})
 }

@@ -1,4 +1,6 @@
 <?php	
+//Access: Everyone
+//Purpose: Connect with database
 
     $hostname = '/zstorage/home/ece01121/mysql/run/mysql.sock';
 	$username = 'root';

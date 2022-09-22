@@ -1,106 +1,1221 @@
-<html>
+<!DOCTYPE html>
+<html lang="el" id="body">
     <head>
         <meta charset='UTF-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://kit.fontawesome.com/29bdf39021.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Round">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone">
         <link rel="stylesheet" href="css/style3.css">
-        <title>Αρχική Σελίδα Χρήστη | Nutrition</title>
+        <title data-bind="text: title">Αρχική | Nutrition</title>
     </head>
-    <body id="body">
+    <body>
         <input type="checkbox" id="nav-toggle">
         <div class="sidebar" id="sidebar">
-            <div class="sidebar-brand">
-                <h1><span class="lab la-accusoft"></span><span>Nutrition</span></h1>
+            <div class="sidebar-brand" data-bind="click: settingspage">
+                <h1><img src="img/nutrition.png" width="50" height="50" alt="Nutrition"><span style="margin-left: 0.5rem;">Nutrition</span></h1>
             </div>
             <div class="sidebar-menu">
-                <ul>
-                    <li>
-                        <a href="" class="active">
-                            <span class="las la-igloo"></span>
-                            <span>Αρχική Σελίδα</span>
+                <ul>                  
+                    <li data-bind="foreach: dashboardArray" >
+                        <a data-bind="click: redirect, class: activelabel, attr: {title: title}">
+                            <span data-bind="class: icons"></span>
+                            <span data-bind="text: name"></span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span class="las la-tools"></span>
-                            <span>Βιομετρικά</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span class="las la-weight"></span>
-                            <span>Μετρήσεις</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span class="las la-folder-plus"></span>
-                            <span>Στατιστικά</span>
-                        </a>
-                    </li>                    <li>
-                        <a href="">
-                            <span class="las la-drumstick-bite"></span>
-                            <span>Δημιουργία Φαγητού</span>
-                        </a>
-                    </li>                    <li>
-                        <a href="">
-                            <span class="las la-utensils"></span>
-                            <span>Προσθήκη Φαγητού</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span class="las la-cog"></span>
-                            <span>Ρυθμίσεις</span>
-                        </a>
-                    </li>
+                    </li> 
                 </ul>
             </div>
         </div>
 
         <div class="main-content">
             <header>
-                <h1>
-                    <label for="nav-toggle">
-                        <span class="las la-bars"></span>
+                <section>
+                    <label for="nav-toggle" id="mediaCalc">
+                        <!-- <span class="las la-bars"></span> -->
+                        <img src="img/menu.png" width="40" height="40" alt="Bar">
                     </label>
-                    Αρχική Σελίδα
-                </h1>
+                    <h3 data-bind="text: home">Αρχική</h3>
+                </section>                
 
                 <div class="user-wrapper">
-                    <img src="img/food.jpg" width="40px" height="40px" alt="">
+                    <img src="#" alt="flag" data-bind="click: langSubmit, attr: {src: flag, alt: 'flag'}" width="37" height="37" class="lang">
                     <div>
-                        <h4>Wildwest</h4>
-                        <small>User</small>
+                        <h4 data-bind="text: username">Username</h4>
+                        <small data-bind="text: categoryUser">User</small>
                     </div>
                 </div>
             </header>
 
             <main>
-                
-                <div class="cards">
-                    <div class="card-single">
-                        <div>
-                            <h1>54</h1>
-                            <span>Customers</span>
+                <span>            
+                    <div class="element-dash-middle">
+                        <img src="./img/calendar.png" alt="calendar"  data-bind="click: self.switch.bind($data, 'modalCalendar')" width="40" height="40" class="calendar-space summary-touch">
+                        <img src="./img/previous.png" alt="previous" width="30" height="30" class="summary-touch" data-bind="click: prevDay">
+                        <div class="date-info" data-bind="text: date">Σήμερα</div>
+                        <img src="./img/next.png" alt="next" width="30" height="30" class="summary-touch" data-bind="click: nextDay">
+                    </div>
+                    
+                    <div class="container-summary">
+                        <div class="summary-fields-middle"><!-- First -->
+                            <div class="summary-bottom">
+                                <div class="summary-bottom-value">
+                                    <div class="summary-attributes">
+                                        <img src="./img/daily-calorie-needs.png" alt="calories" width="40" height="40">
+                                        
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: kcal">Θερμίδες</div>
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info-detail" data-bind="text: samCalories">2350</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="summary-elements">
+                                <div class="summary-attributes">
+                                    <div class="summary-info-detail summary-touch" data-bind="click: dailystatspage, text: seeMeals">Δες όλα τα Γεύματα</div>
+                                </div>                     
+                            </div>
                         </div>
-                        <div>
-                            <span class="las la-users"></span>
+                        <div class="summary-fields"><!-- Middle -->
+                            <div class="summary-fields-sections">
+                                <div class="summary-elements">
+                                    <div class="summary-attributes">
+                                        <img src="./img/add-to-basket.png" alt="consumed" width="40" height="40">
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: consumed">Καταναλώθηκαν</div>
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info-detail"><span data-bind="text: consumedCalories">1500</span> kcal</div>
+                                    </div>
+                                </div>
+                                <div class="summary-elements">
+                                    <div class="summary-attributes">
+                                        <img src="./img/groceries.png" alt="left" width="40" height="40">
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: left">Μένουν</div>
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info-detail"><span data-bind="text: leftCalories">850</span> kcal</div>
+                                    </div>                            
+                                </div>
+                            </div>
+                            <div class="summary-fields-sections">
+                                <div class="summary-elements">
+                                    <div class="summary-attributes">
+                                        <img src="./img/water-glass.png" alt="water" width="40" height="40">
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: waterWord">Νερό</div>
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info-detail"><span data-bind="text: leftWater">1500</span> ml</div>
+                                    </div>                         
+                                </div>
+                                <div class="summary-elements summary-touch" data-bind="click: self.switch.bind($data, 'modalNote')"><!-- switchNote -->
+                                    <div class="summary-attributes">
+                                        <img src="./img/pencil.png" alt="note" width="40" height="40">
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: noteWord">Σημείωση</div>
+                                    </div>
+                                    <div class="summary-attributes" >
+                                        <div class="summary-note"><div data-bind="text: note">Cheat Day</div></div>
+                                    </div>                       
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="summary-fields"> <!-- Last -->
+                            <div class="summary-fields-sections">
+                                <div class="summary-elements">
+                                    <div class="summary-attributes">
+                                        <img src="./img/croissant.png" alt="breakfast" width="40" height="40">
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: morningWord">Πρωινό</div>
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info-detail"><span data-bind="text: morning">200</span> kcal</div>
+                                    </div>
+                                </div>
+                                <div class="summary-elements">
+                                    <div class="summary-attributes">
+                                        <img src="./img/burger.png" alt="lunch" width="40" height="40">
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: lunchWord">Μεσημεριανό</div>
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info-detail"><span data-bind="text: lunch">700</span> kcal</div>
+                                    </div>                            
+                                </div>
+                            </div>
+                            <div class="summary-fields-sections">  
+                                <div class="summary-elements">
+                                    <div class="summary-attributes">
+                                        <img src="./img/lunch.png" alt="snack" width="40" height="40">
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: snackWord">Γεύματα</div>
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info-detail"><span data-bind="text: snack">600</span> kcal</div>
+                                    </div>                            
+                                </div>
+                                <div class="summary-elements">
+                                    <div class="summary-attributes">
+                                        <img src="./img/restaurant.png" alt="dinner" width="40" height="40">
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info" data-bind="text: dinnerWord">Βραδινό</div>
+                                    </div>
+                                    <div class="summary-attributes">
+                                        <div class="summary-info-detail"><span data-bind="text: dinner">300</span> kcal</div>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-nutrients">
+                        <div class="nutrient-include">
+                            <div class="nutrients-field">
+                                <div class="nutrient-elements">
+                                    <div class="nutrient-attribute">
+                                        <img src="./img/pizza2.png" alt="fat" width="40" height="40">
+                                    </div>
+                                    <div class="snack-pair">
+                                        <div class="snack-attribute">
+                                            <div class="green-circle"></div>
+                                        </div>
+                                        <div class="nutrient-attribute">
+                                            <div class="summary-info" data-bind="text: fatWord">Λίπος</div>
+                                        </div>
+                                    </div>
+                                    <div class="nutrient-attribute">
+                                        <div class="summary-info-detail"><span data-bind="text: leftFat">0</span>/<span data-bind="text: samFat">180</span>g</div>
+                                    </div>
+                                    <div class="nutrient-out"></div>
+                                </div>
+                            </div>
+                            <div class="nutrients-field">
+                                <div class="nutrient-elements">
+                                    <div class="nutrient-attribute">
+                                        <img src="./img/bread.png" alt="carb" width="40" height="40">
+                                    </div>
+                                    <div class="snack-pair">
+                                        <div class="snack-attribute">
+                                            <div class="blue-circle"></div>
+                                        </div>
+                                        <div class="nutrient-attribute">
+                                            <div class="summary-info" data-bind="text: carbWord">Υδατάνθρακες</div>
+                                        </div>
+                                    </div>
+                                    <div class="nutrient-attribute">
+                                        <div class="summary-info-detail"><span data-bind="text: leftCarb">0</span>/<span data-bind="text: samCarb">270</span>g</div>
+                                    </div>
+                                    <div class="nutrient-blue"></div>
+                                </div>
+                            </div>
+                            <div class="nutrients-field">
+                                <div class="nutrient-elements">
+                                    <div class="nutrient-attribute">
+                                        <img src="./img/eggs.png" alt="protein" width="40" height="40">
+                                    </div>
+                                    <div class="snack-pair">
+                                        <div class="snack-attribute">
+                                            <div class="red-circle"></div>
+                                        </div>
+                                        <div class="nutrient-attribute">
+                                            <div class="summary-info" data-bind="text: proteinWord">Πρωτεΐνες</div>
+                                        </div>
+                                    </div>
+                                    <div class="nutrient-attribute">
+                                        <div class="summary-info-detail"><span data-bind="text: leftProtein">0</span>/<span data-bind="text: samProtein">350</span>g</div>
+                                    </div>
+                                    <div class="nutrient-red"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="container-snacks">
+                        <div class="snacks-include">
+    
+                            <div class="snack-value">
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <img src="./img/croissant.png" alt="breakfast" width="40" height="40">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info" data-bind="text: morningWord">Πρωινό</div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-elements summary-touch">
+                                        <div class="snack-attribute">
+                                            <img src="./img/add.png" alt="add" width="40" height="40" data-bind="click: addfoodpage.bind($data,'1')">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info-detail" data-bind="click: addfoodpage.bind($data,'1'), text: addWord">Προσθήκη</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <div class="snack-kcal" data-bind="bindHTML: morWord">Συνολικά καταναλώθηκαν <span style="color:#0C6170; font-weight: bold;"> 330 </span> θερμίδες </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="snack-value">
+
+                                <!--<div class="snack-field" data-bind="visible: morningArray().length == 0">
+                                    <div class="snack-attribute">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                                 <div class="snack-food-desc" data-bind="visible: morningArray().length == 0">
+                                    <div class="snack-empty ">
+                                        <img src="./img/add.png" alt="add" width="60" height="60" class="summary-touch" data-bind="click: addfoodpage.bind($data,'1')">
+                                        <div class="summary-info-detail summary-touch" data-bind="click: addfoodpage.bind($data,'1'), text: addfoodWord">Προσθέστε Φαγητό</div>
+                                    </div>
+                                </div> -->
+                                <div data-bind="foreach: morningArray, visible: morningArray().length > 0">
+                                    <div class="snack-field">
+                                        <div class="snack-attribute">
+                                            <div class="line"></div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-food-desc">
+                                        <div class="snack-elements">
+                                            <div class="snack-attribute">
+                                                <img src="#" alt="add" width="40" height="40" data-bind="visible: imgName() != '', attr: {src: img, alt: 'imgName'}">
+                                                <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                                <div><span class="summary-info" data-bind="text: name">Μήλο</span> (<span class="summary-info-detail" data-bind="text: prevCalories">180</span><span  class="summary-info-detail"> kcal</span>)</div>
+                                            </div>
+                                        </div>
+                                        <div class="snack-elements">
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="#" alt="add" width="40" height="40" data-bind="click: changeStar, attr: {src: starFill}">
+                                            </div>
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="./img/edit.png" alt="add" width="40" height="40" data-bind="click: editFood">
+                                            </div>
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="./img/delete.png" alt="add" width="40" height="40" data-bind="click: deleteMorning">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-food-desc">
+                                        <div class="snack-basic">
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="green-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info" data-bind="text: fatWord">Λίπος</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevFat">1.35</span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="blue-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info" data-bind="text: carbWord">Υδατάνθρακες</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevCarb">178</span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="red-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    
+                                                <div class="summary-info" data-bind="text: proteinWord">Πρωτεΐνες</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevProtein">183</span>g</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="snack-all-details" data-bind="visible: isFoodDetails">
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(103, 103, 180);"></div>
+                                            <div class="summary-info" data-bind="text: fiberWord">Φυτικές Ίνες</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevFiber">2.1</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(173, 87, 173);"></div>
+                                            <div class="summary-info" data-bind="text: sugarWord">Σάκχαρα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevSugar">2.1</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(126, 165, 197);"></div>
+                                            <div class="summary-info" data-bind="text: saturatedWord">Κορεσμένα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevSaturated">3.45</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(125, 196, 141);"></div>
+                                            <div class="summary-info" data-bind="text: unsaturatedWord">Ακόρεστα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevUnsaturated">1.73</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(180, 147, 103);"></div>
+                                            <div class="summary-info" data-bind="text: bitaminsWord">Βιταμίνες</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevBitamins">4.66</span>g</div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-attribute">
+                                        <span class="las la-angle-down summary-touch" data-bind="click: foodDetails, visible: !isFoodDetails()"></span>
+                                        <span class="las la-angle-up summary-touch" data-bind="click: foodDetails, visible: isFoodDetails"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-snacks">
+                        <div class="snacks-include">
+
+                            <div class="snack-value">
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <img src="./img/burger.png" alt="breakfast" width="35" height="35">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info" data-bind="text: lunchWord">Μεσημεριανό</div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-elements summary-touch">
+                                        <div class="snack-attribute">
+                                            <img src="./img/add.png" alt="add" width="40" height="40" data-bind="click: addfoodpage.bind($data,'2')">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info-detail" data-bind="click: addfoodpage.bind($data,'2'), text: addWord">Προσθήκη</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <div class="snack-kcal" data-bind="bindHTML: lunWord">Συνολικά καταναλώθηκαν <span style="color:#0C6170; font-weight: bold;" data-bind="text: lunch"> 550 </span> θερμίδες </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="snack-value">
+
+<!--                                 <div class="snack-field" data-bind="visible: lunchArray().length == 0">
+                                    <div class="snack-attribute">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                                <div class="snack-food-desc"  data-bind="visible: lunchArray().length == 0">
+                                    <div class="snack-empty">
+                                        <img src="./img/add.png" alt="add" width="60" height="60" class="summary-touch" data-bind="click: addfoodpage.bind($data,'2')">
+                                        <div class="summary-info-detail summary-touch" data-bind="click: addfoodpage.bind($data,'2'), text: addfoodWord">Προσθέστε Φαγητό</div>
+                                    </div>
+                                </div> -->
+                                <div data-bind="foreach: lunchArray, visible: lunchArray().length > 0">
+                                    <div class="snack-field">
+                                        <div class="snack-attribute">
+                                            <div class="line"></div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-food-desc">
+                                        <div class="snack-elements">
+                                            <div class="snack-attribute">
+                                                <img src="#" alt="add" width="40" height="40" data-bind="visible: imgName() != '', attr: {src: img, alt: 'imgName'}">
+                                                <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                                <div><span class="summary-info" data-bind="text: name">Μήλο</span> (<span class="summary-info-detail" data-bind="text: prevCalories">180</span><span  class="summary-info-detail"> kcal</span>)</div>
+                                            </div>
+                                        </div>
+                                        <div class="snack-elements">
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="#" alt="add" width="40" height="40" data-bind="click: changeStar, attr: {src: starFill}">
+                                            </div>
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="./img/edit.png" alt="add" width="40" height="40"  data-bind="click: editFood">
+                                            </div>
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="./img/delete.png" alt="add" width="40" height="40" data-bind="click: deleteLunch">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-food-desc">
+                                        <div class="snack-basic">
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="green-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info" data-bind="text: fatWord">Λίπος</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevFat">1.35</span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="blue-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info" data-bind="text: carbWord">Υδατάνθρακες</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevCarb">178</span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="red-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    
+                                                <div class="summary-info" data-bind="text: proteinWord">Πρωτεΐνες</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevProtein">183</span>g</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="snack-all-details" data-bind="visible: isFoodDetails">
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(103, 103, 180);"></div>
+                                            <div class="summary-info" data-bind="text: fiberWord">Φυτικές Ίνες</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevFiber">2.1</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(173, 87, 173);"></div>
+                                            <div class="summary-info" data-bind="text: sugarWord">Σάκχαρα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevSugar">2.1</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(126, 165, 197);"></div>
+                                            <div class="summary-info" data-bind="text: saturatedWord">Κορεσμένα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevSaturated">3.45</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(125, 196, 141);"></div>
+                                            <div class="summary-info" data-bind="text: unsaturatedWord">Ακόρεστα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevUnsaturated">1.73</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(180, 147, 103);"></div>
+                                            <div class="summary-info" data-bind="text: bitaminsWord">Βιταμίνες</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevBitamins">4.66</span>g</div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-attribute">
+                                        <span class="las la-angle-down summary-touch" data-bind="click: foodDetails, visible: !isFoodDetails()"></span>
+                                        <span class="las la-angle-up summary-touch" data-bind="click: foodDetails, visible: isFoodDetails"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-snacks">
+                        <div class="snacks-include">
+
+                            <div class="snack-value">
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <img src="./img/lunch.png" alt="breakfast" width="40" height="40">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info" data-bind="text: snackWord">Γεύματα</div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-elements summary-touch">
+                                        <div class="snack-attribute">
+                                            <img src="./img/add.png" alt="add" width="40" height="40" data-bind="click: addfoodpage.bind($data,'3')">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info-detail" data-bind="click: addfoodpage.bind($data,'3'), text: addWord">Προσθήκη</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <div class="snack-kcal" data-bind="bindHTML: snaWord">Συνολικά καταναλώθηκαν <span style="color:#0C6170; font-weight: bold;" data-bind="text: snack"> 415 </span> θερμίδες </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="snack-value">
+                                
+<!--                                 <div class="snack-field" data-bind="visible: snackArray().length == 0">
+                                    <div class="snack-attribute">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                                <div class="snack-food-desc" data-bind="visible: snackArray().length == 0">
+                                    <div class="snack-empty">
+                                        <img src="./img/add.png" alt="add" width="60" height="60" class="summary-touch" data-bind="click: addfoodpage.bind($data,'3')">
+                                        <div class="summary-info-detail summary-touch" data-bind="click: addfoodpage.bind($data,'3'), text: addfoodWord">Προσθέστε Φαγητό</div>
+                                    </div>
+                                </div> -->
+                                <div data-bind="foreach: snackArray, visible: snackArray().length > 0">
+                                    <div class="snack-field">
+                                        <div class="snack-attribute">
+                                            <div class="line"></div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-food-desc">
+                                        <div class="snack-elements">
+                                            <div class="snack-attribute">
+                                                <img src="#" alt="add" width="40" height="40" data-bind="visible: imgName() != '', attr: {src: img, alt: 'imgName'}">
+                                                <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                                <div><span class="summary-info" data-bind="text: name">Μήλο</span> (<span class="summary-info-detail" data-bind="text: prevCalories">180</span><span  class="summary-info-detail"> kcal</span>)</div>
+                                            </div>
+                                        </div>
+                                        <div class="snack-elements">
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="#" alt="add" width="40" height="40" data-bind="click: changeStar, attr: {src: starFill}">
+                                            </div>
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="./img/edit.png" alt="add" width="40" height="40"  data-bind="click: editFood">
+                                            </div>
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="./img/delete.png" alt="add" width="40" height="40" data-bind="click: deleteSnack">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-food-desc">
+                                        <div class="snack-basic">
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="green-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info" data-bind="text: fatWord">Λίπος</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevFat">1.35</span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="blue-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info" data-bind="text: carbWord">Υδατάνθρακες</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevCarb">178</span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="red-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    
+                                                <div class="summary-info" data-bind="text: proteinWord">Πρωτεΐνες</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevProtein">183</span>g</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="snack-all-details" data-bind="visible: isFoodDetails">
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(103, 103, 180);"></div>
+                                            <div class="summary-info" data-bind="text: fiberWord">Φυτικές Ίνες</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevFiber">2.1</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(173, 87, 173);"></div>
+                                            <div class="summary-info" data-bind="text: sugarWord">Σάκχαρα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevSugar">2.1</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(126, 165, 197);"></div>
+                                            <div class="summary-info" data-bind="text: saturatedWord">Κορεσμένα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevSaturated">3.45</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(125, 196, 141);"></div>
+                                            <div class="summary-info" data-bind="text: unsaturatedWord">Ακόρεστα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevUnsaturated">1.73</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(180, 147, 103);"></div>
+                                            <div class="summary-info" data-bind="text: bitaminsWord">Βιταμίνες</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevBitamins">4.66</span>g</div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-attribute">
+                                        <span class="las la-angle-down summary-touch" data-bind="click: foodDetails, visible: !isFoodDetails()"></span>
+                                        <span class="las la-angle-up summary-touch" data-bind="click: foodDetails, visible: isFoodDetails"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-snacks">
+                        <div class="snacks-include">
+    
+                            <div class="snack-value">
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <img src="./img/restaurant.png" alt="breakfast" width="40" height="40">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info" data-bind="text: dinnerWord">Βραδινό</div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-elements summary-touch">
+                                        <div class="snack-attribute">
+                                            <img src="./img/add.png" alt="add" width="40" height="40" data-bind="click: addfoodpage.bind($data,'4')">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info-detail" data-bind="click: addfoodpage.bind($data,'4'), text: addWord">Προσθήκη</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <div class="snack-kcal" data-bind="bindHTML: dinWord">Συνολικά καταναλώθηκαν <span style="color:#0C6170; font-weight: bold;" data-bind="text: dinner"> 640 </span> θερμίδες </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="snack-value">
+
+<!--                                 <div class="snack-field" data-bind="visible: dinnerArray().length == 0">
+                                    <div class="snack-attribute">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                                <div class="snack-food-desc" data-bind="visible: dinnerArray().length == 0">
+                                    <div class="snack-empty">
+                                        <img src="./img/add.png" alt="add" width="60" height="60" class="summary-touch" data-bind="click: addfoodpage.bind($data,'4')">
+                                        <div class="summary-info-detail summary-touch, text: addfoodWord" data-bind="click: addfoodpage.bind($data,'4'), text: addfoodWord">Προσθέστε Φαγητό</div>
+                                    </div>
+                                </div> -->
+                                <div data-bind="foreach: dinnerArray, visible: dinnerArray().length > 0">
+                                    <div class="snack-field">
+                                        <div class="snack-attribute">
+                                            <div class="line"></div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-food-desc">
+                                        <div class="snack-elements">
+                                            <div class="snack-attribute">
+                                                <img src="#" alt="add" width="40" height="40" data-bind="visible: imgName() != '', attr: {src: img, alt: 'imgName'}">
+                                                <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                                <div><span class="summary-info" data-bind="text: name">Μήλο</span> (<span class="summary-info-detail" data-bind="text: prevCalories">180</span><span  class="summary-info-detail"> kcal</span>)</div>
+                                            </div>
+                                        </div>
+                                        <div class="snack-elements">
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="#" alt="add" width="40" height="40" data-bind="click: changeStar, attr: {src: starFill}">
+                                            </div>
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="./img/edit.png" alt="add" width="40" height="40"  data-bind="click: editFood">
+                                            </div>
+                                            <div class="snack-attribute summary-touch">
+                                                <img src="./img/delete.png" alt="add" width="40" height="40" data-bind="click: deleteDinner">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-food-desc">
+                                        <div class="snack-basic">
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="green-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info" data-bind="text: fatWord">Λίπος</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevFat">1.35</span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="blue-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info" data-bind="text: carbWord">Υδατάνθρακες</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevCarb">178</span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="snack-thing">
+                                                <div class="snack-attribute">
+                                                    <div class="red-circle"></div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    
+                                                <div class="summary-info" data-bind="text: proteinWord">Πρωτεΐνες</div>
+                                                </div>
+                                                <div class="snack-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: prevProtein">183</span>g</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="snack-all-details" data-bind="visible: isFoodDetails">
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(103, 103, 180);"></div>
+                                            <div class="summary-info" data-bind="text: fiberWord">Φυτικές Ίνες</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevFiber">2.1</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(173, 87, 173);"></div>
+                                            <div class="summary-info" data-bind="text: sugarWord">Σάκχαρα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevSugar">2.1</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(126, 165, 197);"></div>
+                                            <div class="summary-info" data-bind="text: saturatedWord">Κορεσμένα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevSaturated">3.45</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(125, 196, 141);"></div>
+                                            <div class="summary-info" data-bind="text: unsaturatedWord">Ακόρεστα</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevUnsaturated">1.73</span>g</div>
+                                        </div>
+                                        <div class="snack-second-details">
+                                            <div class="color-circle" style="background-color: rgb(180, 147, 103);"></div>
+                                            <div class="summary-info" data-bind="text: bitaminsWord">Βιταμίνες</div>
+                                            <div class="summary-info-detail"><span data-bind="text: prevBitamins">4.66</span>g</div>
+                                        </div>
+                                    </div>
+                                    <div class="snack-attribute">
+                                        <span class="las la-angle-down summary-touch" data-bind="click: foodDetails, visible: !isFoodDetails()"></span>
+                                        <span class="las la-angle-up summary-touch" data-bind="click: foodDetails, visible: isFoodDetails"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-snacks">
+                        <div class="snacks-include">
+    
+                            <div class="snack-value">
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <img src="./img/water-glass.png" alt="breakfast" width="40" height="40">
+                                        </div>
+                                        <div class="snack-attribute">
+                                            <div class="summary-info" data-bind="text: waterWord">Νερό</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="snack-field">
+                                    <div class="snack-elements">
+                                        <div class="snack-attribute">
+                                            <div class="snack-kcal" data-bind="bindHTML: watWord">Συνολικά καταναλώθηκαν <span style="color:#0C6170; font-weight: bold;" data-bind="text: water"> 1000 </span> ml</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="snack-value">
+                                <div class="snack-field">
+                                    <div class="snack-attribute">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                                <div class="water-container">
+                                    <div class="water-field">
+                                        <div class="water-element" >
+                                            <div class="water-attribute summary-touch" data-bind="click: setSelectedWater.bind($data,'halfGlass')">
+                                                <img src="./img/water-half.png" alt="breakfast" width="50" height="50">    
+                                            </div>
+                                            <div class="summary-info" data-bind="text: halfGlassWord">1/2 Ποτήρι</div>
+                                            <div class="summary-info-detail">119ml</div>
+                                        </div>
+                                        <div class="water-element">
+                                            <div class="water-attribute summary-touch" data-bind="click: setSelectedWater.bind($data,'glass')">
+                                                <img src="./img/water-full.png" alt="breakfast" width="50" height="50">
+                                            </div>
+                                            <div class="summary-info" data-bind="text: glassWord">Ποτήρι</div>
+                                            <div class="summary-info-detail">238ml</div>
+                                        </div>
+                                        <div class="water-element">
+                                            <div class="water-attribute summary-touch" data-bind="click: setSelectedWater.bind($data,'bottle')">
+                                                <img src="./img/mineral-water.png" alt="breakfast" width="50" height="50">
+                                            </div>
+                                            <div class="summary-info" data-bind="text: bottleWord">Μπουκάλι</div>
+                                            <div class="summary-info-detail">500ml</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+                <div data-bind="bindHTML: footer"></div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalNote')" id="modalNote">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="note" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2 data-bind="text: noteWord">Σημείωση</h2>
+                                </div>
+                                <div class="scroll-add">
+                                    <div class="scroll-pos">
+                                        <textarea id="mytextarea"></textarea>
+                                        <div class="note-confirm">
+                                            <div>
+                                                <h4 class="summary-info-detail" data-bind="click: self.switch.bind($data, 'modalNote'), text: cancelWord">Ακύρωση</h4>
+                                                <h4 class="summary-info-detail" data-bind="click: updateNote, text: okWord">Εντάξει</h4>       
+                                            </div>                                 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalDelete')" id="modalDelete">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="delete" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2 data-bind="text: deleteWord">Διαγραφή</h2>
+                                </div>
+                                <div class="scroll-add">
+                                    <div class="scroll-pos">
+                                        <div class="modal-water-element">
+                                            <div class="summary-info" data-bind="text: dailyEatingName"></div>
+                                        </div>
+                                        <div class="modal-water-element">
+                                            <div>
+                                                <div class="no"  data-bind="click: self.switch.bind($data, 'modalDelete'), text: noWord">ΟΧΙ</div>
+                                                <div class="yes" data-bind="click: deleteSubmit, text: yesWord">ΝΑΙ</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="modal-bg" id="modalLoad">
+                    <div class="modal">
+                        <div class="cube-con">
+                            <figure>
+                                <div></div><div></div>
+                                <div></div><div></div>
+                                <div></div><div></div>
+                                <div></div><div></div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalSuccessMsg')" id="modalSuccessMsg">
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="successMsg">
+                                <div class="successMsg-top" data-bind="text: successMsg">
+                                    Το φαγητό ενημερώθηκε με επιτυχία!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: self.switch.bind($data, 'modalWater')" id="modalWater">
+                    <div class="modal">
+                        <div class="modal-water-container">
+                            <div class="water" data-bind="click: stopProp.bind($data, event)">
+                                <div class="modal-water-field">
+                                    <h2 data-bind="text: waterConsumed">Κατανάλωση Νερού</h2>
+                                </div>
+                                <div class="scroll-add">
+                                    <div class="scroll-pos">
+                                        <div class="modal-water-field">
+                                            <div class="modal-water-element">
+                                                <div class="modal-water-value">
+                                                    <div class="summary-info" data-bind="text: quantity">Ποσότητα (ml)</div>
+                                                    <input type="text" placeholder="Εισάγετε Ποσότητα" data-bind="value: countWater">
+                                                    <div class="dif">
+                                                        <div class="errormsg" data-bind="visible: countWater.numericError, text: countWater.numericMessage"></div>   
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-water-element">
+                                                <img src="./img/minus1.png" alt="star" width="35" height="35" data-bind="click: decreaseWater">
+                                                <select class="summary-info-detail" name="glass" id="glass">
+                                                    <option value="halfGlass" data-bind="text: halfGlassWord">1/2 Ποτήρι</option>
+                                                    <option value="glass" data-bind="text: glassWord">Ποτήρι</option>
+                                                    <option value="bottle" data-bind="text: bottleWord">Μπουκάλι</option>
+                                                </select>
+                                                <img src="./img/plus1.png" alt="star" width="35" height="35" data-bind="click: increaseWater">                             
+                                            </div>
+                                        </div>                                    
+                                        <div class="modal-water-choice">
+                                            <div>
+                                                <h4 class="summary-info-detail" data-bind="click: self.switch.bind($data, 'modalWater'), text: cancelWord">Ακύρωση</h4>
+                                                <h4 class="summary-info-detail" data-bind="click: submitWater, text: okWord">Εντάξει</h4>       
+                                            </div>                                 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: cancelCalendar" id="modalCalendar">
+                    <div class="modal">
+                        <div class="container-calendar" >
+                            <div class="calendar" data-bind="click: stopProp.bind($data, event)">
+                                <div class="date-now">
+                                    <p data-bind="text: calendarDate">Σαβ 16 Μαρ 2022</p>
+                                </div>
+                                <div class="scroll-add">
+                                    <div class="scroll-pos">
+                                        <div class="month">
+                                            <i class="fas fa-angle-left prev" data-bind="click: previous"></i>
+                                            <div class="date">
+                                                <h1 data-bind="text: month">Μάρτιος</h1>
+                                            </div>
+                                            <i class="fas fa-angle-right next" data-bind="click: next"></i>
+                                        </div>
+                                        <div class="weekdays">
+                                            <div data-bind="text: sun">Κυρ</div>
+                                            <div data-bind="text: mon">Δευ</div>
+                                            <div data-bind="text: tue">Τρι</div>
+                                            <div data-bind="text: wed">Τετ</div>
+                                            <div data-bind="text: thu">Πεμ</div>
+                                            <div data-bind="text: fri">Παρ</div>
+                                            <div data-bind="text: sat">Σαβ</div>
+                                        </div>
+                                        <div class="days" data-bind="foreach: numofdaysArray, visible: numofdaysArray().length > 0">
+                                            <div data-bind="class: class1, click: click, text: dateNum"></div>
+                                        </div>
+
+                                        <div class="options">
+                                            <h1 data-bind="click: cancelCalendar, text: cancelWord">Ακύρωση</h1>
+                                            <h1 data-bind="click: submitCalendar, text: okWord, text: okWord">Εντάξει</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-bg" data-bind="click: restoreFoodAttr" id="modalEdit"><!--  style="white-space: unset;" -->
+                    <div class="modal">
+                        <div class="delete-container">
+                            <div class="edit" data-bind="click: stopProp.bind($data, event), foreach: itemFoodArray">
+                                <div class="edit-top">
+                                    <h2 data-bind="text: addName">Προσθήκη</h2>
+                                    <h3 data-bind="text: fullDate"></h3>
+                                    <img src="./img/star_black.png" alt="star" width="35" height="35" data-bind="attr: {src: starFill}">
+                                </div>
+                                <div class="scroll-add">
+                                    <div class="scroll-pos">
+                                        <div class="edit-field">
+                                            <img src="./img/meat.png" alt="consumed" width="35" height="35" data-bind="visible: imgName() != '', attr: {src: img, alt: imgName}">
+                                            <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                            <div><span class="summary-info" data-bind="text: name">Μπριζόλα</span>(<span class="summary-info-detail" data-bind="text: quantity">200</span> <span class="summary-info-detail" data-bind="text: unitName">g</span> / <span class="summary-info-detail" data-bind="text: portionName">Μερίδα</span>)</div>
+                                            <!-- <div class="summary-info-detail">(<span data-bind="text: quantity">200</span> <span data-bind="text: unitName">g</span> / <span data-bind="text: portionName">Μερίδα</span>)</div> -->
+                                        </div>
+                                        <div class="edit-field">
+                                            <div class="summary-info edit-category" data-bind="text: nutrientName">Θρεπτικές Ουσίες</div>
+                                        </div>
+                                        <div class="edit-nutrient">
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="red-circle"></div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div class="summary-info" data-bind="text: proteinName">Πρωτεΐνες</div>
+                                                    </div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: protein"></span>g</div>
+                                                </div>
+                                            </div>   
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="blue-circle"></div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div class="summary-info" data-bind="text: carbName">Υδατάνθρακες</div>
+                                                    </div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: carb"></span>g</div>
+                                                </div>
+                                            </div>
+                                            <div class="dif">
+                                                <div class="snack-pair">
+                                                    <div class="snack-attribute">
+                                                        <div class="green-circle"></div>
+                                                    </div>
+                                                    <div class="nutrient-attribute">
+                                                        <div class="summary-info" data-bind="text: fatName">Λίπος</div>
+                                                    </div>
+                                                </div>
+                                                <div class="nutrient-attribute">
+                                                    <div class="summary-info-detail"><span data-bind="text: fat"></span>g</div>
+                                                </div>
+                                            </div>                               
+                                        </div>
+                                        <!-- <div class="edit-field">
+                                            <div class="summary-info edit-category" id="consumptionquantity" data-bind="text: consumeQuantityName">Ποσότητα Κατανάλωσης</div>
+                                        </div>
+                                        <div class="edit-field">
+                                            <input type="number" id="consumption" value="1" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}" data-bind="value: inputNumPortion, event:{change: $parent.in}"/>
+                                            <div class="summary-info-detail edit-quantity"><span data-bind="text: calories">8870</span> kcal</div>
+                                        </div>
+                                        <div class="edit-field">
+                                            <div class="nutrient-attribute">
+                                                <div class="summary-info"><span data-bind="text: consumptionNumPortion">1</span> <span data-bind="text: portionsName">Μερίδες </span> = </div>
+                                            </div>
+                                            <div class="nutrient-attribute">
+                                                <div class="summary-info-detail"><input type="number" class="summary-info-detail" data-bind="value: portion" style="width: 73px; font-size: 18px;"/><span data-bind="text: unitName">g</span></div>
+                                            </div>
+                                        </div> -->
+                                        <div class="edit-field">
+                                            <div class="summary-info edit-category" id="consumptionquantity" data-bind="text: consumeQuantityName">Ποσότητα Κατανάλωσης</div>
+                                        </div>
+                                        <div class="edit-field">
+                                            <div class="nutrient-attribute">
+                                                <div class="summary-info"><span data-bind="text: quantityName">Ποσότητα </span> = </div>
+                                            </div>
+                                            <div class="nutrient-attribute">
+                                                <input type="number" id="consumption" value="1" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}" data-bind="value: inputNumPortion, event:{change: $parent.in}"/>
+                                            </div>
+                                            <!-- <div class="summary-info-detail edit-quantity"><span data-bind="text: calories">8870</span> kcal</div> -->
+                                        </div>
+                                        <div class="edit-field">
+                                            <div class="nutrient-attribute">
+                                                <div class="summary-info"><span data-bind="text: consumptionNumPortion">1</span><span data-bind="text: portionsName">Μερίδες </span> = </div>
+                                            </div>
+                                            <div class="nutrient-attribute">
+                                                <div class="summary-info-detail"><input type="number" class="summary-info-detail" data-bind="value: portion" style="width: 73px; font-size: 18px;"/><span data-bind="text: unitName">g</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="edit-field">
+                                            <div class="nutrient-attribute">
+                                                <div class="summary-info"><span data-bind="">Θερμίδες </span> = <span class="summary-info-detail" data-bind="text: calories">8870</span> <span class="summary-info-detail">kcal</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="edit-field">
+                                            <div class="summary-info edit-category" id="choosemealtype" data-bind="text: typeMealName">Επιλέξτε Τύπο Γεύματος</div>
+                                        </div>
+                                        <div class="edit-field">
+                                            <div class="edit-attribute">
+                                                <div class="edit-meal summary-touch" data-bind="style: {'backgroundColor': backColor1, 'color': color1}, click: chooseMealCategory.bind($data,'1'), text: morningName" id="morning">Πρωινό</div>
+                                                <div class="edit-meal summary-touch" data-bind="style: {'backgroundColor': backColor2, 'color': color2}, click: chooseMealCategory.bind($data,'2'), text: lunchName" id="lunch">Μεσημεριανό</div>
+                                            </div>
+                                            <div class="edit-attribute">
+                                                <div class="edit-meal summary-touch" data-bind="style: {'backgroundColor': backColor3, 'color': color3}, click: chooseMealCategory.bind($data,'3'), text: snackName" id="meal">Γεύματα</div>
+                                                <div class="edit-meal summary-touch" data-bind="style: {'backgroundColor': backColor4, 'color': color4}, click: chooseMealCategory.bind($data,'4'), text: dinnerName" id="dinner">Βραδινό</div>
+                                            </div>
+                                        </div>
+                                        <div class="edit-field">
+                                            <div class="summary-info edit-category" data-bind="text: moreNutrientsName">Περισσότερες Θρεπτικές Ουσίες</div>
+                                        </div>
+                                        <div class="snack-all-details">
+                                            <div class="snack-second-details">
+                                                <div class="color-circle" style="background-color: rgb(103, 103, 180);"></div>
+                                                <div class="summary-info" data-bind="text: fiberName">Φυτικές Ίνες</div>
+                                                <div class="summary-info-detail"><span data-bind="text: fiber">2.1</span>g</div>
+                                            </div>
+                                            <div class="snack-second-details">
+                                                <div class="color-circle" style="background-color: rgb(173, 87, 173);"></div>
+                                                <div class="summary-info" data-bind="text: sugarName">Σάκχαρα</div>
+                                                <div class="summary-info-detail"><span data-bind="text: sugar">2.1</span>g</div>
+                                            </div>
+                                            <div class="snack-second-details">
+                                                <div class="color-circle" style="background-color: rgb(126, 165, 197);"></div>
+                                                <div class="summary-info" data-bind="text: saturatedName">Κορεσμένα</div>
+                                                <div class="summary-info-detail"><span data-bind="text: saturated">3.45</span>g</div>
+                                            </div>
+                                            <div class="snack-second-details">
+                                                <div class="color-circle" style="background-color: rgb(125, 196, 141);"></div>
+                                                <div class="summary-info" data-bind="text: unsaturatedName">Ακόρεστα</div>
+                                                <div class="summary-info-detail"><span data-bind="text: unsaturated">1.73</span>g</div>
+                                            </div>
+                                            <div class="snack-second-details">
+                                                <div class="color-circle" style="background-color: rgb(180, 147, 103);"></div>
+                                                <div class="summary-info" data-bind="text: bitaminDName">Βιταμίνες</div>
+                                                <div class="summary-info-detail"><span data-bind="text: bitamins">4.66</span>g</div>
+                                            </div>
+                                        </div>
+                                        <div class="edit-bottom">
+                                            <div class="edit-submit">
+                                                <div class="summary-info-detail summary-touch" data-bind="click: restoreFoodAttr, text: cancelName">Ακύρωση</div>
+                                                <div class="summary-info-detail summary-touch" data-bind="click: UpdateFoodSubmit, text: updateName">Ενημέρωση</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script type='text/javascript' src='js/knockout.js'></script>
+        <script src='js/knockout.js'></script>
         <script src="js/popperBH.js"></script>
         <script src="js/fadeVisible.js"></script>
+        <script src="js/bindHTML.js"></script>
         <script src="js/checkInput.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/crypto-js.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/hmac-sha256.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/enc-base64.min.js"></script>
+        <script src="tinymce/tinymce.min.js"></script>
+        <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script src="js/handleClassesDashboard.js"></script>
         <script src="js/dashboard.js"></script>
     </body>
 </html>

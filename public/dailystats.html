@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="el" id="body">
+    <head>
+        <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://kit.fontawesome.com/29bdf39021.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="css/style3.css">
+        <title data-bind="text: title">Καθημερινά Στατιστικά | Nutrition</title>
+    </head>
+    <body>
+        <input type="checkbox" id="nav-toggle">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <h1><img src="img/nutrition.png" width="50" height="50" alt="Nutrition"><span style="margin-left: 0.5rem;">Nutrition</span></h1>
+            </div>
+  
+            <div class="sidebar-menu">
+                <ul>
+                    <li data-bind="foreach: dashboardArray" >
+                        <a data-bind="click: redirect, class: activelabel, attr: {title: title}">
+                            <span data-bind="class: icons"></span>
+                            <span data-bind="text: name"></span>
+                        </a>
+                    </li>      
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content" >   
+            <header>
+                <section>
+                    <label for="nav-toggle" id="mediaCalc">
+                        <!-- <span class="las la-bars"></span> -->
+                        <img src="img/menu.png" width="40" height="40" alt="Bar">
+                    </label>
+                    <h3 data-bind="text: dailyStats">Καθημερινά Στατιστικά</h3>
+                </section>
+
+                <div class="user-wrapper">
+                    <img src="#" alt="flag" data-bind="click: langSubmit, attr: {src: flag, alt: 'flag'}" width="37" height="37" class="lang">
+                    <div>
+                        <h4 data-bind="text: username, value: username">Username</h4>
+                        <small data-bind="text: categoryUser">User</small>
+                    </div>
+                </div>
+            </header>
+
+            <main id="main">
+                <span>
+                    <div class="settings" data-bind="foreach: dailyStatArray, visible: dailyStatArray().length > 0">
+                        <div class="settings-section">
+                            <div class="setting-title summary-touch" data-bind="click: openStat"><!--  -->
+                                <h2 data-bind="text: fullDate">15 July 2022</h2>
+                                <span class="las la-angle-down" data-bind="visible: !isStatToggle()"></span>
+                                <span class="las la-angle-up" data-bind="visible: isStatToggle"></span>
+                            </div>
+                            <div class="setting-elements" data-bind="visible: isStatToggle"><!--  -->
+                                <div class="line"></div>
+                                <div class="setting-content" data-bind="visible: isExistToggle">
+                                    <!-- <div class="setting-html" data-bind=""> --><!-- bindHTML: elements -->
+                                        <div class="setting-info" data-bind="click: openCalories" style="margin-bottom: 0.25rem">                        
+                                            <div class="setting-title summary-touch" data-bind="" style="margin: unset; width: 100%;">
+                                                <div data-bind="text: calorieWord">Θερμίδες</div>
+                                                <span class="las la-angle-down" data-bind="visible: !isCaloriesToggle()"></span>
+                                                <span class="las la-angle-up" data-bind="visible: isCaloriesToggle"></span>
+                                            </div>
+                                        </div>
+                                        <form data-bind="visible: isCaloriesToggle">
+                                            <div class="setting-field">
+                                                <h4>Kcal</h4>
+                                                <div class="setting-block">
+                                                    <p data-bind="text: caloriesNumber">1251</p>
+                                                    <p data-bind="text: caloriesConsume">Καταναλώθηκαν Λιγότερα</p>
+                                                </div>
+                                            </div>                                        
+                                        </form>
+                                        <div class="setting-info" data-bind="" style="margin-bottom: 0.25rem">                        
+                                            <div class="setting-title summary-touch" data-bind="click: openNutrient" style="margin: unset; width: 100%;">
+                                                <div data-bind="text: nutrientWord">Θρεπτικές Ουσίες</div>
+                                                <span class="las la-angle-down" data-bind="visible: !isNutrientToggle()"></span>
+                                                <span class="las la-angle-up" data-bind="visible: isNutrientToggle"></span>
+                                            </div>
+                                        </div>
+                                        <form data-bind="visible: isNutrientToggle">
+                                            <div class="setting-field">
+                                                <h4 data-bind="text: carbWord">Υδατάνθρακες</h4>
+                                                <div class="setting-block">
+                                                    <p>
+                                                        <span data-bind="text: carbNumber">160</span>
+                                                        <span> g</span>
+                                                    </p>
+                                                    <p data-bind="text: carbConsume">Καταναλώθηκαν Λιγότερα</p>
+                                                </div>
+                                            </div>
+                                            <div class="setting-field">
+                                                <h4 data-bind="text: proteinWord">Πρωτεΐνες</h4>
+                                                <div class="setting-block">
+                                                    <p>
+                                                        <span data-bind="text: proteinNumber">160</span>
+                                                        <span> g</span>
+                                                    </p>
+                                                    <p data-bind="text: proteinConsume">Καταναλώθηκαν Περισσότερα</p>
+                                                </div>
+                                            </div>
+                                            <div class="setting-field" data-bind="">
+                                                <h4 data-bind="text: fatWord">Λίπος</h4>
+                                                <div class="setting-block">
+                                                    <p>
+                                                        <span data-bind="text: fatNumber">160</span>
+                                                        <span> g</span>
+                                                    </p>
+                                                    <p data-bind="text: fatConsume">Καταναλώθηκαν Λιγότερα</p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="setting-info" data-bind="">                        
+                                            <div class="setting-title summary-touch" data-bind="click: openMoreNutrient" style="margin: unset; width: 100%;">
+                                                <div data-bind="text: moreNutrientWord">Περισσότερες Θρεπτικές Ουσίες</div>
+                                                <span class="las la-angle-down" data-bind="visible: !isMoreNutrientToggle()"></span>
+                                                <span class="las la-angle-up" data-bind="visible: isMoreNutrientToggle"></span>
+                                            </div>
+                                        </div>
+                                        <form data-bind="visible: isMoreNutrientToggle">
+                                            <div class="setting-field">
+                                                <h4 data-bind="text: fitWord">Φυτικές Ίνες</h4>
+                                                <div class="setting-block">
+                                                    <p data-bind="">
+                                                        <span data-bind="text: fiberNumber">160</span>
+                                                        <span> g</span>
+                                                    </p>
+                                                    <p data-bind="text: consumed">Καταναλώθηκαν</p>
+                                                </div>
+                                            </div>
+                                            <div class="setting-field">
+                                                <h4 data-bind="text: sugarWord">Σάκχαρα</h4>
+                                                <div class="setting-block">
+                                                    <p data-bind="">
+                                                        <span data-bind="text: sugarNumber">160</span>
+                                                        <span> g</span>
+                                                    </p>
+                                                    <p data-bind="text: consumed">Καταναλώθηκαν</p>
+                                                </div>
+                                            </div>
+                                            <div class="setting-field" data-bind="">
+                                                <h4 data-bind="text: saturatedWord">Κορεσμένα</h4>
+                                                <div class="setting-block">
+                                                    <p data-bind="">
+                                                        <span data-bind="text: saturatedNumber">0</span>
+                                                        <span> g</span>
+                                                    </p>
+                                                    <p data-bind="text: consumed">Καταναλώθηκαν</p>
+                                                </div>
+                                            </div>
+                                            <div class="setting-field">
+                                                <h4 data-bind="text: unsaturatedWord">Ακόρεστα</h4>
+                                                <div class="setting-block">
+                                                    <p data-bind="">
+                                                        <span data-bind="text: unsaturatedNumber">160</span>
+                                                        <span> g</span>
+                                                    </p>
+                                                    <p data-bind="text: consumed">Καταναλώθηκαν</p>
+                                                </div>
+                                            </div>
+                                            <div class="setting-field">
+                                                <h4 data-bind="text: bitaminDWord">Βιταμίνη D</h4>
+                                                <div class="setting-block">
+                                                    <p data-bind="">
+                                                        <span data-bind="text: bitaminDNumber">160</span>
+                                                        <span> g</span>
+                                                    </p>
+                                                    <p data-bind="text: consumed">Καταναλώθηκαν</p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    <!-- </div> -->
+                                </div>
+                                <div class="setting-content" data-bind="visible: !isExistToggle()">
+                                    <div class="setting-info" data-bind="click: openCalories">
+                                        <div class="snack-empty">
+                                            <img src="./img/no-cheese.png" alt="add" width="60" height="60" style="margin-bottom: 0.25rem;">
+                                            <div class="summary-info-detail" data-bind="text: noFoodData">Δεν Βρέθηκαν Δεδομένα Τροφίμων</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter" data-bind="visible: isLoadToggle">
+                        <div class="create-food-cont" data-bind="click: getDailyStat">
+                            <div class="summary-info" data-bind="text: loadMore">Φόρτωσε Περισσότερα</div>
+                        </div>
+                    </div>  
+                </span>
+                
+                <div data-bind="bindHTML: footer"></div>
+            </main>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src='js/knockout.js'></script>
+        <script src="js/popperBH.js"></script>
+        <script src="js/fadeVisible.js"></script>
+        <script src="js/checkInput.js"></script>
+        <script src="js/bindHTML.js"></script>
+        <script src="js/dailyStats.js"></script>
+    </body>
+</html>

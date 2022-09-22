@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="el" id="body">
+    <head>
+        <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://kit.fontawesome.com/29bdf39021.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="css/style3.css">
+        <title data-bind="text: title">Στατιστικά | Nutrition</title>
+    </head>
+    <body>
+        <input type="checkbox" id="nav-toggle">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <h1><img src="img/nutrition.png" width="50" height="50" alt="Nutrition"><span style="margin-left: 0.5rem;">Nutrition</span></h1>
+            </div>
+  
+            <div class="sidebar-menu">
+                <ul>
+                    <li data-bind="foreach: dashboardArray" >
+                        <a data-bind="click: redirect, class: activelabel, attr: {title: title}">
+                            <span data-bind="class: icons"></span>
+                            <span data-bind="text: name"></span>
+                        </a>
+                    </li>      
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content" >   
+            <header>
+                <section>
+                    <label for="nav-toggle" id="mediaCalc">
+                        <!-- <span class="las la-bars"></span> -->
+                        <img src="img/menu.png" width="40" height="40" alt="Bar">
+                    </label>
+                    <h3 data-bind="text: statistics">Στατιστικά</h3>
+                </section>
+
+                <div class="user-wrapper">
+                    <img src="#" alt="flag" data-bind="click: langSubmit, attr: {src: flag, alt: 'flag'}" width="37" height="37" class="lang">
+                    <div>
+                        <h4 data-bind="text: username, value: username">Username</h4>
+                        <small data-bind="text: categoryUser">User</small>
+                    </div>
+                </div>
+            </header>
+
+            <main id="main">
+                <span>
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper2">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="weight" data-bind="click: allRegisters.bind($data, 'weight')" style="min-height: 4rem;">
+                                        <div class="summary-info" data-bind="text: weightName">Weight</div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="weightbone" data-bind="click: allRegisters.bind($data, 'weightBone')" style="min-height: 4rem;">
+                                        <div class="summary-info" data-bind="text: weightBoneName">Weight Bone</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="fatpercentage" data-bind="click: allRegisters.bind($data, 'fatPercentage')" style="min-height: 4rem;">
+                                        <div class="summary-info" data-bind="text: fatPercentageName">Fat Percentage</div>
+                                    </div>
+                                </div>  
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="waterpercentage" data-bind="click: allRegisters.bind($data, 'waterPercentage')" style="min-height: 4rem;">
+                                        <div class="summary-info" data-bind="text: waterPercentageName">Water Percentage</div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper1">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="all" data-bind="click: allRegisters.bind($data, '')" style="min-height: 4rem">
+                                        <div class="summary-info"><span data-bind="text: allMonths">Month</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="one" data-bind="click: currentMonth.bind($data, 1)" style="min-height: 4rem">
+                                        <div class="summary-info">1 <span data-bind="text: month">Month</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="three" data-bind="click: currentMonth.bind($data, 3)" style="min-height: 4rem">
+                                        <div class="summary-info">3 <span data-bind="text: months">Month</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="six" data-bind="click: currentMonth.bind($data, 6)" style="min-height: 4rem">
+                                        <div class="summary-info">6 <span data-bind="text: months">Month</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="nine" data-bind="click: currentMonth.bind($data, 9)" style="min-height: 4rem">
+                                        <div class="summary-info">9 <span data-bind="text: months">Month</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="category-choices-field summary-touch" data-bind="">
+                                    <div class="category-choices-element" id="twelve" data-bind="click: currentMonth.bind($data, 12)" style="min-height: 4rem">
+                                        <div class="summary-info">12 <span data-bind="text: months">Month</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <div id="curve_chart" data-bind="visible: !isStatToggle()"></div>
+
+                    <div class="settings" data-bind="visible: isStatToggle">
+                        <div class="settings-section" style="padding: unset;">
+                            <div class="setting-elements" data-bind="">
+                                <div class="setting-content" style="width: 100%; margin-bottom: unset; border-radius: 15px;" data-bind="">
+                                    <div class="setting-info" style="border-radius: 15px;" data-bind="">
+                                        <div class="snack-empty">
+                                            <img src="./img/line-chart.png" alt="add" width="60" height="60" style="margin-bottom: 0.25rem;">
+                                            <div class="summary-info-detail" data-bind="text: noMeasurements">Δεν Βρέθηκαν Μετρήσεις Βάρους</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+
+                <div data-bind="bindHTML: footer"></div>
+            </main>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src='js/knockout.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+        <script src="js/popperBH.js"></script>
+        <script src="js/fadeVisible.js"></script>
+        <script src="js/checkInput.js"></script>
+        <script src="js/bindHTML.js"></script>
+        <!-- <script src="https://unpkg.com/default-passive-events"></script> -->
+        <script src="js/statistics.js"></script>
+    </body>
+</html>

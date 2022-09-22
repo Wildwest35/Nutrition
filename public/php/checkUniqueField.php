@@ -1,34 +1,79 @@
 <?php
-    @session_start();
-    header('Content-type: application/json');
-    //header("Access-Control-Allow-Origin: *");
-    include 'corsAccess.php';
+//Access: Everyone
+//Purpose: Check if the username or email already exist during registration
 
-    if(isset($_POST['field']) && isset($_POST['table']) && isset($_POST['newVal'])) {
+    @session_start();
+    include 'corsAccess.php';
+    include 'checkInput.php';
+
+    if(isset($_POST['table']) && isset($_POST['newVal'])) {
         include 'connect.php';
 
-        $field = filter_var($_POST['field'], FILTER_SANITIZE_STRING);
-        $table = filter_var($_POST['table'], FILTER_SANITIZE_STRING);
-        $newVal = filter_var($_POST['newVal'], FILTER_SANITIZE_STRING);
+        $table = filter_var($_POST['table'], FILTER_SANITIZE_NUMBER_INT);
+        $newVal = filter_var($_POST['newVal'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        $query = $con->prepare("SELECT $field FROM $table WHERE $field = :$field");
-
-        $query->bindValue(":$field", $newVal);
-
-        if($query->execute()) {
-            $row = $query->fetchAll(PDO::FETCH_ASSOC);
-
-            if(!empty($row)) {
-                if ($query->rowCount() > 0) {
-                    echo json_encode(['status' => 'ok', 'data' => $row]);
-                } else {
-                    echo json_encode(['status' => 'error', 'data' => false]);
-                }
+        if($table == 1) {
+            if(!preg_match(AlphaNumeric(), $newVal)) {
+                echo json_encode(['status' => 'error', 'data' => '604']);
+                die();
             } else {
-                echo json_encode(['status' => 'error', 'data' => false]);
+                $query = $con->prepare("SELECT `users`.`username` FROM `users` WHERE `users`.`username` = :username || `users`.`email` = :email");
+    
+                $query->bindValue(':username', $newVal);
+                $query->bindValue(':email', $newVal);
+    
+                if($query->execute()) {
+                    $row = $query->fetch(PDO::FETCH_ASSOC);
+    
+                    if(!empty($row)) {
+                        if ($query->rowCount() > 0) {
+                            echo json_encode(['status' => 'ok', 'data' => true]);
+                        } else {
+                            echo json_encode(['status' => 'error', 'data' => false]);
+                        }
+                        die();
+                    } else {
+                        echo json_encode(['status' => 'error', 'data' => false]);
+                    }
+                    die();
+                } else {
+                    echo json_encode(['status' => 'error', 'data' => '608']);
+                }
+                die();
+            }
+        } else {
+            if(!preg_match(Email(), $newVal)) {
+                echo json_encode(['status' => 'error', 'data' => '604']);
+                die();
+            } else {
+                $query = $con->prepare("SELECT `users`.`email` FROM `users` WHERE `users`.`username` = :username || `users`.`email` = :email");
+    
+                $query->bindValue(':username', $newVal);
+                $query->bindValue(':email', $newVal);
+    
+                if($query->execute()) {
+                    $row = $query->fetch(PDO::FETCH_ASSOC);
+    
+                    if(!empty($row)) {
+                        if ($query->rowCount() > 0) {
+                            echo json_encode(['status' => 'ok', 'data' => true]);
+                        } else {
+                            echo json_encode(['status' => 'error', 'data' => false]);
+                        }
+                        die();
+                    } else {
+                        echo json_encode(['status' => 'error', 'data' => false]);
+                    }
+                    die();
+                } else {
+                    echo json_encode(['status' => 'error', 'data' => '608']);
+                }
+                die();
             }
         }
+        die();
     } else {
-        echo json_encode(['status' => 'error', 'data' => false]);
+        echo json_encode(['status' => 'error', 'data' => '609']);
     }
+    die();
 ?>
