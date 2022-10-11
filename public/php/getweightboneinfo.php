@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Collect all weight bone info
 
     @session_start();

@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect total Daily Stats number
+//Access: Authenticated Users
+//Purpose: Collect total number elements in "Daily Stats"
 
     @session_start();
     include 'corsAccess.php'; 
@@ -20,7 +20,7 @@
             if(!preg_match(Numeric(), $id)) {
                 echo json_encode(['status' => 'error', 'data' => 'Error Code: #704']);
             } else {
-                $query = $con->prepare("SELECT COUNT(`dailysummaries`.`calories`) as totalDailyStats
+                $query = $con->prepare("SELECT `dailysummaries`.`calories` as totalDailyStats
                                         FROM `dailysummaries`
                                         JOIN `dailyconsumptiongoals` ON `dailyconsumptiongoals`.`id` = `dailysummaries`.`idDailyConsumptionGoals`
                                         JOIN `users` ON `dailyconsumptiongoals`.`idUser` = `users`.`id`
@@ -29,9 +29,17 @@
                 $query->bindValue(":id", $id);
                 $query->bindValue(":dailySummariesDate", $date);
 
-                if($query->execute()) {
-                    $row = $query->fetchAll(PDO::FETCH_ASSOC);
+/*                 $query = $con->prepare("SELECT `dailyeatings`.`calories` as totalDailyStats
+                                        FROM `dailyeatings`
+                                        WHERE `dailyeatings`.`idUser` = :id && `dailyeatings`.`dailyEatingsDate` >= :dailyEatingsDate
+                                        GROUP BY `dailyeatings`.`dailyEatingsDate`");
 
+                $query->bindValue(":id", $id);
+                $query->bindValue(":dailyEatingsDate", $date); */
+
+                if($query->execute()) {
+                    $row = $query->rowCount();
+                    
                     echo json_encode(['status' => 'ok', 'data' => $row]);
                 } else {
                     echo json_encode(['status' => 'error', 'data' => 'false6']);

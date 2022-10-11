@@ -296,7 +296,8 @@ function RegisterModel() {
             exercise: self.exercise(),
             kilos: self.kilos(),
             sendLang: self.sendLang(),
-            fd: self.fd()
+            fd: self.fd(),
+            lang: self.lang()
         }
 
        $.post('./php/register.php', o, function(data) {

@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Get username and lang
+//Access: Authenticated Users
+//Purpose: Save meal category to a session
 
     @session_start();
     include 'corsAccess.php';

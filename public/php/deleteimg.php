@@ -1,6 +1,7 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Delete Image
+
     @session_start();
 
     if(isset($_SESSION['username']) && isset($_POST['newImg']) && isset($_POST['fileLength']) && isset($_POST['newImgHash']) && isset($_POST['newImgPath'])) {

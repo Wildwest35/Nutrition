@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Collect total search favourites
 
     @session_start();
@@ -25,12 +25,21 @@
                                         FROM `favourites`
                                         JOIN `foods` ON `favourites`.`idFood` = `foods`.`id`
                                         JOIN `foodnames` ON `foods`.`idFoodName` = `foodnames`.`id`
+                                        JOIN `foodcategory` ON `foods`.`idFoodCategory` = `foodcategory`.`id`
+                                        JOIN `unitname` ON `foods`.`idUnitName` = `unitname`.`id`
                                         JOIN `translationfoodname` ON `translationfoodname`.`idFoodName` = `foodnames`.`id`
-                                        WHERE `favourites`.`idUser` = :id && `translationfoodname`.`idLang` = :idLang && `translationfoodname`.`translationFoodName` LIKE :search");
+                                        JOIN `translationfoodcategory` ON `translationfoodcategory`.`idFoodCategory` = `foodcategory`.`id`
+                                        JOIN `translationunitname` ON `translationunitname`.`idUnitName` = `unitname`.`id`
+                                        WHERE `favourites`.`idUser` = :id && `translationfoodname`.`idLang` = :idLang && `translationfoodcategory`.`idLang` = :idLang1 && `translationunitname`.`idLang` = :idLang2 && (`translationfoodname`.`translationFoodName` LIKE :search || `translationfoodcategory`.`translationFoodCategory` LIKE :search1 || `translationunitname`.`translationUnitName` LIKE :search2 || `foods`.`portion` LIKE :search3)");
                 
                 $query->bindValue(":id", $id);
                 $query->bindValue(":idLang", $numLang);
+                $query->bindValue(":idLang1", $numLang);
+                $query->bindValue(":idLang2", $numLang);
                 $query->bindValue(":search", $search);
+                $query->bindValue(":search1", $search);
+                $query->bindValue(":search2", $search);
+                $query->bindValue(":search3", $search);
 
                 if($query->execute()) {
                     $countFavourite = $query->rowCount();

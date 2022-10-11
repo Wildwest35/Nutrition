@@ -1,6 +1,6 @@
 <?php
 //Access: Everyone
-//Purpose: 
+//Purpose: Runs every day at 00:00 and add the initial values of daily summaries
 
 /* date_default_timezone_set("Europe/Athens");
 $queued_at = date("Y-m-d H:i:s");

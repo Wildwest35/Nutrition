@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Save the id of the user in a Session
 
     @session_start();

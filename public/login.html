@@ -15,9 +15,6 @@
                 <div class="nav-bar-logo" data-bind="click: indexPage">
                     <img src="img/nutrition.png" alt="Nutrition">
                     <h1>Nutrition</h1>
-                     <!-- <div>
-                       <h5 data-bind="text: nameCategory" style="color: grey;">User</h5> 
-                    </div>-->
                 </div>
                 <img src="img/menu.png" alt="menu Test Image" width="50" height="40" class="menu" data-bind="click: collapse">
             </div>
@@ -29,9 +26,8 @@
                 <button class="register" data-bind="click: registerPage, text: registerbtn"></button>    
             </div>      
         </section>
-        <section class="container" ><!--style="min-height: calc(100vh - 9.45rem);"  -->
-            <form method="post" data-bind="submit: login" class="form-elements"><!-- , visible: !isSelectingCategory() -->
-                <!-- <div class="logo" data-bind="click: indexPage">Nutrition</div> -->
+        <section class="container">
+            <form method="post" data-bind="submit: login" class="form-elements">
                 <h1 data-bind="text: connect">Σύνδεση</h1>
                 <div class="alert-error" id="alertError">
                     <div class="error-sub" data-bind="text: loginMessage"></div>     
@@ -72,17 +68,6 @@
                 <div class="sign-up" data-bind="click: registerPage, text: register">Εγγραφτείτε</div>
                 
             </form>
-<!--             <div class="chooseContainer"  data-bind="visible: isSelectingCategory">
-                <div class="chooseLoginElement" data-bind="click: categorySelection.bind($data, 'u')">
-                    <img src="img/employees.png" alt="User" width="100" height="100">
-                    <h3>User</h3>
-                </div>
-                <div class="chooseLoginElement" data-bind="click: categorySelection.bind($data, 'a')">
-                    <img src="img/admin.png" alt="Admin" width="100" height="100">
-                    <h3>Admin</h3>
-                </div>
-            </div> -->
-           
         </section>
         
         <div data-bind="bindHTML: footer"></div>

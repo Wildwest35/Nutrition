@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Collect total search activation link
 
     @session_start();
@@ -20,9 +20,11 @@
                 $query = $con->prepare("SELECT `users`.`username`
                                         FROM `activationlink`
                                         JOIN `users` ON `activationlink`.`idUser` = `users`.`id`
-                                        WHERE `users`.`username` LIKE :search");
+                                        WHERE `users`.`username` LIKE :search || `activationlink`.`expireLinkDate` LIKE :search1 || `activationlink`.`dateCreated` LIKE :search2");
 
                 $query->bindValue(":search", $search);
+                $query->bindValue(":search1", $search);
+                $query->bindValue(":search2", $search);
 
                 if($query->execute()) {
                     $countActivationLink = $query->rowCount();

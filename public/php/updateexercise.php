@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Update exercise
 
     @session_start();

@@ -10,7 +10,7 @@ function ForgetPassModel() {
 	self.alphaNumeric = ko.observable('* Επιτρέπονται μόνο λατινικοί χαρακτήρες, αριθμοί και κάτω παύλα.');
 	self.isEmptyField = ko.observable('* Το πεδίο είναι κενό!');
 	self.isEmail = ko.observable('* Παρακαλώ εισάγετε ένα έγκυρο email.');
-	self.empties = ko.observable('* Τα πεδία είναι κενά!');
+	self.empties = ko.observable('* Το πεδίο είναι κενό!');
 	self.remind = ko.observable('Υπενθύμιση Κωδικού');
 	self.emailPlaceholder = ko.observable('Εισάγετε Email...');
 	self.submit = ko.observable('Καταχώρηση');
@@ -62,14 +62,14 @@ function ForgetPassModel() {
 				}
 				self.switch('modalLoad');
 			});	
-		} else {
+		}/*  else {
 			if(self.email() == '') {
 				self.email(" ");
 				self.email.emptyFieldError(true);
 				self.email("");
+				self.switch('modalLoad');
 			}
-			self.switch('modalLoad');
-		}
+		} */
 	};
 
     self.checkLang = function() {
@@ -110,7 +110,7 @@ function ForgetPassModel() {
 			self.alphaNumeric('* Only Latin characters, numbers and underscores are allowed.');
 			self.isEmptyField('* The field is empty!');
 			self.isEmail('* Please enter a valid email.');
-			self.empties('* Fields are empty!');
+			self.empties('* Field is empty!');
 			self.remind('Remind Password');
 			self.emailPlaceholder('Enter Email...');
 			self.submit('Submit');
@@ -127,7 +127,7 @@ function ForgetPassModel() {
 			self.alphaNumeric('* Επιτρέπονται μόνο λατινικοί χαρακτήρες, αριθμοί και κάτω παύλα.');
 			self.isEmptyField('* Το πεδίο είναι κενό!');
 			self.isEmail('* Παρακαλώ εισάγετε ένα έγκυρο email.');
-			self.empties('* Τα πεδία είναι κενά!');
+			self.empties('* Το πεδίο είναι κενό!');
 			self.remind('Υπενθύμιση Κωδικού');
 			self.emailPlaceholder('Εισάγετε Email...');
 			self.submit('Καταχώρηση');

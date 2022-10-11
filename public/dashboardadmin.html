@@ -32,17 +32,12 @@
             <header>
                 <section>
                     <label for="nav-toggle" id="mediaCalc">
-                        <!-- <span class="las la-bars"></span> -->
                         <img src="img/menu.png" width="40" height="40" alt="Bar">
                     </label>
                     <h3 data-bind="text: panel">Admin Πάνελ</h3>
                 </section>
-<!--                 <form method="post" data-bind="submit: chooseSearch">
-                    <div class="element-middle">
-                        <input type="search" data-bind="value: seachUser, attr: {placeholder: self.searchUserName}"/>
-                        <img src="./img/search.png" alt="consumed" width="30" height="30" class="summary-touch" data-bind="click: chooseSearch">
-                    </div>
-                </form> -->
+                <div data-bind="bindHTML: createBarSearch"></div>
+
                 <div class="user-wrapper">
                     <img src="#" alt="flag" data-bind="click: langSubmit, attr: {src: flag, alt: 'flag'}" width="37" height="37" class="lang">
                     <div>
@@ -54,14 +49,7 @@
 
             <main id="main">
                 <span>
-                    <form method="post" data-bind="submit: chooseSearch">
-                        <div class="element-middle-out">
-                            <div class="element-middle"><!-- , valueUpdate: 'afterkeydown' -->
-                                <input type="search" data-bind="value: seachUser, attr: {placeholder: self.searchUserName}"/>
-                                <img src="./img/search.png" alt="consumed" width="30" height="30" class="summary-touch" data-bind="click: chooseSearch">
-                            </div>
-                        </div>
-                    </form>
+                    <div data-bind="bindHTML: createInSearch"></div>
                     <!-- Swiper -->
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
@@ -198,8 +186,6 @@
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
-                                    <option value="1">1</option>
-                                    <option value="3">3</option>
                                 </select>
                             </div>
                         </div> 
@@ -208,7 +194,6 @@
                     <div class="food-titles-container">
                         <div class="cont-menu-food"  style="white-space: unset;">
                             <table class="food-top">
-                                <!-- <thead data-bind="foreach: sortedTasks, visible: usersArray().length > 0"></thead> -->
                                 <tr data-bind="bindHTML: thOption"></tr>
                                 <tr  data-bind="visible: elementOptionArray().length == 0">
                                     <td class="food-elements-light" colspan="9">
@@ -239,7 +224,7 @@
                                 <div class="scroll-add">
                                     <div class="scroll-pos">
                                         <div class="modal-water-element">
-                                            <div class="summary-info" data-bind=""></div>
+                                            <div class="summary-info" data-bind="text: waringMsgDelete"></div>
                                         </div>
                                         <div class="modal-water-element">
                                             <div>
@@ -264,7 +249,7 @@
                                 <div class="scroll-add">
                                     <div class="scroll-pos">
                                         <div class="modal-water-element">
-                                            <div class="summary-info" data-bind=""></div>
+                                            <div class="summary-info" data-bind="text: warningMsgActivation"></div>
                                         </div>
                                         <div class="modal-water-element">
                                             <div>
@@ -328,10 +313,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodName" id="nameEdit">Όνομα Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodName" id="nameEdit">Όνομα Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,10 +327,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit">Κατηγορία Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit">Κατηγορία Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -360,10 +339,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unitName" id="unitEdit">Μονάδα Μέτρησης</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: unitName" id="unitEdit">Μονάδα Μέτρησης</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -375,10 +351,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: quantityName" id="portionEdit">Ποσότητα</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: quantityName" id="portionEdit">Ποσότητα</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -391,10 +364,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: caloriesName" id="caloriesEdit">Θερμίδες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: caloriesName" id="caloriesEdit">Θερμίδες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -407,10 +377,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: proteinName" id="proteinEdit">Πρωτεΐνες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: proteinName" id="proteinEdit">Πρωτεΐνες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -423,10 +390,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: carbName" id="carbEdit">Υδατάνθρακες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: carbName" id="carbEdit">Υδατάνθρακες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -439,10 +403,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: fatName" id="fatEdit">Λίπος</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: fatName" id="fatEdit">Λίπος</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -455,7 +416,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: fiberName" id="fitEdit">Φυτικές Ίνες</div>
+                                                        <div><span class="summary-info" data-bind="text: fiberName" id="fitEdit">Φυτικές Ίνες</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -468,7 +429,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: sugarName" id="sugarEdit">Σάκχαρα</div>
+                                                        <div><span class="summary-info" data-bind="text: sugarName" id="sugarEdit">Σάκχαρα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -481,7 +442,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: saturatedName" id="saturatedEdit">Κορεσμένα</div>
+                                                        <div><span class="summary-info" data-bind="text: saturatedName" id="saturatedEdit">Κορεσμένα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -494,7 +455,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit">Ακόρεστα</div>
+                                                        <div><span class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit">Ακόρεστα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -507,7 +468,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit">Βιταμίνη D</div>
+                                                        <div><span class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit">Βιταμίνη D</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -548,10 +509,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: userName" id="usernameCreate">Username</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: userName" id="usernameCreate">Username</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -563,10 +521,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodName" id="nameCreate">Όνομα Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodName" id="nameCreate">Όνομα Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -580,10 +535,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="categoryCreate">Κατηγορία Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodCategoryName" id="categoryCreate">Κατηγορία Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -595,10 +547,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unitName" id="unitCreate">Μονάδα Μέτρησης</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: unitName" id="unitCreate">Μονάδα Μέτρησης</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -610,10 +559,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: quantityName" id="portionCreate">Ποσότητα</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: quantityName" id="portionCreate">Ποσότητα</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -626,10 +572,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: caloriesName" id="caloriesCreate">Θερμίδες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: caloriesName" id="caloriesCreate">Θερμίδες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -642,10 +585,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: proteinName" id="proteinCreate">Πρωτεΐνες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: proteinName" id="proteinCreate">Πρωτεΐνες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -658,10 +598,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: carbName" id="carbCreate">Υδατάνθρακες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: carbName" id="carbCreate">Υδατάνθρακες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -674,10 +611,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: fatName" id="fatCreate">Λίπος</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: fatName" id="fatCreate">Λίπος</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -690,7 +624,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: fiberName" id="fitCreate">Φυτικές Ίνες</div>
+                                                        <div><span class="summary-info" data-bind="text: fiberName" id="fitCreate">Φυτικές Ίνες</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -703,7 +637,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: sugarName" id="sugarCreate">Σάκχαρα</div>
+                                                        <div><span class="summary-info" data-bind="text: sugarName" id="sugarCreate">Σάκχαρα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -716,7 +650,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: saturatedName" id="saturatedCreate">Κορεσμένα</div>
+                                                        <div><span class="summary-info" data-bind="text: saturatedName" id="saturatedCreate">Κορεσμένα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -729,7 +663,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedCreate">Ακόρεστα</div>
+                                                        <div><span class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedCreate">Ακόρεστα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -742,7 +676,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: bitaminsName" id="bitaminDCreate">Βιταμίνη D</div>
+                                                        <div><span class="summary-info" data-bind="text: bitaminsName" id="bitaminDCreate">Βιταμίνη D</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -784,10 +718,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="nameCategory">Κατηγορία Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodCategoryName" id="nameCategory">Κατηγορία Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -824,10 +755,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unitName" id="nameUnit">Μονάδες Μέτρησης</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: unitName" id="nameUnit">Μονάδες Μέτρησης</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -866,10 +794,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodName" id="nameEdit1">Όνομα Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodName" id="nameEdit1">Όνομα Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -883,10 +808,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit1">Κατηγορία Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit1">Κατηγορία Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -898,10 +820,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unitName" id="unitEdit1">Μονάδα Μέτρησης</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: unitName" id="unitEdit1">Μονάδα Μέτρησης</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -913,10 +832,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: quantityName" id="portionEdit1">Ποσότητα</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: quantityName" id="portionEdit1">Ποσότητα</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -929,10 +845,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: caloriesName" id="caloriesEdit1">Θερμίδες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: caloriesName" id="caloriesEdit1">Θερμίδες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -945,10 +858,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: proteinName" id="proteinEdit1">Πρωτεΐνες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: proteinName" id="proteinEdit1">Πρωτεΐνες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -961,10 +871,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: carbName" id="carbEdit1">Υδατάνθρακες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: carbName" id="carbEdit1">Υδατάνθρακες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -977,10 +884,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: fatName" id="fatEdit1">Λίπος</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: fatName" id="fatEdit1">Λίπος</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -993,7 +897,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: fiberName" id="fitEdit1">Φυτικές Ίνες</div>
+                                                        <div><span class="summary-info" data-bind="text: fiberName" id="fitEdit1">Φυτικές Ίνες</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1006,7 +910,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: sugarName" id="sugarEdit1">Σάκχαρα</div>
+                                                        <div><span class="summary-info" data-bind="text: sugarName" id="sugarEdit1">Σάκχαρα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1019,7 +923,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: saturatedName" id="saturatedEdit1">Κορεσμένα</div>
+                                                        <div><span class="summary-info" data-bind="text: saturatedName" id="saturatedEdit1">Κορεσμένα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1032,7 +936,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit1">Ακόρεστα</div>
+                                                        <div><span class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit1">Ακόρεστα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1045,7 +949,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit1">Βιταμίνη D</div>
+                                                        <div><span class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit1">Βιταμίνη D</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1057,7 +961,7 @@
                                             </div>
                                             <div class="input-create">
                                                 <input type="file" name="file" id="file2" accept="image/png, image/jpeg, image/jpg" data-bind="event: {change: $root.fileUpload}">
-                                            </div><!-- modal-water-choice -->
+                                            </div>
                                             <div class="edit-bottom">
                                                 <div class="edit-submit">
                                                     <div class="summary-info-detail summary-touch" data-bind="clickArray: [recoverAddInput1Color, emptyFoodVariables, self.switch.bind($data, 'modalEditFood')], text: cancelWord">Ακύρωση</div>
@@ -1088,10 +992,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: userName" id="usernameCreate">Username</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: userName" id="usernameCreate">Username</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1103,10 +1004,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodName" id="nameEdit2">Όνομα Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodName" id="nameEdit2">Όνομα Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1120,10 +1018,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit2">Κατηγορία Φαγητού</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: foodCategoryName" id="categoryEdit2">Κατηγορία Φαγητού</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1135,10 +1030,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unitName" id="unitEdit2">Μονάδα Μέτρησης</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: unitName" id="unitEdit2">Μονάδα Μέτρησης</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1150,10 +1042,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: quantityName" id="portionEdit2">Ποσότητα</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: quantityName" id="portionEdit2">Ποσότητα</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1166,10 +1055,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: caloriesName" id="caloriesEdit2">Θερμίδες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: caloriesName" id="caloriesEdit2">Θερμίδες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1182,10 +1068,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: proteinName" id="proteinEdit2">Πρωτεΐνες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: proteinName" id="proteinEdit2">Πρωτεΐνες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1198,10 +1081,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: carbName" id="carbEdit2">Υδατάνθρακες</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: carbName" id="carbEdit2">Υδατάνθρακες</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1214,10 +1094,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: fatName" id="fatEdit2">Λίπος</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: fatName" id="fatEdit2">Λίπος</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1230,7 +1107,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: fiberName" id="fitEdit2">Φυτικές Ίνες</div>
+                                                        <div><span class="summary-info" data-bind="text: fiberName" id="fitEdit2">Φυτικές Ίνες</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1243,7 +1120,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: sugarName" id="sugarEdit2">Σάκχαρα</div>
+                                                        <div><span class="summary-info" data-bind="text: sugarName" id="sugarEdit2">Σάκχαρα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1256,7 +1133,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: saturatedName" id="saturatedEdit2">Κορεσμένα</div>
+                                                        <div><span class="summary-info" data-bind="text: saturatedName" id="saturatedEdit2">Κορεσμένα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1269,7 +1146,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit2">Ακόρεστα</div>
+                                                        <div><span class="summary-info" data-bind="text: unsaturatedName" id="unsaturatedEdit2">Ακόρεστα</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1282,7 +1159,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit2">Βιταμίνη D</div>
+                                                        <div><span class="summary-info" data-bind="text: bitaminsName" id="bitaminDEdit2">Βιταμίνη D</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1323,10 +1200,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: categoryWord" id="nameEdit3">Κατηγορία</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: categoryWord" id="nameEdit3">Κατηγορία</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1363,10 +1237,7 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="snack-attribute">
-                                                        <div class="summary-info" data-bind="text: unitName" id="nameEdit4">Κατηγορία</div>
-                                                    </div>
-                                                    <div class="nutrient-attribute">
-                                                        <div style="color: red">*</div>
+                                                        <div><span class="summary-info" data-bind="text: unitName" id="nameEdit4">Κατηγορία</span><span style="color: red"> *</span></div>
                                                     </div>
                                                 </div>
                                             </div>

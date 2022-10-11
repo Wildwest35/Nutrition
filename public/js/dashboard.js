@@ -158,7 +158,7 @@ function DashboardModel() {
 	self.sugarWord = ko.observable('Σάκγχαρα');
 	self.saturatedWord = ko.observable('Κορεσμένα');
 	self.unsaturatedWord = ko.observable('Ακόρεστα');
-	self.bitaminsWord = ko.observable('Βιταμίνη D');
+	self.bitaminsWord = ko.observable('Βιταμίνη C');
 	self.cancelWord = ko.observable('Ακύρωση');
 	self.okWord = ko.observable('Εντάξει');
 	self.addWord = ko.observable('Προσθήκη');
@@ -187,6 +187,41 @@ function DashboardModel() {
 	self.todayWord = ko.observable('Σήμερα');
 	self.todayFull = ko.observable('');
 	
+	self.isReverseCalendar = ko.observable(true);
+	window.addEventListener('resize', function() {
+		self.checkCalendar();
+	});	
+
+	self.checkCalendar = function() {
+		var mobile = window.matchMedia("(max-width: 580px)");
+		
+
+		if(mobile.matches) {
+			self.isReverseCalendar(false);
+		} else {
+			self.isReverseCalendar(true);
+		}
+	};
+	
+	self.checkCalendar();
+
+	self.createBarCalendar = ko.observable(`
+	<div class="element-dash-middle" data-bind="visible: isReverseCalendar">
+		<img src="./img/calendar.png" alt="calendar"  data-bind="click: self.switch.bind($data, 'modalCalendar')" width="40" height="40" class="calendar-space summary-touch">
+		<img src="./img/previous.png" alt="previous" width="30" height="30" class="summary-touch" data-bind="click: prevDay">
+		<div class="date-info" data-bind="text: date">Σήμερα</div>
+		<img src="./img/next.png" alt="next" width="30" height="30" class="summary-touch" data-bind="click: nextDay">
+	</div>
+	`);
+	self.createInCalendar = ko.observable(`
+	<div class="element-dash-middle" data-bind="visible: !isReverseCalendar()">
+		<img src="./img/calendar.png" alt="calendar"  data-bind="click: self.switch.bind($data, 'modalCalendar')" width="40" height="40" class="calendar-space summary-touch">
+		<img src="./img/previous.png" alt="previous" width="30" height="30" class="summary-touch" data-bind="click: prevDay">
+		<div class="date-info" data-bind="text: date">Σήμερα</div>
+		<img src="./img/next.png" alt="next" width="30" height="30" class="summary-touch" data-bind="click: nextDay">
+	</div>
+	`);
+
 	var backupCalories = 0, backupProtein = 0, backupCarb = 0, backupFat = 0, backupFiber = 0, backupSaturated = 0, backupUnsaturated = 0, backupSugar = 0, backupBitamins = 0, backupportion = 0;
 	var backupPrevCalories = 0, backupPrevProtein = 0, backupPrevCarb = 0, backupPrevFat = 0, backupPrevFiber = 0, backupPrevSaturated = 0, backupPrevUnsaturated = 0, backupPrevSugar = 0, backupPrevBitamins = 0, backupPrevPortion = 0;
 	var backupPrevNumber = 0;
@@ -960,7 +995,6 @@ function DashboardModel() {
 					self.idUser(data.data.idUser);
 					self.nameUser(data.data.nameUser);
 				}
-				self.dateNames();
 				self.setCalendarDate();
 				self.renderCalendar();
 
@@ -1024,32 +1058,6 @@ function DashboardModel() {
 				self.logout();
 			}         
 		});	
-	};
-
-	self.dateNames = function() {
-		self.months = ko.observableArray([
-			{month: self.jan()},
-			{month: self.feb()},
-			{month: self.mar()},
-			{month: self.apr()},
-			{month: self.may()},
-			{month: self.jun()},
-			{month: self.jul()},
-			{month: self.aug()},
-			{month: self.sep()},
-			{month: self.oct()},
-			{month: self.nov()},
-			{month: self.dec()},
-		]);
-		self.days = ko.observableArray([
-			{day: self.mon()},
-			{day: self.tue()},
-			{day: self.wed()},
-			{day: self.thu()},
-			{day: self.fri()},
-			{day: self.sat()},
-			{day: self.sun()}
-		]);
 	};
 
 	self.roundOff = function(num, places) {
@@ -1218,7 +1226,7 @@ function DashboardModel() {
 			self.sugarWord('Sugar');
 			self.saturatedWord('Saturated');
 			self.unsaturatedWord('Unsaturated');
-			self.bitaminsWord('Bitamin D');
+			self.bitaminsWord('Vitamin C');
 			self.cancelWord('Cancel');
 			self.okWord('Submit');
 			self.addWord('Add');
@@ -1310,7 +1318,7 @@ function DashboardModel() {
 			self.sugarWord('Σάκγχαρα');
 			self.saturatedWord('Κορεσμένα');
 			self.unsaturatedWord('Ακόρεστα');
-			self.bitaminsWord('Βιταμίνη D');
+			self.bitaminsWord('Βιταμίνη C');
 			self.cancelWord('Ακύρωση');
 			self.okWord('Εντάξει');
 			self.addWord('Προσθήκη');
@@ -1470,7 +1478,7 @@ function DashboardModel() {
 		day.sugarName = ko.observable('Σάκχαρα');
 		day.saturatedName = ko.observable('Κορεσμένα');
 		day.unsaturatedName = ko.observable('Ακόρεστα');
-		day.bitaminDName = ko.observable('Βιταμίνη D');
+		day.bitaminDName = ko.observable('Βιταμίνη C');
 		day.cancelName = ko.observable('Ακύρωση');
 		day.updateName = ko.observable('Ενημέρωση');
 		self.backupDayArray.push(day);
@@ -1529,7 +1537,7 @@ function DashboardModel() {
 				day.sugarName('Sugar');
 				day.saturatedName('Saturated');
 				day.unsaturatedName('Unsaturated');
-				day.bitaminDName('Bitamin D');
+				day.bitaminDName('Vitamin C');
 				day.cancelName('Cancel');
 				day.updateName('Update');
 				day.quantityName('Quantity');
@@ -1552,7 +1560,7 @@ function DashboardModel() {
 				day.sugarName('Σάκχαρα');
 				day.saturatedName('Κορεσμένα');
 				day.unsaturatedName('Ακόρεστα');
-				day.bitaminDName('Βιταμίνη D');
+				day.bitaminDName('Βιταμίνη C');
 				day.cancelName('Ακύρωση');
 				day.updateName('Ενημέρωση');
 				day.quantityName('Ποσότητα');
@@ -1858,6 +1866,7 @@ function DashboardModel() {
 			let o = {
 				username: self.username(),
 				newVal: self.dailyEatingid(),
+				id: self.backupDay().idFood(),
 				calories: self.backupDay().calories(),
 				fat: self.backupDay().fat(),
 				carb: self.backupDay().carb(),
@@ -1869,7 +1878,7 @@ function DashboardModel() {
 				bitamins: self.backupDay().bitamins(),				
 				fullDate: self.fullDate()
 			}
-			
+
 			$.post('./php/deleteconsumedfood.php', o, function(data) {
 				if(data.status == "ok") {
 					if(self.dailyEatingDailyMeal() == 1) {
@@ -1926,7 +1935,7 @@ function DashboardModel() {
 				self.switch('modalSuccessMsg');
 			});
 		};
-		day.changeLanguage();
+		day.changeLanguage(); 
 	}
 
 	self.deleteSubmit = function() {

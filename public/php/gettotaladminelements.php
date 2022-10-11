@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect total admin elements
+//Access: Authenticated Users
+//Purpose: Collect total number elements of the "Admin Panel" categories
 
     @session_start();
     include 'corsAccess.php'; 

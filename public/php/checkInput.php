@@ -1,6 +1,6 @@
 <?php
 //Access: Everyone
-//Purpose: validation functions
+//Purpose: validation functions in PHP
 
     function AlphaNumeric() {
         $alphanumeric = '/^[0-9a-zA-Z_]+$/';
@@ -23,7 +23,7 @@
     }
 
     function AlphaLatin() {
-        $alphalatin = '/^[a-zA-Z\p{Greek}0-9\s\_\.\%\-]+$/u';
+        $alphalatin = '/^[a-zA-Z\p{Greek}0-9\s\_\.\%\-\,\'\(\) ]+$/u';
         return $alphalatin;
     }
 

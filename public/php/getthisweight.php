@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Get one weight register
+//Access: Authenticated Users
+//Purpose: Get users's one weight register
 
     @session_start();
     include 'corsAccess.php'; 

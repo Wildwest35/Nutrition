@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect all created food info
+//Access: Authenticated Users
+//Purpose: Collect all user's created food info
 
     @session_start();
     include 'corsAccess.php'; 
@@ -32,7 +32,7 @@
                                         JOIN `translationunitname` ON `translationunitname`.`idUnitName` = `unitname`.`id`
                                         JOIN `language` ON `translationfoodname`.`idLang` = `language`.`id`
                                         JOIN `users` ON `users`.`id` = `createdfood`.`idUser`
-                                        WHERE `translationfoodname`.`idLang` = :idLang && `translationfoodcategory`.`idLang` = :idLang1 && `translationunitname`.`idLang` = :idLang2 && (`translationfoodname`.`translationFoodName` LIKE :search || `translationfoodcategory`.`translationFoodCategory` LIKE :search1)
+                                        WHERE `translationfoodname`.`idLang` = :idLang && `translationfoodcategory`.`idLang` = :idLang1 && `translationunitname`.`idLang` = :idLang2 && (`translationfoodname`.`translationFoodName` LIKE :search || `translationfoodcategory`.`translationFoodCategory` LIKE :search1 || `users`.`username` LIKE :search2 || `foods`.`portion` LIKE :search3)
                                         ORDER BY `translationfoodname`.`translationFoodName`
                                         LIMIT :offset, :limits");
     //
@@ -41,6 +41,8 @@
                 $query->bindValue(":idLang2", $numLang);
                 $query->bindValue(":search", $search); 
                 $query->bindValue(":search1", $search); 
+                $query->bindValue(":search2", $search); 
+                $query->bindValue(":search3", $search); 
                 $query->bindValue(":offset", $offset, PDO::PARAM_INT);
                 $query->bindValue(":limits", $limits, PDO::PARAM_INT);
 

@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Add Create food
+//Access: Authenticated Users
+//Purpose: User create his own food from "Add Food" or Admin create user food from "Admin Panel"
 
     @session_start();
     include 'corsAccess.php'; 

@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Get username and lang
+//Access: Authenticated Users
+//Purpose: Get from user the username, language, meal category and the date
 
     @session_start();
     include 'corsAccess.php';

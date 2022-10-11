@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Update category food
+//Access: Authenticated Users
+//Purpose: Update the name of category food
 
     @session_start();
     include 'corsAccess.php';

@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Collect total search users
 
     @session_start();
@@ -17,9 +17,10 @@
             if(!preg_match(Numeric(), $id)) {
                 echo json_encode(['status' => 'error', 'data' => 'Error Code: #704']);
             } else {
-                $query = $con->prepare("SELECT `users`.`username` FROM `users` WHERE `users`.`username` LIKE :search");
+                $query = $con->prepare("SELECT `users`.`username` FROM `users` WHERE `users`.`username` LIKE :search || `users`.`email` LIKE :search1");
 
                 $query->bindValue(":search", $search);
+                $query->bindValue(":search1", $search);
 
                 if($query->execute()) {
                     $countUser = $query->rowCount();

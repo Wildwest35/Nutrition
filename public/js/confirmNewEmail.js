@@ -27,7 +27,8 @@ function ConfirmNewEmailModel() {
 
 		let o = {
 			number: number,
-			code: code
+			code: code,
+			lang: lang
 		}
 
 		self.changeLanguage();

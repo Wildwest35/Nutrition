@@ -45,6 +45,44 @@ function AddFoodModel() {
 	self.helpDate = ko.observable('');
 	self.date = ko.observable('');
 
+	self.isReverseSearch = ko.observable(true);
+	window.addEventListener('resize', function() {
+		self.checkSearch();
+	});	
+
+	self.checkSearch = function() {
+		var mobile = window.matchMedia("(max-width: 580px)");
+
+		if(mobile.matches) {
+			self.isReverseSearch(false);
+		} else {
+			self.isReverseSearch(true);
+		}
+	};
+	
+	self.checkSearch();
+
+	self.createBarSearch = ko.observable(`
+	<form method="post" data-bind="submit: searchSubmit, visible: isReverseSearch">
+		<div class="element-middle-out">
+			<div class="element-middle">
+				<input type="search" data-bind="value: seachFood, attr: {placeholder: self.searchFoodName}"/>
+				<img src="./img/search.png" alt="consumed" width="30" height="30" class="summary-touch" data-bind="click: searchSubmit">
+			</div>
+		</div>
+	</form>
+	`);
+	self.createInSearch = ko.observable(`
+	<form method="post" data-bind="submit: searchSubmit, visible: !isReverseSearch()">
+		<div class="element-middle-out">
+			<div class="element-middle">
+				<input type="search" data-bind="value: seachFood, attr: {placeholder: self.searchFoodName}"/>
+				<img src="./img/search.png" alt="consumed" width="30" height="30" class="summary-touch" data-bind="click: searchSubmit">
+			</div>
+		</div>
+	</form>
+	`);
+
 	self.numeric = ko.observable('* Επιτρέπονται μόνο αριθμοί');
 	self.alphaNumericLatin = ko.observable('* Επιτρέπονται μόνο λατινικοί και ελληνικοί χαρακτήρες, αριθμοί και κάτω παύλα.');
 	self.empties = ko.observable('* Το πεδίο είναι κενό!');
@@ -524,6 +562,8 @@ function AddFoodModel() {
 	};
 
 	self.updateChooseCategories = function(totalPages, page) {
+		self.page(page);
+		self.helppage(page);
 		if(self.categoryName() == 'favourite') {
 			self.updateFavourite(totalPages, page);
 		} else if(self.categoryName() == 'recent') {
@@ -627,7 +667,6 @@ function AddFoodModel() {
 
 		$.post('./php/getfavouriteinfo.php', o1, function(data) {
 			if(data.status == "ok") {
-				//console.log(data);
 				self.totalFavourite(data.data.length);
 				var tmp = data.data.map(function(el) { 
 					self.favouriteArray.push(el);
@@ -663,7 +702,6 @@ function AddFoodModel() {
 
 		$.post('./php/getrecentinfo.php', o1, function(data) {
 			if(data.status == "ok") {
-				//console.log(data);
 				self.totalFavourite(data.data.length);
 				var tmp = data.data.map(function(el) { 
 					self.recentArray.push(el);
@@ -699,7 +737,6 @@ function AddFoodModel() {
 
 		$.post('./php/getcreatedfoodinfo.php', o1, function(data) {
 			if(data.status == "ok") {
-				//console.log(data);
 				self.totalFavourite(data.data.length);
 				var tmp = data.data.map(function(el) { 
 					self.myFoodArray.push(el);
@@ -735,7 +772,6 @@ function AddFoodModel() {
 
 		$.post('./php/getallfoodinfo.php', o1, function(data) {
 			if(data.status == "ok") {
-				//console.log(data);
 				self.totalFavourite(data.data.length);
 				var tmp = data.data.map(function(el) { 
 					self.allFoodArray.push(el);
@@ -834,21 +870,18 @@ function AddFoodModel() {
 
 		$.post('./php/getfavouriteinfo.php', o1, function(data) {
 			if(data.status == "ok") {
-				//console.log(data);
 				self.totalFavourite(data.data.length);
 				var tmp = data.data.map(function(el) { 
 					self.favouriteArray.push(el);
 				});
 				$.post('./php/getrecentinfo.php', o1, function(data) {
 					if(data.status == "ok") {
-						//console.log(data);
 						self.totalRecent(data.data.length);
 						var tmp = data.data.map(function(el) { 
 							self.recentArray.push(el);
 						});
 						$.post('./php/getcreatedfoodinfo.php', o1, function(data) {
 							if(data.status == "ok") {
-								//console.log(data);
 								self.totalCreatedFood(data.data.length);
 								var tmp = data.data.map(function(el) {
 									self.myFoodArray.push(el);
@@ -977,7 +1010,7 @@ function AddFoodModel() {
 			self.sugarName('Sugar');
 			self.saturatedName('Saturated');
 			self.unsaturatedName('Unsaturated');
-			self.bitaminDName('Bitamin D');
+			self.bitaminDName('Vitamin C');
 			self.cancelName('Cancel');
 			self.okName('Ok');
 			self.updateName('Update');
@@ -1034,7 +1067,7 @@ function AddFoodModel() {
 			self.sugarName('Σάκχαρα');
 			self.saturatedName('Κορεσμένα');
 			self.unsaturatedName('Ακόρεστα');
-			self.bitaminDName('Βιταμίνη D');
+			self.bitaminDName('Βιταμίνη C');
 			self.cancelName('Ακύρωση');
 			self.okName('Εντάξει');
 			self.updateName('Ενημέρωση');
@@ -1086,7 +1119,7 @@ function AddFoodModel() {
 			if(self.seachFood() != '') {
 				self.searchTotalRecents();
 			} else {
-				self.helptotalPages(Math.ceil(self.totalFoods()/self.limit()));
+				self.helptotalPages(Math.ceil(self.totalSearchFoods()/self.limit()));
 			}
 		} else if(name == 'favourite') {
 			self.searchFoodArray([]);
@@ -1098,7 +1131,7 @@ function AddFoodModel() {
 			if(self.seachFood() != '') {
 				self.searchTotalFavourites();
 			} else {
-				self.helptotalPages(Math.ceil(self.totalFoods()/self.limit()));
+				self.helptotalPages(Math.ceil(self.totalSearchFoods()/self.limit()));
 			}
 		} else if(name == 'myfoods') {
 			self.isHideEdit(true);
@@ -1108,10 +1141,11 @@ function AddFoodModel() {
 			self.foodChoice(self.myFoodArray());
 			self.searchFoodArray(self.myFoodArray());
 			self.totalSearchFoods(self.totalCreatedFoods());
+
 			if(self.seachFood() != '') {
 				self.searchTotalMyFoods();
 			} else {
-				self.helptotalPages(Math.ceil(self.totalFoods()/self.limit()));
+				self.helptotalPages(Math.ceil(self.totalSearchFoods()/self.limit()));
 			}
 		} else if(name == 'search') {
 			self.helptotalPages(Math.ceil(self.totalSearchFoods()/self.limit()));
@@ -1120,7 +1154,6 @@ function AddFoodModel() {
 			self.isHideStar(false);
 			self.foodChoice(self.searchFoodArray());
 		} else if(name == 'allfood') {
-			//console.log('allfood');
 			self.searchFoodArray([]);
 			self.page(self.page());
 			self.isHideStar(false);
@@ -1131,7 +1164,7 @@ function AddFoodModel() {
 			if(self.seachFood() != '') {
 				self.searchTotalFoods();
 			} else {
-				self.helptotalPages(Math.ceil(self.totalFoods()/self.limit()));
+				self.helptotalPages(Math.ceil(self.totalSearchFoods()/self.limit()));
 			}
 		}
 
@@ -1348,11 +1381,9 @@ function AddFoodModel() {
 		food.sugarName = ko.observable('Σάκχαρα');
 		food.saturatedName = ko.observable('Κορεσμένα');
 		food.unsaturatedName = ko.observable('Ακόρεστα');
-		food.bitaminDName = ko.observable('Βιταμίνη D');
+		food.bitaminDName = ko.observable('Βιταμίνη C');
 		food.cancelName = ko.observable('Ακύρωση');
 		food.okName = ko.observable('Εντάξει');
-		
-		//console.log(food.imgHash());
 
 		food.nextDay = function() {
 			console.log(self.helpDate());
@@ -1434,7 +1465,7 @@ function AddFoodModel() {
 				food.sugarName('Sugar');
 				food.saturatedName('Saturated');
 				food.unsaturatedName('Unsaturated');
-				food.bitaminDName('Bitamin D');
+				food.bitaminDName('Vitamin C');
 				food.cancelName('Cancel');
 				food.okName('Ok');
 				self.panel('Admin Panel');
@@ -1458,7 +1489,7 @@ function AddFoodModel() {
 				food.sugarName('Σάκχαρα');
 				food.saturatedName('Κορεσμένα');
 				food.unsaturatedName('Ακόρεστα');
-				food.bitaminDName('Βιταμίνη D');
+				food.bitaminDName('Βιταμίνη C');
 				food.cancelName('Ακύρωση');
 				food.okName('Εντάξει');
 				self.panel('Admin Πάνελ');
@@ -1553,7 +1584,7 @@ function AddFoodModel() {
 			};
 
 			if(self.mealCategory() > 0 && self.mealCategory() < 5 && consumption > 0) {
-				
+				self.switch('modalLoad');
 				if(self.categoryName() == 'search' || self.categoryName() == 'allfood') {
 					o2 = {isFavourite: 1}
 
@@ -1572,8 +1603,19 @@ function AddFoodModel() {
 				$.post('./php/adddailyfood.php', o, function(data) {
 					if(data.status == "ok") {					
 						console.log('Food was added successfully!');
-						self.updateRecent(1, 1);
+
+						if(self.categoryName() == 'favourite') {
+							self.updateFavourite(self.totalPages(), self.helppage());
+						} else if(self.categoryName() == 'recent') {
+							self.updateRecent(self.totalPages(), self.helppage());
+						} else if(self.categoryName() == 'myfoods') {
+							self.updateMyFood(self.totalPages(), self.helppage());
+						} else if(self.categoryName() == 'allfood') {
+							self.updateAllFood(self.totalPages(), self.helppage());
+						}
+
 						self.switch('modalEdit');
+						self.switch('modalLoad');
 						self.successMsg(self.addFoodMsg());
 						self.switch('modalSuccessMsg');
 					} else {
@@ -1654,7 +1696,7 @@ function AddFoodModel() {
 				newVal: food.isFavourite(),
 				idFood: food.idFood()
 			}
-			//deleteCreated
+
 			if(self.isWaitFavourite()) {
 				self.isWaitFavourite(false);
 				$.post('./php/updatefavourite.php', o, function(data) {
@@ -1782,26 +1824,32 @@ function AddFoodModel() {
 		let o = {
 			username: self.username(),
 			idLang: self.sendLang(),
+			id: self.newIdFood(),
 			idFood: self.newIdFood(),
 			newImgPath: self.newImgPath(),
 			newImgHash: self.newImgHash(),
 			newImg: self.newImg(),
 			fileLength: 1
 		}
-		
-		$.post('./php/deleteimg.php', o, function(data) {
+		$.post('./php/recoverdeletedfooddailysummary.php', o, function(data) {
 			if(data.status == "ok") {
-				$.post('./php/deletecreatedfood.php', o, function(data) {
+				$.post('./php/deleteimg.php', o, function(data) {
 					if(data.status == "ok") {
-						self.updateMyFood(1, 1);
-						self.successMsg(self.deleteFoodMsg());
-					} else {
-						self.successMsg(self.deleteFoodErrorMsg());
+						$.post('./php/deletecreatedfood.php', o, function(data) {
+							if(data.status == "ok") {
+								self.updateMyFood(1, 1);
+								self.successMsg(self.deleteFoodMsg());
+							} else {
+								self.successMsg(self.deleteFoodErrorMsg());
+							}
+							self.switch('modalLoad');
+							self.switch('modalDelete');
+							self.switch('modalSuccessMsg');	
+						});
 					}
-					self.switch('modalLoad');
-					self.switch('modalDelete');
-					self.switch('modalSuccessMsg');	
 				});
+			} else {
+				console.log(data.data);
 			}
 		});
 	};
@@ -1809,8 +1857,7 @@ function AddFoodModel() {
 	self.updateCreateFood = function() {
 		let condition1 = !self.newFoodName.alphaNumericLatinError() && !self.newPortion.numericError() && !self.newCalories.numericError() && !self.newProtein.numericError() && !self.newCarb.numericError() && !self.newFat.numericError() && !self.newFiber.numericError() && !self.newSugar.numericError() && !self.newSaturated.numericError() && !self.newUnsaturated.numericError() && !self.newBitaminD.numericError();
 		let condition2 = self.newCategoryFood() != 0 && self.newUnit() != 0 && self.newFoodName() !== '' && self.newPortion() !== '' && self.newCalories() !== '' && self.newProtein() !== '' && self.newCarb() !== '' && self.newFat() !== '';
-		//console.log(self.newImgPath());
-		//console.log(self.newImgHash());
+
  		if(condition1 && condition2) {
 			self.switch('modalLoad');
 			
@@ -1865,13 +1912,13 @@ function AddFoodModel() {
 
 	self.createdFood = function() {
 		let fiber = 0, sugar = 0, saturated = 0, unsaturated = 0, bitaminD = 0, newImgName;
-		//console.log(self.type());
+
 		if(self.type() === '') {
 			newImgName = self.newImgName();
 		} else {
 			newImgName = self.newImgName() + '.' + self.type();
 		}
-		//console.log(newImgName);	
+
 		if(self.newFiber() != '')
 			fiber = self.newFiber();
 		if(self.newSugar() != '')

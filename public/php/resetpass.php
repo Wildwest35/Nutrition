@@ -6,6 +6,26 @@
     include 'corsAccess.php'; 
     include 'checkInput.php';
 
+    if(isset($_POST['lang'])) {
+        $lang = $_POST['lang'];
+        if($lang == 'gr') {
+            $passChanged = 'Ο κωδικός πρόσβασής σας άλλαξε επιτυχώς!';
+            $linkExpired = 'Ο υπερσύνδεσμος έχει λείξει!';
+            $linkNotMatched = 'Τα συνθηματικά δεν συμπίπτουν!';
+            $error = 'Σφάλμα: Κάτι πήγε λάθος!';
+        } else {
+            $passChanged = 'Your password has been successfully changed!';
+            $linkExpired = 'The hyperlink has expired!';
+            $linkNotMatched = 'Passwords do not match!';
+            $error = 'Error: Something went wrong!';
+        }
+    } else {
+        $passChanged = 'Ο κωδικός πρόσβασής σας άλλαξε επιτυχώς!';
+        $linkExpired = 'Ο υπερσύνδεσμος έχει λείξει!';
+        $linkNotMatched = 'Τα συνθηματικά δεν συμπίπτουν!';
+        $error = 'Σφάλμα: Κάτι πήγε λάθος!';
+    }
+
     if(isset($_POST['number']) && isset($_POST['code']) && isset($_POST['password']) && isset($_POST['repeatpassword'])) {
         $number = filter_var($_POST['number'], FILTER_SANITIZE_NUMBER_INT);
         $code = filter_var($_POST['code'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -38,27 +58,27 @@
                         $query1->bindValue(':id', $number);
         
                         if($query1->execute()) {
-                            echo json_encode(['status' => 'ok', 'data' => 'Ο κωδικός πρόσβασής σας άλλαξε επιτυχώς!']);
+                            echo json_encode(['status' => 'ok', 'data' => $passChanged]);
                         } else {
-                            echo json_encode(['status' => 'error', 'data' => 'Σφάλμα: Κάτι πήγε λάθος!']);                       
+                            echo json_encode(['status' => 'error', 'data' => $error]);                       
                         }
                         die();
                     } else {
-                        echo json_encode(['status' => 'error', 'data' => 'Ο υπερσύνδεσμος έχει λείξει!']);
+                        echo json_encode(['status' => 'error', 'data' => $linkExpired]);
                     }
                     die();
                 } else {
-                    echo json_encode(['status' => 'error', 'data' => 'Σφάλμα: Κάτι πήγε λάθος!']);
+                    echo json_encode(['status' => 'error', 'data' => $error]);
                 }
                 die();
             }
             die();
         } else {
-            echo json_encode(['status' => 'error', 'data' => 'Τα συνθηματικά δεν συμπίπτουν!']);
+            echo json_encode(['status' => 'error', 'data' => $linkNotMatched]);
         }
         die();
     } else {
-        echo json_encode(['status' => 'error', 'data' => 'Σφάλμα: Κάτι πήγε λάθος!']);
+        echo json_encode(['status' => 'error', 'data' => $error]);
     }
     die();
 ?>

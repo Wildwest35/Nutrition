@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Add Category food
+//Access: Authenticated Users
+//Purpose: Admin create a food category from "Admin Panel"
 
     @session_start();
     include 'corsAccess.php'; 

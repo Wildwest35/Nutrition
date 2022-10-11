@@ -1,10 +1,48 @@
 <?php
-//Access: Everyone
-//Purpose: Activate account
+//Access: Everyone 
+//Purpose: check if activation url is valid to activate user account
 
     @session_start();
     include 'corsAccess.php'; 
     include 'checkInput.php';
+
+    if(isset($_POST['lang'])) {
+        $lang = $_POST['lang'];
+        if($lang == 'gr') {
+            $successActivationAccount = 'Ο λογαριασμό σας ενεργοποιήθηκε επιτυχώς!';
+            $accountAlraedyActivated = 'Ο λογαριασμό σας είναι ήδη ενεργοποιημένος!';
+            $timeoutNewEmail = 'Ο χρόνος ενεργοποίησης του λογαριασμού σας έχει λήξει! Μόλις σας στείλαμε νέο Email για την ενεργοποίηση  του λογαριασμού σας!';
+            $expireTimeNotSentEmail = 'Ο χρόνος ενεργοποίησης του λογαριασμού σας έχει λήξει! Κάτι πήγε λάθος με την επαναποστολή του email!';
+            $passChanged = 'Ο κωδικός πρόσβασής σας άλλαξε επιτυχώς!';
+            $linkExpired = 'Ο υπερσύνδεσμος έχει λείξει!';
+            $linkNotMatched = 'Τα συνθηματικά δεν συμπίπτουν!';
+            $linkError = 'Ο υπερσύνδεσμος είναι λάθος!';
+            $errorNotActivated = 'Σφάλμα: Κάτι πήγε λάθος! Ο λογαριασμό σας δεν ενεργοποιήθηκε!';
+            $error = 'Σφάλμα: Κάτι πήγε λάθος!';
+        } else {
+            $successActivationAccount = 'Your account has been successfully activated!';
+            $accountAlraedyActivated = 'Your account is already activated!';
+            $timeoutNewEmail = 'Your account activation time has expired! We just sent you a new Email to activate your account!';
+            $expireTimeNotSentEmail = 'Your account activation time has expired! Something went wrong resending the email!';
+            $passChanged = 'Your password has been successfully changed!';
+            $linkExpired = 'The hyperlink has expired!';
+            $linkNotMatched = 'Passwords don\'t match!';
+            $linkError = 'The hyperlink is wrong!';
+            $errorNotActivated = 'Error: Something went wrong! Your account hasn\'t been activated!';
+            $error = 'Error: Something went wrong!';
+        }
+    } else {
+        $successActivationAccount = 'Ο λογαριασμό σας ενεργοποιήθηκε επιτυχώς!';
+        $accountAlraedyActivated = 'Ο λογαριασμό σας είναι ήδη ενεργοποιημένος!';
+        $timeoutNewEmail = 'Ο χρόνος ενεργοποίησης του λογαριασμού σας έχει λήξει! Μόλις σας στείλαμε νέο Email για την ενεργοποίηση  του λογαριασμού σας!';
+        $expireTimeNotSentEmail = 'Ο χρόνος ενεργοποίησης του λογαριασμού σας έχει λήξει! Κάτι πήγε λάθος με την επαναποστολή του email!';
+        $passChanged = 'Ο κωδικός πρόσβασής σας άλλαξε επιτυχώς!';
+        $linkExpired = 'Ο υπερσύνδεσμος έχει λείξει!';
+        $linkNotMatched = 'Τα συνθηματικά δεν συμπίπτουν!';
+        $linkError = 'Ο υπερσύνδεσμος είναι λάθος!';
+        $errorNotActivated = 'Σφάλμα: Κάτι πήγε λάθος! Ο λογαριασμό σας δεν ενεργοποιήθηκε!';
+        $error = 'Σφάλμα: Κάτι πήγε λάθος!';
+    }
 
     if(isset($_POST['number']) && isset($_POST['code']) && isset($_POST['lang'])) {
         $number = $_POST['number'];
@@ -20,7 +58,7 @@
         include 'connect.php';
 
         if(!preg_match(Numeric(), $number) || !preg_match(AlphaNumeric(), $code)) {
-            echo json_encode(['status' => 'error', 'data' => 'Ο υπερσύνδεσμος είναι λάθος!']);
+            echo json_encode(['status' => 'error', 'data' => $linkError]);
         } else {
             $query4 = $con->prepare("SELECT `users`.`isConfirmAccount`, `users`.`email`, `users`.`id` FROM `users` WHERE `users`.`id` = :id");
 
@@ -52,9 +90,9 @@
                                             $query3->bindValue(':idUser', $number);
                             
                                             if($query3->execute()) { 
-                                                echo json_encode(['status' => 'ok', 'data' => 'Ο λογαριασμό σας ενεργοποιήθηκε επιτυχώς!']);
+                                                echo json_encode(['status' => 'ok', 'data' => $successActivationAccount]);
                                             } else {
-                                                echo json_encode(['status' => 'error', 'data' => 'Σφάλμα: Κάτι πήγε λάθος!']);
+                                                echo json_encode(['status' => 'error', 'data' => $error]);
                                             }
                                             die();
                                         } else {
@@ -62,7 +100,7 @@
                                         }
                                         die();
                                     } else {
-                                        echo json_encode(['status' => 'error', 'data' => 'Ο υπερσύνδεσμος ενεργοποίσης είναι λάθος!']);
+                                        echo json_encode(['status' => 'error', 'data' => $linkError]);
                                     }
                                     die();
                                 } else {
@@ -79,13 +117,13 @@
                                         $headers = "From: ece01121@zafora.ece.uowm.gr";
                                         
                                         if(mail($to_email, $subject, $body, $headers)) {
-                                            echo json_encode(['status' => 'error', 'data' => 'Ο χρόνος ενεργοποίησης του λογαριασμού σας έχει λήξει! Μόλις σας στείλαμε νέο Email για την ενεργοποίηση  του λογαριασμού σας!']); 
+                                            echo json_encode(['status' => 'error', 'data' => $timeoutNewEmail]); 
                                         } else {
-                                            echo json_encode(['status' => 'error', 'data' => 'Ο χρόνος ενεργοποίησης του λογαριασμού σας έχει λήξει! Κάτι πήγε λάθος με την επαναποστολή του email!']); 
+                                            echo json_encode(['status' => 'error', 'data' => $expireTimeNotSentEmail]); 
                                         }
                                         die();
                                     } else {
-                                        echo json_encode(['status' => 'error', 'data' => 'Σφάλμα: Κάτι πήγε λάθος!']);                       
+                                        echo json_encode(['status' => 'error', 'data' => $error]);                       
                                     }
                                     die();
                                 }
@@ -95,25 +133,25 @@
                             }
                             die();
                         } else {
-                            echo json_encode(['status' => 'error', 'data' => 'Σφάλμα: Κάτι πήγε λάθος!']);
+                            echo json_encode(['status' => 'error', 'data' => $error]);
                         }
                         die();
                     } else {
-                        echo json_encode(['status' => 'ok', 'data' => "Ο λογαριασμό σας είναι ήδη ενεργοποιημένος!"]);
+                        echo json_encode(['status' => 'ok', 'data' => $accountAlraedyActivated]);
                     }
                     die();
                 } else {
-                    echo json_encode(['status' => 'error', 'data' => 'Ο υπερσύνδεσμος είναι λάθος!']);
+                    echo json_encode(['status' => 'error', 'data' => $linkError]);
                 }
                 die();
             } else {
-                echo json_encode(['status' => 'error', 'data' => 'Σφάλμα: Κάτι πήγε λάθος!']);
+                echo json_encode(['status' => 'error', 'data' => $error]);
             }
             die();
         }
         die();
     } else {
-        echo json_encode(['status' => 'error', 'data' => 'Ο υπερσύνδεσμος είναι λάθος!']);
+        echo json_encode(['status' => 'error', 'data' => $linkError]);
     }
     die();
 ?>

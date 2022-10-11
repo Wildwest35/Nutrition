@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Delete created food
+//Access: Authenticated Users
+//Purpose: Admin delete system food
 
     @session_start();
     include 'corsAccess.php'; 

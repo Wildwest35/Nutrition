@@ -4,7 +4,31 @@
 
     @session_start();
     include 'corsAccess.php'; 
-    
+    //include 'langTranslation.php';
+
+    if(isset($_POST['lang'])) {
+        $lang = $_POST['lang'];
+        if($lang == 'gr') {
+            $wrongData = 'Λάθος δεδομένα!';
+            $wrongMsg = 'Κάτι πήγε λάθος';
+            $refreshPage = 'Ο χρόνος στη σελίδα έληξε. Κάντε ανανέωση!';
+            $accountNotActivated = 'Ο λογαριασμός σας δεν είναι ενεργοποιημένος!';
+            $differentPass = 'Περάστηκε διαφορετικό συνθηματικό!';
+        } else {
+            $wrongData = 'Wrong Data!';
+            $wrongMsg = 'Something went wrong';
+            $refreshPage = 'Page timed out. Refresh the page!';
+            $accountNotActivated = 'You \'re account isn\'t activated yet!';
+            $differentPass = 'Different password was entered!';
+        }
+    } else {
+        $wrongData = 'Λάθος δεδομένα!';
+        $wrongMsg = 'Κάτι πήγε λάθος';
+        $refreshPage = 'Ο χρόνος στη σελίδα έληξε. Κάντε ανανέωση!';
+        $accountNotActivated = 'Ο λογαριασμός σας δεν είναι ενεργοποιημένος!';
+        $differentPass = 'Περάστηκε διαφορετικό συνθηματικό!';
+    }
+
     if(isset($_POST['csrf'])) {
         $csrfForm = $_POST['csrf'];
         $csrfSession = $_SESSION['token_csrf'];
@@ -52,30 +76,30 @@
                                     unset($_SESSION['username']);
                                     unset($_SESSION['maxTime']);
                                     unset($_SESSION['key_time']);
-                                    echo json_encode(['status' => 'error', 'data' => 'Ο χρόνος στη σελίδα έληξε. Κάντε ανανέωση!']);
+                                    echo json_encode(['status' => 'error', 'data' => $refreshPage]);
                                 }
                                 die();
                             } else {
-                                echo json_encode(['status' => 'error', 'data' => 'Περάστηκε διαφορετικός κωδικός πρόσβασης!']);
+                                echo json_encode(['status' => 'error', 'data' => $differentPass]);
                             }
                             die();
                         } else {
-                            echo json_encode(['status' => 'error', 'data' => 'Ο λογαριασμός σας δεν είναι ενεργοποιημένος!']);
+                            echo json_encode(['status' => 'error', 'data' => $accountNotActivated]);
                         }
                     } else {
-                        echo json_encode(['status' => 'error', 'data' => 'Λάθος Δεδομένα!']);
+                        echo json_encode(['status' => 'error', 'data' => $wrongData]);
                     }
                     die();
                 } else {
-                    echo json_encode(['status' => 'error', 'data' => 'Λάθος Δεδομένα!']);                   
+                    echo json_encode(['status' => 'error', 'data' => $wrongData]);                   
                 }
                 die();
             } else {
-                echo json_encode(['status' => 'error', 'data' => 'Λάθος Δεδομένα!']);
+                echo json_encode(['status' => 'error', 'data' => $wrongData]);
             } 
             die();
         } else {
-            echo json_encode(['status' => 'error', 'data' => 'Κάντε ανανέωση της σελίδας!']);
+            echo json_encode(['status' => 'error', 'data' => $wrongMsg]);
         }
         die();
     } else {

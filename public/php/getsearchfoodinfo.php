@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect all food info
+//Access: Authenticated Users
+//Purpose: Collect all searched food info
 
     @session_start();
     include 'corsAccess.php'; 
@@ -15,13 +15,12 @@
             $search = "%$searchs%";
             $limits = filter_var($_POST['limit'], FILTER_SANITIZE_NUMBER_INT);
             $offset = filter_var($_POST['offset'], FILTER_SANITIZE_NUMBER_INT);
-            //filter_var($_POST['search'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             include 'connect.php';
-    // || !preg_match(Alpha(), $search)  || !preg_match(AlphaLatin(), $search)
+
             if(!preg_match(AlphaNumeric(), $usernames) || !preg_match(Numeric(), $id) || !preg_match(Numeric(), $numLang) || !preg_match(Numeric(), $limits) || !preg_match(Numeric(), $offset)) {
                 echo json_encode(['status' => 'error', 'data' => 'Error Code: #704']);
-            } else {//`favourites`.`isFavourite` as `isFavourite`,
+            } else {
                 $query = $con->prepare("SELECT  `foods`.`id` as `idFood`, `translationunitname`.`translationUnitName` as `unitName`, `translationfoodname`.`translationFoodName` as `foodName`, `translationfoodcategory`.`translationFoodCategory` as `category`, `foods`.`imgPath` as `imgPath`, `foods`.`imgName` as `imgName`, `foods`.`imgHash` as `imgHash`, `foods`.`portion` as `portion`, `foods`.`calories` as `calories`, `foods`.`protein` as `protein`, `foods`.`carb` as `carb`, `foods`.`fat` as `fat`, `foods`.`fiber` as `fiber`, `foods`.`saturated` as `saturated`, `foods`.`unsaturated` as `unsaturated`, `foods`.`sugar` as `sugar`, `foods`.`bitamins` as `bitamins`
                                         FROM `foods`
                                         JOIN `foodnames` ON `foods`.`idFoodName` = `foodnames`.`id`

@@ -35,7 +35,6 @@
             <header>
                 <section>
                     <label for="nav-toggle" id="mediaCalc">
-                        <!-- <span class="las la-bars"></span> -->
                         <img src="img/menu.png" width="40" height="40" alt="Bar">
                     </label>
                     <h3 data-bind="text: measurements">Μετρήσεις</h3>
@@ -151,7 +150,6 @@
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
-                                    <option value="1">1</option>
                                 </select>
                             </div>
                         </div> 
@@ -172,17 +170,11 @@
                                     <th class="food-main-color">
                                         <div class="food-titles summary-touch" data-bind="">
                                             <div class="summary-info" data-bind="text: dateBar">Ημερομηνία</div>
-                                            <!-- <i data-bind="visible: (sorting() != 'foodNameAsc') && (sorting() != 'foodNameDesc')" class="fas fa-sort"></i>
-                                            <i data-bind="visible: sorting() == 'foodNameAsc'" class="fas fa-caret-up"></i>
-                                            <i data-bind="visible: sorting() == 'foodNameDesc'" class="fas fa-caret-down"></i> -->
                                         </div>
                                     </th>
                                     <th class="food-main-color">
                                         <div class="food-titles summary-touch" data-bind="">
                                             <div class="summary-info" data-bind="text: numberBar">Βάρος (kg)</div>
-                                         <!--    <i data-bind="visible: (sorting() != 'categoryAsc') && (sorting() != 'categoryDesc')" class="fas fa-sort"></i>
-                                            <i data-bind="visible: sorting() == 'categoryAsc'" class="fas fa-caret-up"></i>
-                                            <i data-bind="visible: sorting() == 'categoryDesc'" class="fas fa-caret-down"></i> -->
                                         </div>
                                     </th>
                                 </tr>
@@ -191,7 +183,7 @@
                                         <div class="summary-info-detail" data-bind="text: noAvailableRegister">Καμία Καταγραφή Βάρους</div>
                                     </td>
                                 </tr>
-                                <tbody data-bind="foreach: registerArray, visible: registerArray().length > 0"><!-- sortedTasks -->
+                                <tbody data-bind="foreach: registerArray, visible: registerArray().length > 0">
                                     <tr data-bind="">
                                         <td data-bind="click: stopProp.bind($data, event)">
                                             <img src="./img/delete.png" alt="consumed" width="35" height="35" data-bind="click: deletes">

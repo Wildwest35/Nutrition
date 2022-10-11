@@ -110,10 +110,10 @@ function LoginModel() {
 			let o = {
 				email: self.email(),
 				password: self.password(),
-				csrf: self.csrfLogin() 
+				csrf: self.csrfLogin(),
+				lang: self.lang()
 			}
-				
-			//if(self.nameCategory() == 'User') {
+
 			$.post('./php/login.php', o, function(data) {
 				if(data.status == "ok") {
 					self.dashboardpage();
@@ -124,19 +124,6 @@ function LoginModel() {
 					self.openLoginWarning();
 				}            
 			});
-/* 			} else {
-				$.post('./php/loginadmin.php', o, function(data) {
-					if(data.status == "ok") {
-						self.dashboardAdminPage();
-						//console.log('Welcome Admin');
-					} else if(data.status == "error") {
-						alertError = document.getElementById("alertError");
-						alertError.style.display = "block";
-						self.loginMessage(data.data);
-						self.openLoginWarning();
-					}            
-				});				
-			} */
 		} else {
 			if(self.email() == '') {
 				self.email(" ");

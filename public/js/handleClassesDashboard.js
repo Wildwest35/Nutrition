@@ -34,39 +34,45 @@ $(document).ready(function() {
         var laptop = window.matchMedia("(min-width: 993px) and (max-width: 1200px)");
 		var tablet = window.matchMedia("(min-width: 769px) and (max-width: 992px)");
 		var mobile = window.matchMedia("(max-width: 768px)");
+        
+        removeAttribute();
 
         if(pc.matches) {
             removeAttribute();
         } else if(laptop.matches) {
+            laptopCheck();
             if(isChecked) {
                 if((bodywidth) > 992 && (bodywidth) <= 1200) {
-                    pcCheck();
+                    //pcCheck();
                 } else {
-                    laptopCheck();
+                    //laptopCheck();
                 }
             } else {
                 if((bodywidth - Math.abs(wide - mid)) > 992 && (bodywidth - Math.abs(wide - mid)) <= 1200) {
-                    pcCheck();
+                    //pcCheck();
                 } else {
-                    laptopCheck();
+                    //laptopCheck();
                 }
             }
         } else if(tablet.matches) {
+            //laptopCheck();
+            tabletCheck();
             if(isChecked) {
                 if((bodywidth) > 768 && (bodywidth) <= 992) {
-                    laptopCheck();
+                    //laptopCheck();
                 } else {
-                    tabletCheck();
+                    //tabletCheck();
                 }
             } else {
                 if((bodywidth - Math.abs(wide - mid)) > 768 && (bodywidth - Math.abs(wide - mid)) <= 992) {
-                    laptopCheck();
+                   //laptopCheck();
                 } else {
-                    tabletCheck();
+                    //tabletCheck();
                 }
             }
         } else if(mobile.matches) {
             removeAttribute();
+            tabletCheck();
         }
 
         function removeAttribute() {
@@ -85,15 +91,9 @@ $(document).ready(function() {
             for (var i=0; i<elementMiddle.length; i++) {
                 elementMiddle[i].removeAttribute("style");
             }
-/*             for (var i=0; i<calendar.length; i++) {
-                calendar[i].removeAttribute("style");
-            }	 */
             for (var i=0; i<weekdaysDiv.length; i++) {
                 weekdaysDiv[i].removeAttribute("style");
             }	
-/*             for (var i=0; i<daysDiv.length; i++) {
-                daysDiv[i].removeAttribute("style");
-            }	 */
             for (var i=0; i<optionsH1.length; i++) {
                 optionsH1[i].removeAttribute("style");
             }	    
@@ -126,20 +126,10 @@ $(document).ready(function() {
 			elementMiddle.forEach(element => {
 				element.style.flexDirection = "row";
 			});
-
-/*             calendar.forEach(element => {
-				element.style.width = "35rem";
-                element.style.minHeight = "44rem";
-			}); */
             
             weekdaysDiv.forEach(element => {
 				element.style.fontSize = "1.5rem";
 			});
-/* 
-            daysDiv.forEach(element => {
-				element.style.fontSize = "1.4rem";
-                element.style.height = "4rem";
-			}); */
 
             optionsH1.forEach(element => {
 				element.style.fontSize = "1.5rem";
@@ -174,20 +164,10 @@ $(document).ready(function() {
             elementMiddle.forEach(element => {
 				element.style.flexDirection = "row";
 			});
-
-/*             calendar.forEach(element => {
-				element.style.width = "30rem";
-                element.style.minHeight = "38rem";
-			}); */
             
             weekdaysDiv.forEach(element => {
 				element.style.fontSize = "1.3rem";
 			});
-
-/*             daysDiv.forEach(element => {
-				element.style.fontSize = "1.2rem";
-                element.style.height = "3.5rem";
-			}); */
 
             optionsH1.forEach(element => {
 				element.style.fontSize = "1.3rem";
@@ -221,32 +201,14 @@ $(document).ready(function() {
 
             elementMiddle.forEach(element => {
 				element.style.flexDirection = "row";
-			});
-
-            elementMiddle.forEach(element => {
-				element.style.flexDirection = "row";
-			});
-
-/*             calendar.forEach(element => {
-				element.style.width = "25rem";
-                element.style.minHeight = "38rem";
-			});     */        
+			});   
             
             weekdaysDiv.forEach(element => {
 				element.style.fontSize = "1.3rem";
 			});
 
-/*             daysDiv.forEach(element => {
-				element.style.fontSize = "1.2rem";
-                element.style.height = "3rem";
-			}); */
-
             optionsH1.forEach(element => {
 				element.style.fontSize = "1.3rem";
-			});
-
-            snackBasics.forEach(element => {
-				element.style.flexDirection = "column";
 			});
         }
 	}

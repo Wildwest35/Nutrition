@@ -28,7 +28,7 @@ function DailyStatsModel() {
 	self.sugarWord = ko.observable('Σάκχαρα');
 	self.saturatedWord = ko.observable('Κορεσμένα');
 	self.unsaturatedWord = ko.observable('Ακόρεστα');
-	self.bitaminDWord = ko.observable('Βιταμίνη D');
+	self.bitaminDWord = ko.observable('Βιταμίνη C');
 	self.calorieWord = ko.observable('Θερμίδες');
 	self.nutrientWord = ko.observable('Θρεπτικές Ουσίες');
 	self.moreNutrientWord = ko.observable('Περισσότερες Θρεπτικές Ουσίες');
@@ -46,6 +46,7 @@ function DailyStatsModel() {
 	self.offset = ko.observable(0);
 	self.totalDailyStats = ko.observable(0);
 	self.countPrevDay = ko.observable(0);
+	self.countLoads = ko.observable(1);
 	self.tolocalestring = ko.observable('el-GR');
 	self.isLoadToggle = ko.observable(true);
 	self.lessConsume = ko.observable('Καταναλώθηκαν Λιγότερα');
@@ -103,10 +104,7 @@ function DailyStatsModel() {
 
 						$.post('./php/gettotaldailystats.php', o1, function(data) {
 							if(data.status == "ok") {
-								var tmp = data.data.map(function(el) {
-									self.totalDailyStats(el.totalDailyStats);
-								});
-								//console.log(self.totalDailyStats());				
+								self.totalDailyStats(data.data);				
 								self.getDailyStat();
 							} else if(data.status == "error") {
 
@@ -124,6 +122,7 @@ function DailyStatsModel() {
 
 	self.getDailyStat = function() {
 		//console.log(self.fullDate());
+		self.countLoads(self.countLoads() + 1);
 		let o1 = {
 			fullDate: self.fullDate(),
 			limit: self.limit(),
@@ -147,10 +146,11 @@ function DailyStatsModel() {
 
 	self.fillDailyStatArray = function(el) {
 		self.changedDate(new Date(self.currentDate().getFullYear(), self.currentDate().getMonth(), self.currentDate().getDate() + self.countPrevDay()));
+		//self.changedDate(new Date(el.dailyEatingsDate));
 		var changeDate, changeDateMM, changeDateDD;
 		changeDate = self.changedDate().toLocaleString(self.tolocalestring(), {day: "numeric", month: "short", year: "numeric"});
 
-		changeDateMM = self.changedDate().getMonth();
+		changeDateMM = self.changedDate().getMonth() + 1;
 		if(changeDateMM < 10) {
 			changeDateMM = '0' + changeDateMM;
 		}
@@ -158,6 +158,7 @@ function DailyStatsModel() {
 		if(changeDateDD < 10) {
 			changeDateDD = '0' + changeDateDD;
 		}
+		
 		if(self.createdDate() < self.changedDate() || (self.createdYYYY() == self.changedDate().getFullYear() && self.createdMM() == changeDateMM && self.createdDD() == changeDateDD)) {
 			let isStatToggle, caloriesNumber, carbNumber, proteinNumber, fatNumber;
 
@@ -221,8 +222,12 @@ function DailyStatsModel() {
 				proteinConsume: self.proteinConsume(),
 				fatConsume: self.fatConsume()
 			}
-			//console.log(o);
+
 			self.countPrevDay(self.countPrevDay() - 1);
+
+			if(self.totalDailyStats() <= 10*self.countLoads()) {
+				self.isLoadToggle(false);
+			}
 
 			self.dailyStatArray.push(new DailyStat(o));
 		} else {
@@ -251,7 +256,7 @@ function DailyStatsModel() {
 			self.sugarWord('Sugar');
 			self.saturatedWord('Saturated');
 			self.unsaturatedWord('Unsaturated');
-			self.bitaminDWord('Bitamin D');
+			self.bitaminDWord('Vitamin C');
 			self.tolocalestring('en-GB');
 			self.lessConsume('Less Consumed');
 			self.moreConsume('More Consumed');
@@ -284,7 +289,7 @@ function DailyStatsModel() {
 			self.sugarWord('Σάκχαρα');
 			self.saturatedWord('Κορεσμένα');
 			self.unsaturatedWord('Ακόρεστα');
-			self.bitaminDWord('Βιταμίνη D');
+			self.bitaminDWord('Βιταμίνη C');
 			self.tolocalestring('el-GR');
 			self.lessConsume('Καταναλώθ. Λιγότ.');
 			self.moreConsume('Καταναλώθ. Περισσότ.');

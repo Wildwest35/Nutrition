@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Update Daily Food
+//Access: Authenticated Users
+//Purpose: Update the elements in a daily food
 
     @session_start();
     include 'corsAccess.php';

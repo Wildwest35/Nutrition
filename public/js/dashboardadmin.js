@@ -39,6 +39,7 @@ function DashboardAdminModel() {
 	self.elementOptionArray = ko.observableArray([]);
 	self.itemOptionArray = ko.observableArray([]);
 	self.showInfoArray = ko.observableArray([]);
+	self.unitNameArray = ko.observableArray([]);
 	self.seachUser = ko.observable('');
 	self.recoverSearchUser = function() {
 		self.seachUser('');
@@ -80,6 +81,55 @@ function DashboardAdminModel() {
 	self.idName = ko.observable('ID');
 	self.newIdCategory = ko.observable('');
 	self.newIdUnit = ko.observable('');
+	self.msgDelete = ko.observable('Είστε σίγουροι ότι θέλετε να διαγράψετε ');
+	self.msgActivation = ko.observable('Είστε σίγουροι ότι θέλετε να κάνετε ενεργοποιήση του λογαριασμού του ');
+	self.msgConfirmNewEmail = ko.observable('Είστε σίγουροι ότι θέλετε να κάνετε ενεργοποιήση του email του ');
+	self.justUsername = ko.observable('το χρήστη ');
+	self.nameFood = ko.observable('το φαγητό ');
+	self.nameFoodCategory = ko.observable('την κατηγορία φαγητού ');
+	self.nameUnit = ko.observable('την μονάδα μέτρησης ');
+	self.nameActivation = ko.observable('την ενεργοποίηση λογαριαμού του ');
+	self.nameConfirmNewEmail = ko.observable('την επιβεβαίωση του νέο email του ');
+	self.waringMsgDelete = ko.observable('');
+	self.warningMsgActivation = ko.observable('');
+	self.questionMark = ko.observable(';');
+	self.isReverseSearch = ko.observable(true);
+	window.addEventListener('resize', function() {
+		self.checkSearch();
+	});	
+
+	self.checkSearch = function() {
+		var mobile = window.matchMedia("(max-width: 580px)");
+
+		if(mobile.matches) {
+			self.isReverseSearch(false);
+		} else {
+			self.isReverseSearch(true);
+		}
+	};
+	
+	self.checkSearch();
+
+	self.createBarSearch = ko.observable(`
+	<form method="post" data-bind="submit: chooseSearch, visible: isReverseSearch">
+		<div class="element-middle-out">
+			<div class="element-middle">
+				<input type="search" data-bind="value: seachUser, attr: {placeholder: self.searchUserName}"/>
+				<img src="./img/search.png" alt="consumed" width="30" height="30" class="summary-touch" data-bind="click: chooseSearch">
+			</div>
+		</div>
+	</form>
+	`);
+	self.createInSearch = ko.observable(`
+	<form method="post" data-bind="submit: chooseSearch, visible: !isReverseSearch()">
+		<div class="element-middle-out">
+			<div class="element-middle">
+				<input type="search" data-bind="value: seachUser, attr: {placeholder: self.searchUserName}"/>
+				<img src="./img/search.png" alt="consumed" width="30" height="30" class="summary-touch" data-bind="click: chooseSearch">
+			</div>
+		</div>
+	</form>
+	`);
 
 	self.newImg = ko.observable('');
 	self.newImgPath = ko.observable('./img_public/');
@@ -445,7 +495,7 @@ function DashboardAdminModel() {
 	self.saturatedName = ko.observable('Κορεσμένα');
 	self.unsaturatedName = ko.observable('Ακόρεστα');
 	self.sugarName = ko.observable('Σάκγχαρα');
-	self.bitaminsName = ko.observable('Βιταμίνη D');
+	self.bitaminsName = ko.observable('Βιταμίνη C');
 	self.isFavouriteName = ko.observable('Αγαπημένο');
 	self.emailName = ko.observable('Email');
     self.exerciseText = ko.observable('');
@@ -483,25 +533,21 @@ function DashboardAdminModel() {
 		{thClick: "sortUsername", thName: 'self.userName()', thSort: "(sorting() != 'usernameAsc') && (sorting() != 'usernameDesc')", thCaretup: "sorting() == 'usernameAsc'", thCaretdown: "sorting() == 'usernameDesc'"},
 		{thClick: "sortEmail", thName: 'self.emailName()', thSort: "(sorting() != 'emailAsc') && (sorting() != 'emailDesc')", thCaretup: "sorting() == 'emailAsc'", thCaretdown: "sorting() == 'emailDesc'"},
 		{thClick: "sortConfirmAccount", thName: 'self.accountName()', thSort: "(sorting() != 'confirmAccountAsc') && (sorting() != 'confirmAccountDesc')", thCaretup: "sorting() == 'confirmAccountAsc'", thCaretdown: "sorting() == 'confirmAccountDesc'"}
-/*		{thClick: "sortSex", thName: 'self.sexName()', thSort: "(sorting() != 'sexAsc') && (sorting() != 'sexDesc')", thCaretup: "sorting() == 'sexrAsc'", thCaretdown: "sorting() == 'sexDesc'"}
- 		{thClick: "sortWeight", thName: 'self.weightName()', thSort: "(sorting() != 'weightAsc') && (sorting() != 'weightDesc')", thCaretup: "sorting() == 'weightAsc'", thCaretdown: "sorting() == 'weightDesc'"},
-		{thClick: "sortHeight", thName: 'self.heightName()', thSort: "(sorting() != 'heightAsc') && (sorting() != 'heightDesc')", thCaretup: "sorting() == 'heightAsc'", thCaretdown: "sorting() == 'heightDesc'"},
-		{thClick: "sortAge", thName: 'self.ageName()', thSort: "(sorting() != 'ageAsc') && (sorting() != 'ageDesc')", thCaretup: "sorting() == 'ageAsc'", thCaretdown: "sorting() == 'ageDesc'"} */
 	]);
 
 	self.thFoodArray = ko.observableArray([
 		{thClick: "sortNumber", thName: 'self.sharp()', thSort: "(sorting() != 'sortNumberAsc') && (sorting() != 'sortNumberDesc')", thCaretup: "sorting() == 'sortNumberAsc'", thCaretdown: "sorting() == 'sortNumberDesc'"},
 		{thClick: "sortFoodName", thName: 'self.foodName()', thSort: "(sorting() != 'foodNameAsc') && (sorting() != 'foodNameDesc')", thCaretup: "sorting() == 'foodNameAsc'", thCaretdown: "sorting() == 'foodNameDesc'"},
-		{thClick: "sortCategory", thName: 'self.foodCategoryName()', thSort: "(sorting() != 'categoryAsc') && (sorting() != 'categoryDesc')", thCaretup: "sorting() == 'categoryAsc'", thCaretdown: "sorting() == 'categoryDesc'"}
-		/* {thClick: "sortSex", thName: 'self.quantityName()', thSort: "(sorting() != 'sexAsc') && (sorting() != 'sexDesc')", thCaretup: "sorting() == 'sexrAsc'", thCaretdown: "sorting() == 'sexDesc'"} */
+		{thClick: "sortCategory", thName: 'self.foodCategoryName()', thSort: "(sorting() != 'categoryAsc') && (sorting() != 'categoryDesc')", thCaretup: "sorting() == 'categoryAsc'", thCaretdown: "sorting() == 'categoryDesc'"},
+		{thClick: "sortQuantity", thName: 'self.quantityName()', thSort: "(sorting() != 'quantityAsc') && (sorting() != 'quantityDesc')", thCaretup: "sorting() == 'quantityAsc'", thCaretdown: "sorting() == 'quantityDesc'"}
 	]);
 
 	self.thCreatedFoodArray = ko.observableArray([
 		{thClick: "sortNumber", thName: 'self.sharp()', thSort: "(sorting() != 'sortNumberAsc') && (sorting() != 'sortNumberDesc')", thCaretup: "sorting() == 'sortNumberAsc'", thCaretdown: "sorting() == 'sortNumberDesc'"},
 		{thClick: "sortUsername", thName: 'self.userName()', thSort: "(sorting() != 'usernameAsc') && (sorting() != 'usernameDesc')", thCaretup: "sorting() == 'usernameAsc'", thCaretdown: "sorting() == 'usernameDesc'"},
 		{thClick: "sortFoodName", thName: 'self.foodName()', thSort: "(sorting() != 'foodNameAsc') && (sorting() != 'foodNameDesc')", thCaretup: "sorting() == 'foodNameAsc'", thCaretdown: "sorting() == 'foodNameDesc'"},
-		{thClick: "sortCategory", thName: 'self.foodCategoryName()', thSort: "(sorting() != 'categoryAsc') && (sorting() != 'categoryDesc')", thCaretup: "sorting() == 'categoryAsc'", thCaretdown: "sorting() == 'categoryDesc'"}
-		/* {thClick: "sortSex", thName: 'self.quantityName()', thSort: "(sorting() != 'sexAsc') && (sorting() != 'sexDesc')", thCaretup: "sorting() == 'sexrAsc'", thCaretdown: "sorting() == 'sexDesc'"} */
+		{thClick: "sortCategory", thName: 'self.foodCategoryName()', thSort: "(sorting() != 'categoryAsc') && (sorting() != 'categoryDesc')", thCaretup: "sorting() == 'categoryAsc'", thCaretdown: "sorting() == 'categoryDesc'"},
+		{thClick: "sortQuantity", thName: 'self.quantityName()', thSort: "(sorting() != 'quantityAsc') && (sorting() != 'quantityDesc')", thCaretup: "sorting() == 'quantityAsc'", thCaretdown: "sorting() == 'quantityDesc'"}
 	]);
 
 	self.thFoodCategoryArray = ko.observableArray([
@@ -946,7 +992,6 @@ function DashboardAdminModel() {
 		} else {
 			$.post('./php/gettotaladminelements.php', o, function(data) {
 				if(data.status == "ok") {
-					//console.log(data.data);
 					self.totalUsers(data.data.totalUsers);
 					self.totalFoods(data.data.totalFoods);
 					self.totalCreatedFoods(data.data.totalCreatedFoods);
@@ -1163,6 +1208,7 @@ function DashboardAdminModel() {
 	};
 
 	self.updateChooseCategories = function(totalPages, page) {
+		self.helppage(page);
 		if(self.categoryName() == 'users') {
 			self.updateAllUsers(totalPages, page);
 		} else if(self.categoryName() == 'foods') {
@@ -1356,11 +1402,9 @@ function DashboardAdminModel() {
 	};
 
 	self.updateAllCreatedFoods = function(totalPages, page) {
-		
-		//self.foodsArray([]);
-		i = 0;
 		//limit = document.getElementById('limit').value;
 		//self.limit(limit);
+		i = 0;
 		self.helptotalPages(totalPages);
 		self.helppage(page);	
 
@@ -1492,6 +1536,13 @@ function DashboardAdminModel() {
             self.sorting('ageAsc');
     };
 
+	self.sortQuantity = function() {
+        if(self.sorting() == 'quantityAsc')
+            self.sorting('quantityDesc');
+        else
+            self.sorting('quantityAsc');
+    };
+
     self.sortedTasks = ko.pureComputed(function() {
         var foodsArray = self.elementOptionArray().slice(0);
         var sorting = self.sorting();
@@ -1529,6 +1580,10 @@ function DashboardAdminModel() {
                 return a.expireLinkDate().localeCompare(b.expireLinkDate(), undefined, {numeric: false});
             } else if(sorting == 'expireLinkDesc') {
                 return b.expireLinkDate().localeCompare(a.expireLinkDate(), undefined, {numeric: false});
+            } else if(sorting == 'quantityAsc') {
+                return a.portion().localeCompare(b.portion(), undefined, {numeric: true});
+            } else if(sorting == 'quantityDesc') {
+                return b.portion().localeCompare(a.portion(), undefined, {numeric: true});
             } else if(sorting == 'sortNumberAsc') {
                 return a.userCount().localeCompare(b.userCount(), undefined, {numeric: true});
             } else if(sorting == 'sortNumberDesc') {
@@ -1876,8 +1931,34 @@ function DashboardAdminModel() {
 
 		user.td = ko.observable('');
 
+		user.showModalMsgs = function() {
+			self.waringMsgDelete('');
+			self.warningMsgActivation('');
+
+			if(self.categoryName() == 'users') {
+				self.waringMsgDelete(self.msgDelete() + self.justUsername() + user.username() + self.questionMark());
+			} else if(self.categoryName() == 'foods') {
+				self.waringMsgDelete(self.msgDelete() + self.nameFood() + user.foodName() + self.questionMark());
+			} else if(self.categoryName() == 'createdFoods') {
+				self.waringMsgDelete(self.msgDelete() + self.nameFood() + user.foodName() + self.questionMark());
+			} else if(self.categoryName() == 'foodCategory') {
+				self.waringMsgDelete(self.msgDelete() + self.nameFoodCategory() + user.category() + self.questionMark());
+			} else if(self.categoryName() == 'units') {
+				self.waringMsgDelete(self.msgDelete() + self.nameUnit() + user.unit() + self.questionMark());
+			} else if(self.categoryName() == 'activationLink') {
+				self.waringMsgDelete(self.msgDelete() + self.nameActivation() + user.username() + self.questionMark());
+				self.warningMsgActivation(self.msgActivation() + user.username() + self.questionMark());
+			} else if(self.categoryName() == 'confirmNewEmails') {
+				self.waringMsgDelete(self.msgDelete() + self.nameConfirmNewEmail() + user.username() + self.questionMark());
+				self.warningMsgActivation(self.msgConfirmNewEmail() + user.username() + self.questionMark());
+			} else {
+				self.waringMsgDelete(self.msgDelete() + self.justUsername() + user.username() + self.questionMark());
+			}
+		};
+
 		user.storeElements = function() {
 			self.chooseVarName();
+			user.showModalMsgs();
 			self.showInfoArray([]);
 			self.itemOptionArray([]);
 			self.helpData([]);
@@ -1955,7 +2036,7 @@ function DashboardAdminModel() {
 						self.showInfoArray.push(
 							`<tr>
 								<th class="summary-info" data-bind="text: ${self.namesArray()[i].varNames}" style="border-radius: unset; background-color: #A4E5E0;">Όνομα</th>
-								<td class="summary-info-detail break-line" style="border-radius: unset; background-color: #ffffff;" data-bind="text: '${self.helpData()[i].name}'">NtinosNtinos</td>
+								<td class="summary-info-detail break-line" style="border-radius: unset; background-color: #ffffff;" data-bind="">${self.helpData()[i].name}</td>
 							</tr>`
 						);
 					} else {
@@ -1978,7 +2059,7 @@ function DashboardAdminModel() {
 			}
 			self.idUser(data.id);
 			self.nameUser(data.username);
-			console.log(data.username);
+			
 			$.post('./php/getuserid.php', o, function(data) {
 				if(data.status == "ok") {
 					if(self.dashboardArray().length > 8) {
@@ -2032,9 +2113,9 @@ function DashboardAdminModel() {
 			self.newCarb(data.carb);
 			self.newFat(data.fat);
 			self.newFiber(data.fiber);
-			self.newSugar(data.saturated);
-			self.newSaturated(data.unsaturated);
-			self.newUnsaturated(data.sugar);
+			self.newSugar(data.sugar);
+			self.newSaturated(data.saturated);
+			self.newUnsaturated(data.unsaturated);
 			self.newBitaminD(data.bitamins);
 			self.itemOptionArray(user);
 		}
@@ -2058,7 +2139,17 @@ function DashboardAdminModel() {
 		}
 
 		user.td(user.td() + `<td data-bind="clickArray: [storeElements, self.switch.bind($data, 'modalDelete')]"><img src="./img/delete.png" alt="consumed" width="33" height="33" data-bind=""></td>`);		
+		//console.log('----------------------');
+		self.unitNameArray([]);
 		for (let x in data) {
+			
+			if(x == "unitName") {
+				self.unitNameArray.push(data[x]);
+			}
+			if(x == "portion") {
+				user.td(user.td() + `<td class="break-line"><div class="summary-info-detail"><span data-bind=\"text: ${x}\"> </span><span> ${self.unitNameArray()[0]}</span> <span> / ${self.portionName()}</span></div></td>`);
+			}
+
 			if(x == "sex") {
 				if(data[x] == 1) {
 					data[x] = self.female();
@@ -2066,6 +2157,7 @@ function DashboardAdminModel() {
 					data[x] = self.male();
 				}
 			}
+
 			if(x == "dateCreated" || x == "expireLinkDate") {
 				data[x] = new Date(data[x]);
 				data[x] = data[x].toLocaleString(self.tolocalestring(), {day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit"});
@@ -2124,10 +2216,10 @@ function DashboardAdminModel() {
 			}
 
 			user[x] = ko.observable(data[x]);
-
-			if(x != "isConfirmAccount" && x != "idUser" && x != "idCreatedFood" && x != "isIncreaseWeight" && x != "requestedWeight" && x != "exercise" && x != "sex" && x != "kilos" && x != "height" && x != "weights" && x != "age" && x != "id" && x != "idCategory" && x != "idUnit" && x != "isFavourite" && x != "portion" && x != "categoryValue" && x != "unitValue" && x != "unitName" && x != "idFood" && x != "imgPath" && x != "imgName" && x != "imgHash" && x != "calories" && x != "protein" && x != "carb" && x != "fat" && x != "fiber" && x != "saturated" && x != "unsaturated" && x != "sugar" && x != "bitamins")
+			if(x != "portion" && x != "isConfirmAccount" && x != "idUser" && x != "idCreatedFood" && x != "isIncreaseWeight" && x != "requestedWeight" && x != "exercise" && x != "sex" && x != "kilos" && x != "height" && x != "weights" && x != "age" && x != "id" && x != "idCategory" && x != "idUnit" && x != "isFavourite" &&  x != "categoryValue" && x != "unitValue" && x != "unitName" && x != "idFood" && x != "imgPath" && x != "imgName" && x != "imgHash" && x != "calories" && x != "protein" && x != "carb" && x != "fat" && x != "fiber" && x != "saturated" && x != "unsaturated" && x != "sugar" && x != "bitamins")
 				user.td(user.td() + `<td class="break-line"><div class="summary-info-detail" data-bind=\"text: ${x}\"></div></td>`);
 		}
+		
 	};
 
 	self.emptyFoodVariables = function() {
@@ -2302,10 +2394,10 @@ function DashboardAdminModel() {
 		$.post('./php/updatecreatedfood.php', o, function(data) {
 			if(data.status == "ok") {
 				if(self.categoryName() == 'foods') {
-					self.updateAllFoods(1, 1);
+					self.updateAllFoods(self.helptotalPages(), self.helppage());
 					self.switch('modalEditFood');
 				} else {
-					self.updateAllCreatedFoods(1, 1);
+					self.updateAllCreatedFoods(self.helptotalPages(), self.helppage());
 					self.switch('modalEditCreatedFood');
 				}
 				self.emptyFoodVariables();
@@ -2327,7 +2419,7 @@ function DashboardAdminModel() {
 			self.switch('modalLoad');
 			$.post('./php/updatecategory.php', o, function(data) {
 				if(data.status == "ok") {
-					self.updateFoodCategories(1, 1);
+					self.updateFoodCategories(self.helptotalPages(), self.helppage());
 					self.switch('modalEditCategoryFood');
 					self.emptyFoodVariables();
 				} else {
@@ -2352,7 +2444,7 @@ function DashboardAdminModel() {
 			self.switch('modalLoad');
 			$.post('./php/updateunit.php', o, function(data) {
 				if(data.status == "ok") {
-					self.updateUnit(1, 1);
+					self.updateUnit(self.helptotalPages(), self.helppage());
 					self.switch('modalEditUnit');
 					self.emptyFoodVariables();
 				} else {
@@ -3029,7 +3121,7 @@ function DashboardAdminModel() {
 			self.saturatedName('Saturated');
 			self.unsaturatedName('Unsaturated');
 			self.sugarName('Sugar');
-			self.bitaminsName('Bitamin D');
+			self.bitaminsName('Vitamin C');
 			self.idFoodName('ID Food');
 			self.idUnitName('ID Unit');
 			self.imgPathName('Image Path');
@@ -3059,6 +3151,16 @@ function DashboardAdminModel() {
 			self.noAvailableConfirmEmail('There is no new email to confirm');
 			self.noAvailable(self.noAvailableUser());
 			self.panel('Admin Panel');
+			self.msgDelete('Are you sure you want to delete ');
+			self.msgActivation('Are you sure you want to activate account of ');
+			self.msgConfirmNewEmail('Are you sure you want to activate email of ');
+			self.justUsername('the user ');
+			self.nameFood('the food ');
+			self.nameFoodCategory('the food category ');
+			self.nameUnit('the unit ');
+			self.nameActivation('the activation account of ');
+			self.nameConfirmNewEmail('the confirmation new email of ');
+			self.questionMark('?');
 
 			self.sendLang(1);
 		} else if(self.lang() === 'gr') {
@@ -3141,7 +3243,7 @@ function DashboardAdminModel() {
 			self.saturatedName('Κορεσμένα');
 			self.unsaturatedName('Ακόρεστα');
 			self.sugarName('Σάκγχαρα');
-			self.bitaminsName('Βιταμίνη D');
+			self.bitaminsName('Βιταμίνη C');
 			self.idFoodName('ID Φαγητού');
 			self.idUnitName('ID Μονάδας Μέτρησης');
 			self.imgPathName('Μονοπάτη Εικόνας');
@@ -3170,6 +3272,16 @@ function DashboardAdminModel() {
 			self.noAvailableConfirmEmail('Δεν υπάρχει κανένα νέο email για επιβεβαίωση');
 			self.noAvailable(self.noAvailableUser());
 			self.panel('Admin Πάνελ');
+			self.msgDelete('Είστε σίγουροι ότι θέλετε να διαγράψετε ');
+			self.msgActivation('Είστε σίγουροι ότι θέλετε να κάνετε ενεργοποιήση του λογαριασμού του ');
+			self.msgConfirmNewEmail('Είστε σίγουροι ότι θέλετε να κάνετε ενεργοποιήση του email του ');
+			self.justUsername('το χρήστη ');
+			self.nameFood('το φαγητό ');
+			self.nameFoodCategory('την κατηγορία φαγητού ');
+			self.nameUnit('την μονάδα μέτρησης ');
+			self.nameActivation('την ενεργοποίηση λογαριαμού του ');
+			self.nameConfirmNewEmail('την επιβεβαίωση του νέο email του ');
+			self.questionMark(';');
 
 			self.sendLang(2);
 		}

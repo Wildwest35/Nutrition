@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Activate account admin
+//Access: Authenticated Users
+//Purpose: Admin activate user account from "Admin Panel"
 
     @session_start();
     include 'corsAccess.php'; 

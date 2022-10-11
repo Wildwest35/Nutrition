@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Update dailyeating favourite
 
     @session_start();
@@ -125,91 +125,6 @@
                     echo json_encode(['status' => 'error', 'data' => false]);
                 }
                 die();
-
-    /* 
-                if($newVal == 2) {
-                    $newVal = 1;
-                    $query = $con->prepare("UPDATE `dailyeatings` SET `dailyeatings`.`isFavourite` = :isFavourite WHERE `dailyeatings`.`idUser` = :idUser && `dailyeatings`.`idFood` = :idFood");
-                    
-                    $query->bindValue(':isFavourite', $newVal);
-                    $query->bindValue(':idUser', $id);
-                    $query->bindValue(":idFood", $idFood);
-                    
-                    if($query->execute()) {
-                        $query1 = $con->prepare("SELECT `favourites`.`id` FROM `favourites` WHERE `favourites`.`idUser` = :idUser && `favourites` .`idFood` = :idFood");                                             
-
-                        $query1->bindValue(":idUser", $id);
-                        $query1->bindValue(":idFood", $idFood);
-
-                        if($query1->execute()) {
-                            $row1 = $query1->fetch(PDO::FETCH_ASSOC);
-
-                            if(!empty($row1)) {
-                                $query2 = $con->prepare("DELETE FROM `favourites` WHERE `favourites`.`idUser` = :idUser && `favourites` .`idFood` = :idFood");
-
-                                $query2->bindValue(":idUser", $id);
-                                $query2->bindValue(":idFood", $idFood);
-                    
-                                if($query2->execute()) {
-                                    echo json_encode(['status' => 'ok', 'data' => true]);
-                                } else {
-                                    echo json_encode(['status' => 'error', 'data' => false]);
-                                }
-                                die();
-                            } else {
-                                echo json_encode(['status' => 'ok', 'data' => true]);
-                            }
-                        } else {
-                            echo json_encode(['status' => 'error', 'data' => false]);
-                        }
-                        die();
-                    } else {
-                        echo json_encode(['status' => 'error', 'data' => false]);
-                    }
-                    die();
-                } else {
-                    $newVal = 2;
-                    $query = $con->prepare("UPDATE `dailyeatings` SET `dailyeatings`.`isFavourite` = :isFavourite WHERE `dailyeatings`.`idUser` = :idUser && `dailyeatings`.`idFood` = :idFood");
-                    
-                    $query->bindValue(':isFavourite', $newVal);
-                    $query->bindValue(':idUser', $id);
-                    $query->bindValue(":idFood", $idFood);
-                    
-                    if($query->execute()) {
-                        $query1 = $con->prepare("SELECT `favourites`.`id` FROM `favourites` WHERE `favourites`.`idUser` = :idUser && `favourites` .`idFood` = :idFood");                                             
-
-                        $query1->bindValue(":idUser", $id);
-                        $query1->bindValue(":idFood", $idFood);
-
-                        if($query1->execute()) {
-                            $row1 = $query1->fetch(PDO::FETCH_ASSOC);
-
-                            if(!empty($row1)) {
-                                echo json_encode(['status' => 'ok', 'data' => true]);
-                            } else {
-                                $query2 = $con->prepare("INSERT INTO favourites(idUser, idFood, isFavourite, favouriteDate) VALUES(:idUser, :idFood, :isFavourite, :favouriteDate)");
-
-                                $query2->bindParam(':idUser', $id);
-                                $query2->bindParam(':idFood', $idFood);
-                                $query2->bindParam(':isFavourite', $isFavourite);
-                                $query2->bindParam(':favouriteDate', $date);
-                                                
-                                if($query2->execute()) {
-                                    echo json_encode(['status' => 'ok', 'data' => true]);
-                                } else {
-                                    echo json_encode(['status' => 'error', 'data' => false]);
-                                }
-                            }
-                        } else {
-                            echo json_encode(['status' => 'error', 'data' => false]);
-                        }
-                    } else {
-                        echo json_encode(['status' => 'error', 'data' => false]);
-                    }
-                    die();
-                }
-                die();
-    */
             }
             die();
         } else {

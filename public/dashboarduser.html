@@ -37,11 +37,12 @@
             <header>
                 <section>
                     <label for="nav-toggle" id="mediaCalc">
-                        <!-- <span class="las la-bars"></span> -->
                         <img src="img/menu.png" width="40" height="40" alt="Bar">
                     </label>
                     <h3 data-bind="text: home">Αρχική</h3>
                 </section>                
+
+                <div data-bind="bindHTML: createBarCalendar"></div>
 
                 <div class="user-wrapper">
                     <img src="#" alt="flag" data-bind="click: langSubmit, attr: {src: flag, alt: 'flag'}" width="37" height="37" class="lang">
@@ -54,137 +55,133 @@
 
             <main>
                 <span>            
-                    <div class="element-dash-middle">
-                        <img src="./img/calendar.png" alt="calendar"  data-bind="click: self.switch.bind($data, 'modalCalendar')" width="40" height="40" class="calendar-space summary-touch">
-                        <img src="./img/previous.png" alt="previous" width="30" height="30" class="summary-touch" data-bind="click: prevDay">
-                        <div class="date-info" data-bind="text: date">Σήμερα</div>
-                        <img src="./img/next.png" alt="next" width="30" height="30" class="summary-touch" data-bind="click: nextDay">
-                    </div>
-                    
-                    <div class="container-summary">
-                        <div class="summary-fields-middle"><!-- First -->
-                            <div class="summary-bottom">
-                                <div class="summary-bottom-value">
-                                    <div class="summary-attributes">
-                                        <img src="./img/daily-calorie-needs.png" alt="calories" width="40" height="40">
-                                        
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: kcal">Θερμίδες</div>
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info-detail" data-bind="text: samCalories">2350</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="summary-elements">
-                                <div class="summary-attributes">
-                                    <div class="summary-info-detail summary-touch" data-bind="click: dailystatspage, text: seeMeals">Δες όλα τα Γεύματα</div>
-                                </div>                     
-                            </div>
-                        </div>
-                        <div class="summary-fields"><!-- Middle -->
-                            <div class="summary-fields-sections">
-                                <div class="summary-elements">
-                                    <div class="summary-attributes">
-                                        <img src="./img/add-to-basket.png" alt="consumed" width="40" height="40">
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: consumed">Καταναλώθηκαν</div>
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info-detail"><span data-bind="text: consumedCalories">1500</span> kcal</div>
+                    <div data-bind="bindHTML: createInCalendar"></div>
+                    <section>
+                        <div class="container-summary">
+                            <div class="summary-fields-middle">
+                                <div class="summary-bottom">
+                                    <div class="summary-bottom-value">
+                                        <div class="summary-attributes">
+                                            <img src="./img/daily-calorie-needs.png" alt="calories" width="40" height="40">
+                                            
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: kcal">Θερμίδες</div>
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info-detail" data-bind="text: samCalories">2350</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="summary-elements">
                                     <div class="summary-attributes">
-                                        <img src="./img/groceries.png" alt="left" width="40" height="40">
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: left">Μένουν</div>
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info-detail"><span data-bind="text: leftCalories">850</span> kcal</div>
-                                    </div>                            
+                                        <div class="summary-info-detail summary-touch" data-bind="click: dailystatspage, text: seeMeals">Δες όλα τα Γεύματα</div>
+                                    </div>                     
                                 </div>
                             </div>
-                            <div class="summary-fields-sections">
-                                <div class="summary-elements">
-                                    <div class="summary-attributes">
-                                        <img src="./img/water-glass.png" alt="water" width="40" height="40">
+                            <div class="summary-fields">
+                                <div class="summary-fields-sections">
+                                    <div class="summary-elements">
+                                        <div class="summary-attributes">
+                                            <img src="./img/add-to-basket.png" alt="consumed" width="40" height="40">
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: consumed">Καταναλώθηκαν</div>
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info-detail"><span data-bind="text: consumedCalories">1500</span> kcal</div>
+                                        </div>
                                     </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: waterWord">Νερό</div>
+                                    <div class="summary-elements">
+                                        <div class="summary-attributes">
+                                            <img src="./img/groceries.png" alt="left" width="40" height="40">
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: left">Μένουν</div>
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info-detail"><span data-bind="text: leftCalories">850</span> kcal</div>
+                                        </div>                            
                                     </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info-detail"><span data-bind="text: leftWater">1500</span> ml</div>
-                                    </div>                         
                                 </div>
-                                <div class="summary-elements summary-touch" data-bind="click: self.switch.bind($data, 'modalNote')"><!-- switchNote -->
-                                    <div class="summary-attributes">
-                                        <img src="./img/pencil.png" alt="note" width="40" height="40">
+                                <div class="summary-fields-sections">
+                                    <div class="summary-elements">
+                                        <div class="summary-attributes">
+                                            <img src="./img/water-glass.png" alt="water" width="40" height="40">
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: waterWord">Νερό</div>
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info-detail"><span data-bind="text: leftWater">1500</span> ml</div>
+                                        </div>                         
                                     </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: noteWord">Σημείωση</div>
+                                    <div class="summary-elements summary-touch" data-bind="click: self.switch.bind($data, 'modalNote')">
+                                        <div class="summary-attributes">
+                                            <img src="./img/pencil.png" alt="note" width="40" height="40">
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: noteWord">Σημείωση</div>
+                                        </div>
+                                        <div class="summary-attributes" >
+                                            <div class="summary-note"><div data-bind="text: note">Cheat Day</div></div>
+                                        </div>                       
                                     </div>
-                                    <div class="summary-attributes" >
-                                        <div class="summary-note"><div data-bind="text: note">Cheat Day</div></div>
-                                    </div>                       
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="summary-fields"> <!-- Last -->
-                            <div class="summary-fields-sections">
-                                <div class="summary-elements">
-                                    <div class="summary-attributes">
-                                        <img src="./img/croissant.png" alt="breakfast" width="40" height="40">
+                            <div class="summary-fields">
+                                <div class="summary-fields-sections">
+                                    <div class="summary-elements">
+                                        <div class="summary-attributes">
+                                            <img src="./img/croissant.png" alt="breakfast" width="40" height="40">
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: morningWord">Πρωινό</div>
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info-detail"><span data-bind="text: morning">200</span> kcal</div>
+                                        </div>
                                     </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: morningWord">Πρωινό</div>
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info-detail"><span data-bind="text: morning">200</span> kcal</div>
+                                    <div class="summary-elements">
+                                        <div class="summary-attributes">
+                                            <img src="./img/burger.png" alt="lunch" width="40" height="40">
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: lunchWord">Μεσημεριανό</div>
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info-detail"><span data-bind="text: lunch">700</span> kcal</div>
+                                        </div>                            
                                     </div>
                                 </div>
-                                <div class="summary-elements">
-                                    <div class="summary-attributes">
-                                        <img src="./img/burger.png" alt="lunch" width="40" height="40">
+                                <div class="summary-fields-sections">  
+                                    <div class="summary-elements">
+                                        <div class="summary-attributes">
+                                            <img src="./img/lunch.png" alt="snack" width="40" height="40">
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: snackWord">Γεύματα</div>
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info-detail"><span data-bind="text: snack">600</span> kcal</div>
+                                        </div>                            
                                     </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: lunchWord">Μεσημεριανό</div>
+                                    <div class="summary-elements">
+                                        <div class="summary-attributes">
+                                            <img src="./img/restaurant.png" alt="dinner" width="40" height="40">
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info" data-bind="text: dinnerWord">Βραδινό</div>
+                                        </div>
+                                        <div class="summary-attributes">
+                                            <div class="summary-info-detail"><span data-bind="text: dinner">300</span> kcal</div>
+                                        </div>                            
                                     </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info-detail"><span data-bind="text: lunch">700</span> kcal</div>
-                                    </div>                            
-                                </div>
-                            </div>
-                            <div class="summary-fields-sections">  
-                                <div class="summary-elements">
-                                    <div class="summary-attributes">
-                                        <img src="./img/lunch.png" alt="snack" width="40" height="40">
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: snackWord">Γεύματα</div>
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info-detail"><span data-bind="text: snack">600</span> kcal</div>
-                                    </div>                            
-                                </div>
-                                <div class="summary-elements">
-                                    <div class="summary-attributes">
-                                        <img src="./img/restaurant.png" alt="dinner" width="40" height="40">
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info" data-bind="text: dinnerWord">Βραδινό</div>
-                                    </div>
-                                    <div class="summary-attributes">
-                                        <div class="summary-info-detail"><span data-bind="text: dinner">300</span> kcal</div>
-                                    </div>                            
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
                     <div class="container-nutrients">
                         <div class="nutrient-include">
@@ -281,18 +278,6 @@
                             </div>
                             
                             <div class="snack-value">
-
-                                <!--<div class="snack-field" data-bind="visible: morningArray().length == 0">
-                                    <div class="snack-attribute">
-                                        <div class="line"></div>
-                                    </div>
-                                </div>
-                                 <div class="snack-food-desc" data-bind="visible: morningArray().length == 0">
-                                    <div class="snack-empty ">
-                                        <img src="./img/add.png" alt="add" width="60" height="60" class="summary-touch" data-bind="click: addfoodpage.bind($data,'1')">
-                                        <div class="summary-info-detail summary-touch" data-bind="click: addfoodpage.bind($data,'1'), text: addfoodWord">Προσθέστε Φαγητό</div>
-                                    </div>
-                                </div> -->
                                 <div data-bind="foreach: morningArray, visible: morningArray().length > 0">
                                     <div class="snack-field">
                                         <div class="snack-attribute">
@@ -303,7 +288,8 @@
                                         <div class="snack-elements">
                                             <div class="snack-attribute">
                                                 <img src="#" alt="add" width="40" height="40" data-bind="visible: imgName() != '', attr: {src: img, alt: 'imgName'}">
-                                                <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                                <!-- <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div> -->
+                                                <div data-bind="visible: imgName() == ''"><img src="./img/unknown.png" alt="" width="35" height="35"></div>
                                                 <div><span class="summary-info" data-bind="text: name">Μήλο</span> (<span class="summary-info-detail" data-bind="text: prevCalories">180</span><span  class="summary-info-detail"> kcal</span>)</div>
                                             </div>
                                         </div>
@@ -426,18 +412,6 @@
                             </div>
 
                             <div class="snack-value">
-
-<!--                                 <div class="snack-field" data-bind="visible: lunchArray().length == 0">
-                                    <div class="snack-attribute">
-                                        <div class="line"></div>
-                                    </div>
-                                </div>
-                                <div class="snack-food-desc"  data-bind="visible: lunchArray().length == 0">
-                                    <div class="snack-empty">
-                                        <img src="./img/add.png" alt="add" width="60" height="60" class="summary-touch" data-bind="click: addfoodpage.bind($data,'2')">
-                                        <div class="summary-info-detail summary-touch" data-bind="click: addfoodpage.bind($data,'2'), text: addfoodWord">Προσθέστε Φαγητό</div>
-                                    </div>
-                                </div> -->
                                 <div data-bind="foreach: lunchArray, visible: lunchArray().length > 0">
                                     <div class="snack-field">
                                         <div class="snack-attribute">
@@ -448,7 +422,8 @@
                                         <div class="snack-elements">
                                             <div class="snack-attribute">
                                                 <img src="#" alt="add" width="40" height="40" data-bind="visible: imgName() != '', attr: {src: img, alt: 'imgName'}">
-                                                <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                                <!-- <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div> -->
+                                                <div data-bind="visible: imgName() == ''"><img src="./img/unknown.png" alt="" width="35" height="35"></div>
                                                 <div><span class="summary-info" data-bind="text: name">Μήλο</span> (<span class="summary-info-detail" data-bind="text: prevCalories">180</span><span  class="summary-info-detail"> kcal</span>)</div>
                                             </div>
                                         </div>
@@ -572,18 +547,6 @@
 
 
                             <div class="snack-value">
-                                
-<!--                                 <div class="snack-field" data-bind="visible: snackArray().length == 0">
-                                    <div class="snack-attribute">
-                                        <div class="line"></div>
-                                    </div>
-                                </div>
-                                <div class="snack-food-desc" data-bind="visible: snackArray().length == 0">
-                                    <div class="snack-empty">
-                                        <img src="./img/add.png" alt="add" width="60" height="60" class="summary-touch" data-bind="click: addfoodpage.bind($data,'3')">
-                                        <div class="summary-info-detail summary-touch" data-bind="click: addfoodpage.bind($data,'3'), text: addfoodWord">Προσθέστε Φαγητό</div>
-                                    </div>
-                                </div> -->
                                 <div data-bind="foreach: snackArray, visible: snackArray().length > 0">
                                     <div class="snack-field">
                                         <div class="snack-attribute">
@@ -594,7 +557,8 @@
                                         <div class="snack-elements">
                                             <div class="snack-attribute">
                                                 <img src="#" alt="add" width="40" height="40" data-bind="visible: imgName() != '', attr: {src: img, alt: 'imgName'}">
-                                                <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                                <!-- <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div> -->
+                                                <div data-bind="visible: imgName() == ''"><img src="./img/unknown.png" alt="" width="35" height="35"></div>
                                                 <div><span class="summary-info" data-bind="text: name">Μήλο</span> (<span class="summary-info-detail" data-bind="text: prevCalories">180</span><span  class="summary-info-detail"> kcal</span>)</div>
                                             </div>
                                         </div>
@@ -718,18 +682,6 @@
                             </div>
                             
                             <div class="snack-value">
-
-<!--                                 <div class="snack-field" data-bind="visible: dinnerArray().length == 0">
-                                    <div class="snack-attribute">
-                                        <div class="line"></div>
-                                    </div>
-                                </div>
-                                <div class="snack-food-desc" data-bind="visible: dinnerArray().length == 0">
-                                    <div class="snack-empty">
-                                        <img src="./img/add.png" alt="add" width="60" height="60" class="summary-touch" data-bind="click: addfoodpage.bind($data,'4')">
-                                        <div class="summary-info-detail summary-touch, text: addfoodWord" data-bind="click: addfoodpage.bind($data,'4'), text: addfoodWord">Προσθέστε Φαγητό</div>
-                                    </div>
-                                </div> -->
                                 <div data-bind="foreach: dinnerArray, visible: dinnerArray().length > 0">
                                     <div class="snack-field">
                                         <div class="snack-attribute">
@@ -740,7 +692,8 @@
                                         <div class="snack-elements">
                                             <div class="snack-attribute">
                                                 <img src="#" alt="add" width="40" height="40" data-bind="visible: imgName() != '', attr: {src: img, alt: 'imgName'}">
-                                                <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                                <!-- <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div> -->
+                                                <div data-bind="visible: imgName() == ''"><img src="./img/unknown.png" alt="" width="35" height="35"></div>
                                                 <div><span class="summary-info" data-bind="text: name">Μήλο</span> (<span class="summary-info-detail" data-bind="text: prevCalories">180</span><span  class="summary-info-detail"> kcal</span>)</div>
                                             </div>
                                         </div>
@@ -1045,7 +998,7 @@
                     </div>
                 </div>
 
-                <div class="modal-bg" data-bind="click: restoreFoodAttr" id="modalEdit"><!--  style="white-space: unset;" -->
+                <div class="modal-bg" data-bind="click: restoreFoodAttr" id="modalEdit" style="white-space: unset;">
                     <div class="modal">
                         <div class="delete-container">
                             <div class="edit" data-bind="click: stopProp.bind($data, event), foreach: itemFoodArray">
@@ -1058,9 +1011,9 @@
                                     <div class="scroll-pos">
                                         <div class="edit-field">
                                             <img src="./img/meat.png" alt="consumed" width="35" height="35" data-bind="visible: imgName() != '', attr: {src: img, alt: imgName}">
-                                            <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div>
+                                            <!-- <div class="circleImg" data-bind="visible: imgName() == '', text: firstLetter">M</div> -->
+                                            <div data-bind="visible: imgName() == ''"><img src="./img/unknown.png" alt="" width="35" height="35"></div>
                                             <div><span class="summary-info" data-bind="text: name">Μπριζόλα</span>(<span class="summary-info-detail" data-bind="text: quantity">200</span> <span class="summary-info-detail" data-bind="text: unitName">g</span> / <span class="summary-info-detail" data-bind="text: portionName">Μερίδα</span>)</div>
-                                            <!-- <div class="summary-info-detail">(<span data-bind="text: quantity">200</span> <span data-bind="text: unitName">g</span> / <span data-bind="text: portionName">Μερίδα</span>)</div> -->
                                         </div>
                                         <div class="edit-field">
                                             <div class="summary-info edit-category" data-bind="text: nutrientName">Θρεπτικές Ουσίες</div>
@@ -1106,39 +1059,17 @@
                                                 </div>
                                             </div>                               
                                         </div>
-                                        <!-- <div class="edit-field">
-                                            <div class="summary-info edit-category" id="consumptionquantity" data-bind="text: consumeQuantityName">Ποσότητα Κατανάλωσης</div>
-                                        </div>
-                                        <div class="edit-field">
-                                            <input type="number" id="consumption" value="1" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}" data-bind="value: inputNumPortion, event:{change: $parent.in}"/>
-                                            <div class="summary-info-detail edit-quantity"><span data-bind="text: calories">8870</span> kcal</div>
-                                        </div>
-                                        <div class="edit-field">
-                                            <div class="nutrient-attribute">
-                                                <div class="summary-info"><span data-bind="text: consumptionNumPortion">1</span> <span data-bind="text: portionsName">Μερίδες </span> = </div>
-                                            </div>
-                                            <div class="nutrient-attribute">
-                                                <div class="summary-info-detail"><input type="number" class="summary-info-detail" data-bind="value: portion" style="width: 73px; font-size: 18px;"/><span data-bind="text: unitName">g</span></div>
-                                            </div>
-                                        </div> -->
                                         <div class="edit-field">
                                             <div class="summary-info edit-category" id="consumptionquantity" data-bind="text: consumeQuantityName">Ποσότητα Κατανάλωσης</div>
                                         </div>
                                         <div class="edit-field">
                                             <div class="nutrient-attribute">
-                                                <div class="summary-info"><span data-bind="text: quantityName">Ποσότητα </span> = </div>
+                                                <div class="summary-info"><span data-bind="text: quantityName">Ποσότητα </span> = <span><input type="number" id="consumption" value="1" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}" data-bind="value: inputNumPortion, event:{change: $parent.in}"/></span></div>
                                             </div>
-                                            <div class="nutrient-attribute">
-                                                <input type="number" id="consumption" value="1" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}" data-bind="value: inputNumPortion, event:{change: $parent.in}"/>
-                                            </div>
-                                            <!-- <div class="summary-info-detail edit-quantity"><span data-bind="text: calories">8870</span> kcal</div> -->
                                         </div>
                                         <div class="edit-field">
                                             <div class="nutrient-attribute">
-                                                <div class="summary-info"><span data-bind="text: consumptionNumPortion">1</span><span data-bind="text: portionsName">Μερίδες </span> = </div>
-                                            </div>
-                                            <div class="nutrient-attribute">
-                                                <div class="summary-info-detail"><input type="number" class="summary-info-detail" data-bind="value: portion" style="width: 73px; font-size: 18px;"/><span data-bind="text: unitName">g</span></div>
+                                                <div class="summary-info"><span data-bind="text: consumptionNumPortion">1</span><span data-bind="text: portionsName">Μερίδες </span> = <span class="summary-info-detail"><input type="number" class="summary-info-detail" data-bind="value: portion" style="width: 73px; font-size: 18px;"/><span data-bind="text: unitName">g</span></span></div>
                                             </div>
                                         </div>
                                         <div class="edit-field">

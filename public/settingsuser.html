@@ -34,7 +34,6 @@
             <header>
                 <section>
                     <label for="nav-toggle" id="mediaCalc">
-                        <!-- <span class="las la-bars"></span> -->
                         <img src="img/menu.png" width="40" height="40" alt="Bar">
                     </label>
                     <h3 data-bind="text: settings">Ρυθμίσεις</h3>
@@ -50,8 +49,7 @@
             </header>
 
             <main id="main">
-                <span>  
-                    <!-- <p>ΕΠΕΞΕΡΓΑΣΙΑ ΠΡΟΣΩΠΙΚΩΝ ΔΕΔΟΜΕΝΩΝ</p>  -->   
+                <span>   
                     <div class="settings" data-bind="foreach: settingsArray, visible: settingsArray().length > 0">
                         <div class="settings-section">
                             <div class="setting-title summary-touch" data-bind="click: openSettings">

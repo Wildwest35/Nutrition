@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect total categories food number
+//Access: Authenticated Users
+//Purpose: Collect total number elements of the "Add Food" categories
 
     @session_start();
     include 'corsAccess.php'; 

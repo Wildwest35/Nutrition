@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect all food info
+//Access: Authenticated Users
+//Purpose: Delete a food from daily eatings and update daily summaries
 
     @session_start();
     include 'corsAccess.php'; 
@@ -33,8 +33,6 @@
             if(!preg_match(AlphaNumeric(), $usernames) || !preg_match(Numeric(), $id) || !preg_match(Numeric(), $newVal) || !preg_match(Numeric(), $calories) || !preg_match(Numeric(), $protein) || !preg_match(Numeric(), $carb) || !preg_match(Numeric(), $fat) || !preg_match(Numeric(), $fiber) || !preg_match(Numeric(), $saturated) || !preg_match(Numeric(), $unsaturated) || !preg_match(Numeric(), $sugar) || !preg_match(Numeric(), $bitamins)) {
                 echo json_encode(['status' => 'error', 'data' => 'Error Code: #704']);
             } else {
-
-
                 $query = $con->prepare("DELETE FROM `dailyeatings` WHERE `dailyeatings`.`id` = :newVal");
 
                 $query->bindValue(":newVal", $newVal);
@@ -48,7 +46,7 @@
                     $query1->bindValue(":id", $id);
                     $query1->bindValue(":dailySummariesDate", $fullDate);
 
-                    if($query1->execute()) {
+                  if($query1->execute()) {
                         $row1 = $query1->fetch(PDO::FETCH_ASSOC);
 
                         $totalCalories = $row1['calories'] - $calories;
@@ -82,7 +80,7 @@
 
                         $query2 = $con->prepare("UPDATE `dailysummaries` 
                                                 SET `dailysummaries`.`calories` = :calories, `dailysummaries`.`carb` = :carb, `dailysummaries`.`fat` = :fat, `dailysummaries`.`protein` = :protein, `dailysummaries`.`fiber` = :fiber, `dailysummaries`.`saturated` = :saturated, `dailysummaries`.`unsaturated` = :unsaturated, `dailysummaries`.`sugar` = :sugar, `dailysummaries`.`bitamins` = :bitamins
-                                                WHERE `dailysummaries`.`idDailyConsumptionGoals` = :id&& `dailysummaries`.`dailySummariesDate` = :dailySummariesDate");
+                                                WHERE `dailysummaries`.`idDailyConsumptionGoals` = :id && `dailysummaries`.`dailySummariesDate` = :dailySummariesDate");
 
                         $query2->bindParam(':calories', $totalCalories);
                         $query2->bindParam(':carb', $totalCarb);
@@ -100,7 +98,7 @@
                             echo json_encode(['status' => 'ok', 'data' => true]);
                         } else {
                             echo json_encode(['status' => 'error', 'data' => false]);
-                        }
+                        } 
                     } else {
                         echo json_encode(['status' => 'error', 'data' => false]);
                     }

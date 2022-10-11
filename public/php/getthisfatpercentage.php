@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Get one fat percentage register
+//Access: Authenticated Users
+//Purpose: Get users's one fat percentage register
 
     @session_start();
     include 'corsAccess.php'; 

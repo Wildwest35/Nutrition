@@ -6,6 +6,20 @@
     include 'corsAccess.php';
     include 'checkInput.php';
 
+    if(isset($_POST['lang'])) {
+        $lang = $_POST['lang'];
+        if($lang == 'gr') {
+            $emailSent = 'Το Email σας στάλθηκε!';
+            $emailNotExist = 'Δεν υπάρχει αυτό το Email!';
+        } else {
+            $emailSent = 'Your email has been sent!';
+            $emailNotExist = 'This email doesn\'t exist!';
+        }
+    } else {
+        $emailSent = 'Το Email σας στάλθηκε!';
+        $emailNotExist = 'Δεν υπάρχει αυτό το Email!';
+    }
+
     if(isset($_POST['email']) && isset($_POST['lang'])) {
         include 'connect.php';
 
@@ -52,42 +66,10 @@
                             
                             
                             if(mail($to_email, $subject, $body, $headers)) {
-                                echo json_encode(["status" => 'ok', "data" => 'Το Email σας στάλθηκε!']);
+                                echo json_encode(["status" => 'ok', "data" => $emailSent]);
                             } else {
                                 echo json_encode(["status" => 'error', "data" => false]);
                             }
-
-/*                             // Start with PHPMailer class
-                            use PHPMailer\PHPMailer\PHPMailer;
-                            require_once './vendor/autoload.php';
-                            // create a new object
-                            $mail = new PHPMailer();
-                            // configure an SMTP
-                            $mail->isSMTP();
-                            $mail->Host = 'smtp.gmail.com';
-                            $mail->SMTPAuth = true;
-                            $mail->Username = 'ece01121@zafora.ece.uowm.gr';
-                            $mail->Password = '894912';
-                            $mail->SMTPSecure = "tls";
-                            $mail->Port = 2525;
-                            
-                            $mail->setFrom("ece01121@zafora.ece.uowm.gr", "Nutrition");
-                            $mail->addAddress("kostas.pe.97@gmail.com", "Me");
-                            $mail->Subject = 'Nutrition: Reset Password';
-                            // Set HTML
-                            $mail->isHTML(TRUE);
-                            $mail->Body = "<html>Hi,<br> Click the link below to reset your password <br> https://zafora.ece.uowm.gr/~ece01121/Nutrition/public/resetpass.html?number=" . $row2['id'] . "&code=" . $row2['token'] . "lang=" . $lang . "</html>";
-                            //$mail->AltBody = "Hi there, we are happy to confirm your booking. Please check the document in the attachment.";
-                            // add attachment
-                            //$mail->addAttachment("//confirmations/yourbooking.pdf", "yourbooking.pdf");
-                            // send the message
-                            if(!$mail->send()){
-                                echo "Message could not be sent.";
-                                echo "Mailer Error: " . $mail->ErrorInfo;
-                            } else {
-                                echo json_encode(["status" => 'ok', "data" => 'Το Email σας στάλθηκε!']);
-                            } */
-
                             die();                           
                         } else {
                             echo json_encode(['status' => 'error', 'data' => 'Error: update query']);
@@ -98,7 +80,7 @@
                     }
                     die();
                 } else {
-                    echo json_encode(['status' => 'error', 'data' => 'Δεν υπάρχει αυτό το Email!']);
+                    echo json_encode(['status' => 'error', 'data' => $emailNotExist]);
                 }
                 die();
             } else {
@@ -108,7 +90,7 @@
         }
         die();
     } else {
-        echo json_encode(['status' => 'error', 'data' => 'email does not exist']);
+        echo json_encode(['status' => 'error', 'data' => $emailNotExist]);
     }
     die();
 ?>

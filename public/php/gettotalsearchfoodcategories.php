@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect total search created foods
+//Access: Authenticated Users
+//Purpose: Collect total search food categories
 
     @session_start();
     include 'corsAccess.php'; 

@@ -30,11 +30,10 @@
         <section class="container">
 
             <form method="post" data-bind="submit: register" class="form-elements">
-                <!-- <div class="logo" data-bind="click: indexPage">Nutrition</div> -->
                 <section data-bind="visible: currentActive() != 5">
                     <h1 data-bind="text: registername">Εγγραφή</h1>                
                 </section>
-                <!-- <span class="error" data-bind="visible: emptyFieldError, text: emptyFieldMessage"></span> -->
+
                 <section data-bind="visible: currentActive() == 1">
                     <div class="field">
                         <div class="star">
@@ -186,7 +185,7 @@
                             <option value="3" data-bind="text: gainWeight">Πάρω Βάρος</option>
                         </select>
                     </div>
-                    <div class="field" data-bind="visible: !isweightError()"><!--  isweight() !== '2' && isweight() !== '0' && weight() != '' -->
+                    <div class="field" data-bind="visible: !isweightError()">
                         <div class="star">
                             <h4 data-bind="text: requestedname">Επιθυμητό Βάρος (kg)</h4>
                             <p>*</p>
@@ -202,7 +201,7 @@
                     </div>
 
 
-                   <div class="field" data-bind="visible: !isweightError()"><!-- isweight() !== '2' && isweight() !== '0' && weight() != '' -->
+                   <div class="field" data-bind="visible: !isweightError()">
                         <div class="star">
                             <h4 data-bind="">Κιλά/Εβδομάδα</h4>
                             <p>*</p>
@@ -214,14 +213,6 @@
                             <option value="1.5" data-bind="">1.5</option>
                             <option value="2" data-bind="">2</option>
                         </select>
-                        <!-- <input type="number" step="0.5" data-bind='value: requestedWeight, attr: {placeholder: self.requestedWeightPlaceholder}' title="Εισάγετε τα κιλά που θα χάνετε ή παίρνετε την εβδομάδα"> -->
-                    
-<!--                         <div class="wrong">
-                            <span class="error" data-bind="visible: requestedWeight.maxLengthError, text: requestedWeight.maxLengthMessage"></span>
-                            <span class="error" data-bind="visible: requestedWeight.numericError, text: requestedWeight.numericMessage"></span>
-                            <span class="error" data-bind="visible: weightCheckcError, text: weightCheckMessage"></span>
-                            <span class="error" data-bind="visible: requestedWeight.emptyFieldError, text: requestedWeight.emptyFieldMessage"></span>         
-                        </div> -->
                     </div>
 
 
@@ -307,10 +298,6 @@
                     <p data-bind="text: member">Είστε ήδη μέλος;</p>
                     <h4 class="sign-up" data-bind="click: loginPage, text: login">Συνδεθείτε</h4>
                 </section>
-<!--                 <span data-bind="visible: currentActive() == 5">
-                    <h4>Είσαι ήδη μέλος;</h4>
-                    <a href="login.html"><h2 class="sign-up">Συνδέσου</h2></a>
-                </span> -->
             </form>
         </section>
 

@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Get one water percentage register
+//Access: Authenticated Users
+//Purpose: Get users's one water percentage register
 
     @session_start();
     include 'corsAccess.php'; 

@@ -34,7 +34,6 @@
             <header>
                 <section>
                     <label for="nav-toggle" id="mediaCalc">
-                        <!-- <span class="las la-bars"></span> -->
                         <img src="img/menu.png" width="40" height="40" alt="Bar">
                     </label>
                     <h3 data-bind="text: dailyStats">Καθημερινά Στατιστικά</h3>
@@ -53,15 +52,14 @@
                 <span>
                     <div class="settings" data-bind="foreach: dailyStatArray, visible: dailyStatArray().length > 0">
                         <div class="settings-section">
-                            <div class="setting-title summary-touch" data-bind="click: openStat"><!--  -->
+                            <div class="setting-title summary-touch" data-bind="click: openStat">
                                 <h2 data-bind="text: fullDate">15 July 2022</h2>
                                 <span class="las la-angle-down" data-bind="visible: !isStatToggle()"></span>
                                 <span class="las la-angle-up" data-bind="visible: isStatToggle"></span>
                             </div>
-                            <div class="setting-elements" data-bind="visible: isStatToggle"><!--  -->
+                            <div class="setting-elements" data-bind="visible: isStatToggle">
                                 <div class="line"></div>
                                 <div class="setting-content" data-bind="visible: isExistToggle">
-                                    <!-- <div class="setting-html" data-bind=""> --><!-- bindHTML: elements -->
                                         <div class="setting-info" data-bind="click: openCalories" style="margin-bottom: 0.25rem">                        
                                             <div class="setting-title summary-touch" data-bind="" style="margin: unset; width: 100%;">
                                                 <div data-bind="text: calorieWord">Θερμίδες</div>

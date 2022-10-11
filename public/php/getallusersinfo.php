@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Collect all personal info of all users
 
     @session_start();
@@ -21,11 +21,12 @@
             } else {
                 $query = $con->prepare("SELECT `users`.`username`, `users`.`email`, `users`.`isConfirmAccount`, `users`.`sex`, `users`.`age`, `users`.`weights`, `users`.`height`, `users`.`isIncreaseWeight`, `users`.`requestedWeight`, `users`.`exercise`, `users`.`kilos`, `users`.`id` 
                                         FROM `users`
-                                        WHERE `users`.`username` LIKE :search
+                                        WHERE `users`.`username` LIKE :search || `users`.`email` LIKE :search1
                                         ORDER BY `users`.`username` ASC
                                         LIMIT :offset, :limits");
 
                 $query->bindValue(":search", $search);
+                $query->bindValue(":search1", $search);
                 $query->bindValue(":offset", $offset, PDO::PARAM_INT);
                 $query->bindValue(":limits", $limits, PDO::PARAM_INT);
 

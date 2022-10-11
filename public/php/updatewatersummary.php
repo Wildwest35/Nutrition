@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Update note
+//Access: Authenticated Users
+//Purpose: Update water
 
     @session_start();
     include 'corsAccess.php';

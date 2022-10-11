@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Collect activation link info
 
     @session_start();
@@ -23,11 +23,13 @@
                 $query = $con->prepare("SELECT `activationlink`.`id`, `users`.`username`, `activationlink`.`dateCreated`, `activationlink`.`expireLinkDate`
                                         FROM `activationlink`
                                         JOIN `users` ON `users`.`id` = `activationlink`.`idUser`
-                                        WHERE `users`.`username` LIKE :search
+                                        WHERE `users`.`username` LIKE :search || `activationlink`.`expireLinkDate` LIKE :search1 || `activationlink`.`dateCreated` LIKE :search2
                                         ORDER BY `activationlink`.`dateCreated` DESC
                                         LIMIT :offset, :limits");
 
                 $query->bindValue(":search", $search);
+                $query->bindValue(":search1", $search);
+                $query->bindValue(":search2", $search);
                 $query->bindValue(":offset", $offset, PDO::PARAM_INT);
                 $query->bindValue(":limits", $limits, PDO::PARAM_INT);
 

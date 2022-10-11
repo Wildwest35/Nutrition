@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Add Daily food
+//Access: Authenticated Users
+//Purpose: User add a daily food in a specific date and meal category from "Add Food"
 
     @session_start();
     include 'corsAccess.php'; 

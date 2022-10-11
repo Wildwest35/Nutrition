@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect all Daily Stat info
+//Access: Authenticated Users
+//Purpose: Collect all user's Daily Stat info
 
     @session_start();
     include 'corsAccess.php'; 
@@ -43,6 +43,21 @@
                 $query->bindValue(":currentDate", $currentDate);
                 $query->bindValue(":offset", $offset, PDO::PARAM_INT);
                 $query->bindValue(":limits", $limits, PDO::PARAM_INT);
+
+/*                 $query = $con->prepare("SELECT ANY_VALUE(`dailyeatings`.`dailyEatingsDate`) as dailyEatingsDate, SUM(`dailyeatings`.`calories`) as startCalories, SUM(`dailyeatings`.`protein`) as startProtein, SUM(`dailyeatings`.`carb`) as startCarb, SUM(`dailyeatings`.`fat`) as startFat, ANY_VALUE(`dailyconsumptiongoals`.`calories`) as calories, ANY_VALUE(`dailyconsumptiongoals`.`protein`) as protein, ANY_VALUE(`dailyconsumptiongoals`.`carb`) as carb, ANY_VALUE(`dailyconsumptiongoals`.`fat`) as fat, SUM(`dailyeatings`.`fiber`) as startFiber, SUM(`dailyeatings`.`saturated`) as startSaturated, SUM(`dailyeatings`.`unsaturated`) as startUnsaturated, SUM(`dailyeatings`.`sugar`) as startSugar, SUM(`dailyeatings`.`bitamins`) as startBitamins 
+                                        FROM `dailyeatings`
+                                        JOIN `users` ON `dailyeatings`.`idUser` = `users`.`id`
+                                        JOIN `dailyconsumptiongoals` ON `dailyconsumptiongoals`.`idUser` = `users`.`id`
+                                        WHERE `users`.`id` = :id && `dailyeatings`.`dailyEatingsDate` >= :dailyEatingsDate && `dailyeatings`.`dailyEatingsDate` <= :currentDate
+                                        GROUP BY `dailyeatings`.`dailyEatingsDate`
+                                        ORDER BY `dailyeatings`.`dailyEatingsDate` DESC
+                                        LIMIT :offset, :limits");
+
+                $query->bindValue(":id", $id);
+                $query->bindValue(":dailyEatingsDate", $date);
+                $query->bindValue(":currentDate", $currentDate);
+                $query->bindValue(":offset", $offset, PDO::PARAM_INT);
+                $query->bindValue(":limits", $limits, PDO::PARAM_INT); */
 
                 if($query->execute()) {
                     $row = $query->fetchAll(PDO::FETCH_ASSOC);

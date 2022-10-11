@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect all fat percentage info
+//Access: Authenticated Users
+//Purpose: Collect all water percentage info
 
     @session_start();
     include 'corsAccess.php'; 

@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Update target
+//Access: Authenticated Users
+//Purpose: Update main goal and requested weight
 
     @session_start();
     include 'corsAccess.php';

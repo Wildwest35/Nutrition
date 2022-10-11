@@ -1,5 +1,5 @@
 <?php
-//Access: Everyone
+//Access: Authenticated Users
 //Purpose: Collect total search confirm email
 
     @session_start();
@@ -20,9 +20,11 @@
                 $query = $con->prepare("SELECT `users`.`username`
                                         FROM `confirmnewemail`
                                         JOIN `users` ON `confirmnewemail`.`idUser` = `users`.`id`
-                                        WHERE `users`.`username` LIKE :search");
+                                        WHERE `users`.`username` LIKE :search || `users`.`email` LIKE :search1 || `confirmnewemail`.`dateCreated` LIKE :search2");
 
                 $query->bindValue(":search", $search);
+                $query->bindValue(":search1", $search);
+                $query->bindValue(":search2", $search);
 
                 if($query->execute()) {
                     $countConfirmEmail = $query->rowCount();

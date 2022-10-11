@@ -262,6 +262,12 @@ h2,h3 {
 
 /* ---------------------------------------------------- */
 
+main span section {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
 .lang {
     margin: 0;
     cursor: pointer;
@@ -373,7 +379,7 @@ h2,h3 {
     top: 0;
     height: 100%;
     background-color: var(--main-color);
-    z-index: 100;
+    z-index: 101;
     transition: width 300ms;
     overflow: auto;
 }
@@ -569,7 +575,7 @@ main {
 
 /* ------------------ SummaryUser ------------------ */
 .container-summary {
-    width: 100%;
+    width: 860px;
     min-height: 5rem; 
     /* border-bottom-left-radius: 15px; 
     border-bottom-right-radius: 15px; 
@@ -652,7 +658,7 @@ main {
 
 .element-middle-out {
     width: 100%;
-    min-height: 2rem;
+    max-height: 4.1rem;
     padding: 1rem;
     background-color: rgb(255, 255, 255);
     display: flex;
@@ -674,6 +680,7 @@ main {
 }
 
 .element-dash-middle {
+    max-height: 4.1rem;
     background-color: white;
     padding: 1rem 0.2rem;
     font-size: 20px;
@@ -817,7 +824,7 @@ input:focus {
 }
 
 .settings-section {
-    width: 97%;
+    width: 97%;/* 830px */
     min-height: 4rem;
     padding: 0.25rem;
     margin: 0.5rem 0;
@@ -996,7 +1003,7 @@ input:focus {
 }
 
 .nutrient-include {
-    width: 100%;
+    width: 850px;
     min-height: 1rem; 
     background-color: #ffffff; 
     box-shadow: 0px 1px 6px 1px #888888;
@@ -1329,19 +1336,10 @@ input:focus {
     width: calc(100% - 345px);
     height: 100vh;
     top: 0;
-/*     left: 1; */
-    /* margin-top: 2rem; */
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
-    
-    z-index: 10;
-/*     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;   */
-    overflow:hidden;
-    white-space:nowrap;  
-    /* padding-top: 4.5rem; */
+    z-index: 100;
+    overflow:hidden; 
 }
 
 #nav-toggle:checked ~ .main-content main .modal-bg {
@@ -1576,7 +1574,7 @@ figure div:nth-child(8):after{animation-delay:-4;}
 }
 
 .snacks-include {
-    width: 100%;
+    width: 850px;
     min-height: 1rem;
     background-color:rgb(255, 255, 255);
     box-shadow: 0px 1px 6px 1px #888888;
@@ -2060,7 +2058,7 @@ figure div:nth-child(8):after{animation-delay:-4;}
 }
 
 .category-choices-include {
-    width: 100%;
+    width: 850px;
     min-height: 1rem;
     border-radius: 15px;
     display: flex;
@@ -2561,10 +2559,29 @@ figure div:nth-child(8):after{animation-delay:-4;}
 /* ------------------------------------------------------ */
 
 @media screen and (max-width: 1200px) {
+    .container-summary {
+        align-items: flex-start;
+    }
+
+    .summary-elements {
+        width: 100%;
+        flex-direction: column;
+        margin: 0.4rem 0;
+    }
+
+    .summary-fields {
+        margin: 0.4rem;
+    }
+    
+    .summary-fields-sections {
+        flex-direction: column;
+        margin: 0;
+    }
+
     .sidebar {
         width: 80px;
     }
-    
+
     .sidebar .sidebar-brand,
     .sidebar li {
         padding-left: 1rem;
@@ -2630,21 +2647,36 @@ figure div:nth-child(8):after{animation-delay:-4;}
 
 @media screen and (max-width: 992px) {
     /* ------------------ SummaryUser ------------------ */
-    .container-summary {
+    /* .container-summary {
         align-items: flex-start;
+    } */
+    .container-summary {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.25rem 0;
     }
 
-    .summary-fields-sections {
+/*     .summary-fields-sections {
         flex-direction: column;
         margin: 0 0;
+    } */
+    .summary-fields-sections {
+        flex-direction: row;
+        margin: 0.2rem 0;
     }
 
-    .summary-elements {
+    /* .summary-elements {
         margin: 0.4rem 0;
+    } */
+    .summary-elements {
+        margin: 0.2rem 0.4rem;
     }
 
-    .summary-fields {
+    /* .summary-fields {
         margin: 0.4rem;
+    } */
+    .summary-fields {
+        margin: 0;
     }
     
     .category-choices-include {
@@ -2808,6 +2840,10 @@ figure div:nth-child(8):after{animation-delay:-4;}
     #nav-toggle:checked ~ .main-content main .modal-bg {
         width: calc(100% - 0px);
     }
+
+    .element-middle input {
+        max-width: 190px;
+    }
 }
 
 @media screen and (max-width: 580px) {
@@ -2845,6 +2881,10 @@ figure div:nth-child(8):after{animation-delay:-4;}
 
     .snack-basic {
         flex-direction: column; 
+    }
+
+    .element-middle input {
+        max-width: 200px;
     }
 
 /*     .scroll-add {
@@ -3015,9 +3055,9 @@ figure div:nth-child(8):after{animation-delay:-4;}
         font-size: 16px;
     }
     
-    .container-nutrients {
+/*     .container-nutrients {
         flex-direction: column;
-    }
+    } */
 
 /*     .nutrient-include {
         flex-direction: column;
@@ -3139,10 +3179,6 @@ figure div:nth-child(8):after{animation-delay:-4;}
         width: 30px;
         height: 30px;
         line-height: 30px;
-    }
-
-    .element-middle input {
-        width: 230px;
     }
 
     .snack-second-details .summary-info {

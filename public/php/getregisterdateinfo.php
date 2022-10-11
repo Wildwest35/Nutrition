@@ -1,7 +1,7 @@
 <?php
 
-//Access: Everyone
-//Purpose: Collect all weight info
+//Access: Authenticated Users
+//Purpose: Collect all user's weight info
 
     @session_start();
     include 'corsAccess.php'; 

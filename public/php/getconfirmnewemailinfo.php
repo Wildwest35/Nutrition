@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect confirm new email info
+//Access: Authenticated Users
+//Purpose: Collect user's confirm new email info
 
     @session_start();
     include 'corsAccess.php'; 
@@ -23,11 +23,13 @@
                 $query = $con->prepare("SELECT `confirmnewemail`.`id`, `users`.`username`, `confirmnewemail`.`email`, `confirmnewemail`.`dateCreated`
                                         FROM `confirmnewemail`
                                         JOIN `users` ON `users`.`id` = `confirmnewemail`.`idUser`
-                                        WHERE `users`.`username` LIKE :search
+                                        WHERE `users`.`username` LIKE :search || `users`.`email` LIKE :search1 || `confirmnewemail`.`dateCreated` LIKE :search2
                                         ORDER BY `confirmnewemail`.`dateCreated` DESC
                                         LIMIT :offset, :limits");
 
                 $query->bindValue(":search", $search);
+                $query->bindValue(":search1", $search);
+                $query->bindValue(":search2", $search);
                 $query->bindValue(":offset", $offset, PDO::PARAM_INT);
                 $query->bindValue(":limits", $limits, PDO::PARAM_INT);
 

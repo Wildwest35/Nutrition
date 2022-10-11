@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Delete confirm new email
+//Access: Authenticated Users
+//Purpose: Delete confirm new email from "Admin Panel"
 
     @session_start();
     include 'corsAccess.php'; 

@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect total search foods
+//Access: Authenticated Users
+//Purpose: Collect total search created foods
 
     @session_start();
     include 'corsAccess.php'; 
@@ -25,12 +25,15 @@
                                         JOIN `translationfoodname` ON `translationfoodname`.`idFoodName` = `foodnames`.`id`
                                         JOIN `foodcategory` ON `foods`.`idFoodCategory` = `foodcategory`.`id`
                                         JOIN `translationfoodcategory` ON `translationfoodcategory`.`idFoodCategory` = `foodcategory`.`id`
-                                        WHERE `translationfoodcategory`.`idLang` = :idLang && `translationfoodname`.`idLang` = :idLang1 && (`foods`.`belongCategory` = 2 || `foods`.`belongCategory` = 3) && (`translationfoodname`.`translationFoodName` LIKE :search || `translationfoodcategory`.`translationFoodCategory` LIKE :search1)");
+                                        JOIN `users` ON `users`.`id` = `createdfood`.`idUser`
+                                        WHERE `translationfoodcategory`.`idLang` = :idLang && `translationfoodname`.`idLang` = :idLang1 && (`foods`.`belongCategory` = 2 || `foods`.`belongCategory` = 3) && (`translationfoodname`.`translationFoodName` LIKE :search || `translationfoodcategory`.`translationFoodCategory` LIKE :search1 || `users`.`username` LIKE :search2 || `foods`.`portion` LIKE :search3)");
                 
                 $query->bindValue(":idLang", $numLang);
                 $query->bindValue(":idLang1", $numLang);
                 $query->bindValue(":search", $search);
                 $query->bindValue(":search1", $search);
+                $query->bindValue(":search2", $search);
+                $query->bindValue(":search3", $search);
 
                 if($query->execute()) {
                     $countFood = $query->rowCount();

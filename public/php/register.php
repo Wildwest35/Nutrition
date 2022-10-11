@@ -6,6 +6,23 @@
     include 'corsAccess.php';
     include 'checkInput.php';
 
+    if(isset($_POST['lang'])) {
+        $lang = $_POST['lang'];
+        if($lang == 'gr') {
+            $usernameEmailExist = 'Το Usename και το Email υπάρχουν ήδη. Πηγαίνετε Πίσω να τα αλλάξετε!';
+            $usernameExist = 'Το Usename υπάρχει ήδη. Πηγαίνετε Πίσω να το αλλάξετε!';
+            $emailExist = 'Το Email υπάρχει ήδη. Πηγαίνετε Πίσω να το αλλάξετε!';
+        } else {
+            $usernameEmailExist = 'Username and Email already exist. Go Back to change them!';
+            $usernameExist = 'Usename already exists. Go Back to change it!';
+            $emailExist = 'Email already exists. Go Back to change it!';
+        }
+    } else {
+        $usernameEmailExist = 'Το Usename και το Email υπάρχουν ήδη. Πηγαίνετε Πίσω να τα αλλάξετε!';
+        $usernameExist = 'Το Usename υπάρχει ήδη. Πηγαίνετε Πίσω να το αλλάξετε!';
+        $emailExist = 'Το Email υπάρχει ήδη. Πηγαίνετε Πίσω να το αλλάξετε!';
+    }
+    
     if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['sex']) && isset($_POST['age']) && isset($_POST['height']) && isset($_POST['weight']) && isset($_POST['isweight']) && isset($_POST['requestedWeight']) && isset($_POST['exercise']) && isset($_POST['kilos']) && isset($_POST['fd'])) { 
         include 'connect.php';
 
@@ -69,11 +86,11 @@
                 $row1 = $query1->fetch(PDO::FETCH_ASSOC);
                 if(!empty($row1)) {
                     if($username == $row1['username'] && $email == $row1['email']) {
-                        echo json_encode(["status" => 'error', "data" => 'Το Usename και το Email υπάρχουν ήδη. Πηγαίνετε Πίσω να τα αλλάξετε!']);  
+                        echo json_encode(["status" => 'error', "data" => $usernameEmailExist]);  
                     } else if($username == $row1['username']) {
-                        echo json_encode(["status" => 'error', "data" => 'Το Usename υπάρχει ήδη. Πηγαίνετε Πίσω να το αλλάξετε!']);  
+                        echo json_encode(["status" => 'error', "data" => $usernameExist]);  
                     } else {
-                        echo json_encode(["status" => 'error', "data" => 'Το Email υπάρχει ήδη. Πηγαίνετε Πίσω να το αλλάξετε!']);  
+                        echo json_encode(["status" => 'error', "data" => $emailExist]);  
                     }
                     die();
                 } else {

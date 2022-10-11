@@ -35,7 +35,6 @@
             <header>
                 <section>
                     <label for="nav-toggle" id="mediaCalc">
-                       <!--  <span class="las la-bars"></span> -->
                        <img src="img/menu.png" width="40" height="40" alt="Bar">
                     </label>
                     <h3 data-bind="text: biometrics">Βιομετρικά</h3>
@@ -231,41 +230,29 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
-                                                        <div class="summary-info">1. <span data-bind="text: weightBody">Βάρος σώματος</span></div>
+                                                        <div><span class="summary-info"><span>1.</span><span data-bind="text: weightBody">Βάρος σώματος</span></span><span class="summary-info-detail"><span> W = </span><span data-bind="text: weight">77</span><span> kg</span></span></div>
                                                     </div>
-                                                </div>
-                                                <div class="nutrient-attribute">
-                                                    <div class="summary-info-detail">W = <span data-bind="text: weight">77</span> kg</div>
                                                 </div>
                                             </div>
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
-                                                        <div class="summary-info">2. <span data-bind="text: heightBody">Ύψος σώματος</span></div>
+                                                        <div><span class="summary-info"><span>2.</span><span data-bind="text: heightBody">Ύψος σώματος</span></span><span class="summary-info-detail"><span>H = </span><span data-bind="text: height">182</span><span>cm</span></span></div>
                                                     </div>
-                                                </div>
-                                                <div class="nutrient-attribute">
-                                                    <div class="summary-info-detail">H = <span data-bind="text: height">182</span> cm</div>
                                                 </div>
                                             </div>
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
-                                                        <div class="summary-info">3. <span data-bind="text: ageName">Ηλικία</span></div>
+                                                        <div><span class="summary-info"><span>3.</span><span data-bind="text: ageName">Ηλικία</span></span><span class="summary-info-detail"><span>A = </span><span data-bind="text: age">25</span><span>years</span></span></div>
                                                     </div>
-                                                </div>
-                                                <div class="nutrient-attribute">
-                                                    <div class="summary-info-detail">A = <span data-bind="text: age">25</span> years</div>
                                                 </div>
                                             </div>
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
-                                                        <div class="summary-info">4. <span data-bind="text: sexName">Γένος</span></div>
+                                                        <div><span class="summary-info"><span>4.</span><span data-bind="text: sexName">Γένος</span><span class="summary-info-detail"></span><span data-bind="text: gender">Άντρας</span></span></div>
                                                     </div>
-                                                </div>
-                                                <div class="nutrient-attribute">
-                                                    <div class="summary-info-detail"><span data-bind="text: gender">Άντρας</span></div>
                                                 </div>
                                             </div>                             
                                         </div>
@@ -291,8 +278,8 @@
                                                     Ο Δείκτη μάζας σώματος ειναι 21.92. Αυτό θεωρείται φυσιολογικό.
                                                 </div>
                                             </div>
-                                        </div><!-- 655.1 + (9.563*$weight) + (1.85*$height) - (4.676*$age) Female -->
-                                        <div class="edit-nutrient"><!-- 66.47 + (13.75*$weight) + (5.003*$height) - (6.755*$age) Male -->
+                                        </div>
+                                        <div class="edit-nutrient">
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
@@ -315,21 +302,15 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
-                                                        <div class="summary-info">1. <span data-bind="text: weightBody">Βάρος σώματος</span></div>
+                                                        <div><span class="summary-info"><span>1.</span><span data-bind="text: weightBody">Βάρος σώματος</span></span><span class="summary-info-detail"><span> W = </span><span data-bind="text: weight">77</span><span> kg</span></span></div>
                                                     </div>
-                                                </div>
-                                                <div class="nutrient-attribute">
-                                                    <div class="summary-info-detail">W = <span data-bind="text: weight">77</span> kg</div>
                                                 </div>
                                             </div>
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
-                                                        <div class="summary-info">2. <span data-bind="text: heightBody">Ύψος σώματος</span></div>
+                                                        <div><span class="summary-info"><span>2.</span><span data-bind="text: heightBody">Ύψος σώματος</span></span><span class="summary-info-detail"><span>H = </span><span data-bind="text: height">182</span><span>cm</span></span></div>
                                                     </div>
-                                                </div>
-                                                <div class="nutrient-attribute">
-                                                    <div class="summary-info-detail">H = <span data-bind="text: height">182</span> cm</div>
                                                 </div>
                                             </div>                           
                                         </div>
@@ -379,21 +360,15 @@
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
-                                                        <div class="summary-info">1. <span data-bind="text: bmrName">Βασικός Μεταβολικός Ρυθμός</span></div>
+                                                        <div><span class="summary-info"><span>1.</span><span data-bind="text: bmrName">Βασικός Μεταβολικός Ρυθμός</span></span><span class="summary-info-detail"><span>BMR = </span><span data-bind="text: bmrHelp">2222</span><span>kg</span></span></div>
                                                     </div>
-                                                </div>
-                                                <div class="nutrient-attribute">
-                                                    <div class="summary-info-detail">BMR = <span data-bind="text: bmrHelp">2222</span> kg</div>
                                                 </div>
                                             </div>
                                             <div class="dif">
                                                 <div class="snack-pair">
                                                     <div class="nutrient-attribute">
-                                                        <div class="summary-info">2. <span data-bind="text: factorName">Συντελεστής</span></div>
+                                                        <div><span class="summary-info"><span>2.</span><span data-bind="text: factorName">Συντελεστής</span></span><span class="summary-info-detail"><span>a = </span><span data-bind="text: factor">1.2</span></span></div>
                                                     </div>
-                                                </div>
-                                                <div class="nutrient-attribute">
-                                                    <div class="summary-info-detail">a = <span data-bind="text: factor">1.2</span></div>
                                                 </div>
                                             </div>                           
                                         </div>

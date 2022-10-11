@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Add weight bone register
+//Access: Authenticated Users
+//Purpose: User add or update weight bone register depents on the previous state from "Measurements"
 
     @session_start();
     include 'corsAccess.php'; 

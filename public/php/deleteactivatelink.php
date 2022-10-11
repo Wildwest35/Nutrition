@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Delete activation link
+//Access: Authenticated Users
+//Purpose: Delete activation link from "Admin Panel"
 
     @session_start();
     include 'corsAccess.php'; 

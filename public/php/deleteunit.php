@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Delete unit
+//Access: Authenticated Users
+//Purpose: Admin delete unit
 
     @session_start();
     include 'corsAccess.php'; 

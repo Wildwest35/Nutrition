@@ -1,6 +1,6 @@
 <?php
 //Access: Everyone
-//Purpose: Csrf Token
+//Purpose: Create csrf token and generate a new session id
 
     @session_start();
     include 'corsAccess.php'; 

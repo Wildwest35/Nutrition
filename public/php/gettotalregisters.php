@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Collect total categories register number
+//Access: Authenticated Users
+//Purpose: Collect total number elements of the "Measurements" categories
 
     @session_start();
     include 'corsAccess.php'; 

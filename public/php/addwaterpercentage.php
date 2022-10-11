@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Add water percentage register
+//Access: Authenticated Users
+//Purpose: User add or update water percentage register depents on the previous state from "Measurements"
 
     @session_start();
     include 'corsAccess.php'; 

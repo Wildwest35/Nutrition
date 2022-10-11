@@ -113,7 +113,7 @@ ko.extenders.alphaNumericLatins = function(target, message) {
 
 	target.subscribe(function(newVal) {
 		if(newVal) {
-			var number = /^[a-zA-Z0-9α-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ\.\%\_\-\s]+$/;
+			var number = /^[a-zA-Z0-9α-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ\.\%\_\-\,\'\(\)\s]+$/;
 			
 			if(number.test(newVal)) {
 				target.alphaNumericLatinError(false);
@@ -191,10 +191,10 @@ ko.extenders.isEmail = function(target, option) {
 			var pattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var pattern2 = /\S+@\S+\.\S+/;
 			var regEx = pattern;
-        	if(regEx.test(newVal)){
+        	if(regEx.test(newVal)) {
 				target.emailError(false);
 				target.emailErrorMessage(null);
-			}else{
+			} else {
 				target.emailError(true);
 				target.emailErrorMessage(`${self.isEmail()}`);
 			}

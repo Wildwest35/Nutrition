@@ -1,6 +1,6 @@
 <?php
-//Access: Everyone
-//Purpose: Add unit
+//Access: Authenticated Users
+//Purpose: Admin create a unit from "Admin Panel"
 
     @session_start();
     include 'corsAccess.php'; 

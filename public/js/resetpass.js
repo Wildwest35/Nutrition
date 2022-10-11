@@ -89,7 +89,8 @@ function ResetPassModel() {
 
 		let o = {
 			number: number,
-			code: code
+			code: code,
+			lang: self.lang()
 		}
 
 		$.post('./php/checkUrlElement.php', o, function(data) {
@@ -127,7 +128,8 @@ function ResetPassModel() {
 				password: self.password(),
 				repeatpassword: self.repeatpassword(),
 				number: number,
-				code: code
+				code: code,
+				lang: self.lang()
 			}
 
 			$.post('./php/resetpass.php', o, function(data) {
