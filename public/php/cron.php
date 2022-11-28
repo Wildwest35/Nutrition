@@ -1,28 +1,12 @@
 <?php
 //Access: Everyone
 //Purpose: Runs every day at 00:00 and add the initial values of daily summaries
-
-/* date_default_timezone_set("Europe/Athens");
-$queued_at = date("Y-m-d H:i:s");
-
-$query = $con->prepare("INSERT INTO cronjob(taskName, queued_at, completed_at, is_proccessed) VALUES(:taskName, :queued_at, :completed_at, :is_proccessed)");
-
-$query->bindParam(':taskName', $taskName);
-$query->bindParam(':queued_at', $queued_at);
-$query->bindParam(':completed_at', $completed_at);
-$query->bindParam(':is_proccessed', $is_proccessed); 
-                
-if($query->execute()) { 
-
-} else {
-
-}
-*/
-//nl2br()
+    
+    date_default_timezone_set("Europe/Athens");
     echo "Starting execution at " . date("d-m-Y H:i:s") . "\r\n";
     include 'connect.php';
     echo "Connecting to database...\r\n";
-
+    
     $portion = 0;
     $calories = 0; 
     $protein = 0;
@@ -35,6 +19,10 @@ if($query->execute()) {
     $bitamins = 0;
     $water = 0;
     $note = '';
+    $taskName = 'DailySummary';
+    $queued_at = date("Y-m-d H:i:s");
+    $is_proccessedY = 'Y';
+    $is_proccessedN = 'N';
     $fullDate = date("Y-m-d");//'2022-09-16';//
     $allUsers = [];
     $existedUsers = [];
@@ -101,19 +89,61 @@ if($query->execute()) {
                         $query3->bindParam(':dailySummariesDate', $fullDate);
                                         
                         if($query3->execute()) {  
-                            //echo json_encode(['status' => 'ok', 'data' => true]);
+                       
                         } else {
                             echo "Something wrong with 3rd query...\r\n";  
                         }
                     }
                     echo "All users inserted to the system successfuly!!! at " . date("d-m-Y H:i:s") . "\r\n";
+                    $completed_at = date("Y-m-d H:i:s");
+
+                    $query86 = $con->prepare("INSERT INTO cronjob(taskName, queued_at, completed_at, is_processed) VALUES(:taskName, :queued_at, :completed_at, :is_processed)");
+
+                    $query86->bindParam(':taskName', $taskName);
+                    $query86->bindParam(':queued_at', $queued_at);
+                    $query86->bindParam(':completed_at', $completed_at);
+                    $query86->bindParam(':is_processed', $is_proccessedY);
+                                    
+                    if($query86->execute()) {  
+                    
+                    } else {
+                        echo "Something wrong with 1st cron query...\r\n";  
+                    }
                     die();
                 } else {
                     echo "All users has already inserted in the system at " . date("d-m-Y") . "\r\n"; 
+                    $completed_at = date("Y-m-d H:i:s");                    
+
+                    $query66 = $con->prepare("INSERT INTO cronjob(taskName, queued_at, completed_at, is_processed) VALUES(:taskName, :queued_at, :completed_at, :is_processed)");
+
+                    $query66->bindParam(':taskName', $taskName);
+                    $query66->bindParam(':queued_at', $queued_at);
+                    $query66->bindParam(':completed_at', $completed_at);
+                    $query66->bindParam(':is_processed', $is_proccessedN);
+                                    
+                    if($query66->execute()) {  
+
+                    } else {
+                        echo "Something wrong with 2nd cron query...\r\n";  
+                    }
                 }
                 die();
             } else {
-                echo "There are no users in the system...\r\n"; 
+                echo "There are no users in the system...\r\n";
+                $completed_at = date("Y-m-d H:i:s");
+
+                $query76 = $con->prepare("INSERT INTO cronjob(taskName, queued_at, completed_at, is_processed) VALUES(:taskName, :queued_at, :completed_at, :is_processed)");
+
+                $query76->bindParam(':taskName', $taskName);
+                $query76->bindParam(':queued_at', $queued_at);
+                $query76->bindParam(':completed_at', $completed_at);
+                $query76->bindParam(':is_processed', $is_proccessedN);
+                                
+                if($query76->execute()) {  
+                    
+                } else {
+                    echo "Something wrong with 3rd cron query...\r\n";  
+                }
             }
             die();
         } else {
